@@ -1,3 +1,115 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  .text-xxs {
+    @apply text-[0.54rem];
+  }
+
+  .text-xxxs {
+    @apply text-[0.44rem];
+  }
+
+  .header {
+    transform-style: preserve-3d;
+    z-index: -1;
+  }
+
+  .background {
+    transform: translateZ(3px);
+  }
+
+  .foreground {
+    transform: translateZ(2px);
+    scale: 2;
+  }
+}
+
+@keyframes scaleOut {
+  from {
+    scale: 0%;
+  }
+  to {
+    scale: 100%;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideRight {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(calc(100cqw - 100%));
+  }
+}
+
+@keyframes slideLeft {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(calc(-100cqw + 100%));
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes slideTop {
+  from {
+    transform: translateY(0%);
+  }
+  to {
+    transform: translateY(calc(-100cqh + 100%));
+  }
+}
+
+@keyframes slideBottom {
+  from {
+    transform: translateY(0%);
+  }
+  to {
+    transform: translateY(calc(100cqh - 100%));
+  }
+}
+
+body::-webkit-scrollbar {
+  width: 8px;
+}
+
+body::-webkit-scrollbar-track {
+  background: #dfdede;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: #373737;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background: #070707;
+}
