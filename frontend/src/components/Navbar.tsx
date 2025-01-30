@@ -1,3 +1,4 @@
+import { FaShoppingCart } from 'react-icons/fa';
 import { IoIosRestaurant, IoMdInformationCircle } from 'react-icons/io';
 import { IoHome } from 'react-icons/io5';
 import { MdLocalOffer, MdMenuBook } from 'react-icons/md';
@@ -24,12 +25,18 @@ const navItems = [
   },
   {
     id: 4,
+    label: 'Cart',
+    path: '/cart',
+    icon: <FaShoppingCart color="white" size={15} fill="white" />,
+  },
+  {
+    id: 5,
     label: 'Offers',
     path: '/offers',
     icon: <MdLocalOffer color="white" size={15} fill="white" />,
   },
   {
-    id: 5,
+    id: 6,
     label: 'About',
     path: '/about',
     icon: <IoMdInformationCircle color="white" size={15} fill="white" />,
