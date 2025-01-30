@@ -1,18 +1,45 @@
 import { useState } from 'react';
+import { BiSolidOffer } from 'react-icons/bi';
+import { GoClock } from 'react-icons/go';
 import { IoIosRestaurant } from 'react-icons/io';
 import { IoHomeOutline, IoLocationOutline } from 'react-icons/io5';
 import { MdMenuBook } from 'react-icons/md';
+import MenuBook from './MenuBook';
+
+const restaurantImages = [
+  {
+    imgUrl:
+      'https://images.unsplash.com/photo-1586999768265-24af89630739?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mzh8fHJlc3RhdXJhbnR8ZW58MHx8MHx8fDA%3D',
+    hovered: false,
+  },
+  {
+    imgUrl:
+      'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8cmVzdGF1cmFudHxlbnwwfHwwfHx8MA%3D%3D',
+    hovered: false,
+  },
+  {
+    imgUrl:
+      'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cmVzdGF1cmFudHxlbnwwfHwwfHx8MA%3D%3D',
+    hovered: false,
+  },
+  {
+    imgUrl:
+      'https://images.pexels.com/photos/1307698/pexels-photo-1307698.jpeg?auto=compress&cs=tinysrgb&w=600',
+    hovered: false,
+  },
+];
 
 const icons = [
-  <IoIosRestaurant color="gray" size={50} className="hover:fill-black-900" />,
-  <IoLocationOutline color="gray" size={50} className="hover:fill-white" />,
-  <IoLocationOutline color="gray" size={50} className="hover:fill-white" />,
-  <IoLocationOutline color="gray" size={50} className="hover:fill-white" />,
-  <IoHomeOutline color="gray" size={50} className="hover:fill-white" />,
-  <MdMenuBook color="gray" size={50} className="hover:fill-white" />,
+  <IoIosRestaurant color="white" size={40} className="hover:fill-black-900" />,
+  <GoClock color="white" size={40} className="hover:fill-white" />,
+  <IoLocationOutline color="white" size={40} className="hover:fill-white" />,
+  <BiSolidOffer color="white" size={40} className="hover:fill-white" />,
+  <IoHomeOutline color="white" size={40} className="hover:fill-white" />,
+  <MdMenuBook color="white" size={40} className="hover:fill-white" />,
 ];
+
 function Restaurants() {
-  const [showNav, setShowNav] = useState(false);
+  const [images, setImages] = useState(restaurantImages);
   const dotCount = 10;
   const radius = 10;
   const dots = Array.from({ length: dotCount }, (_, i) => {
@@ -22,69 +49,95 @@ function Restaurants() {
     const cy = 10 + radius * Math.sin(angle); // y-coordinate
     return { x: cx, y: cy };
   });
-  console.log({ dots });
+
+  const handleMouseEnter = (index: number) => {
+    setImages((prevImages) =>
+      prevImages.map((img, i) =>
+        i === index ? { ...img, hovered: true } : img
+      )
+    );
+  };
+
+  const handleMouseLeave = (index: number) => {
+    setImages((prevImages) =>
+      prevImages.map((img, i) =>
+        i === index ? { ...img, hovered: false } : img
+      )
+    );
+  };
+
   return (
-    <div className="py-28 relative bg-black-900 h-screen">
-      <img
-        onClick={() => setShowNav((r) => !r)}
-        src="https://cdn.pixabay.com/photo/2022/11/01/05/18/coffee-7561288_1280.jpg"
-        alt=""
-        className="z-10 w-44 h-44 rounded-full absolute -left-14 border-[2px] border-white"
-      />
-      {/* <div>
-        <div className="bg-black-900 absolute animate-slide w-max p-2 rounded-full border-[2px] border-white">
-          <IoHomeOutline color="gray" size={50} />
-        </div>
-        <p className="text-white text-xxs font-semibold absolute top-[4rem] left-[12.5rem]">
-          HOME
-        </p>
-      </div> */}
+    <div className="flex flex-col gap-10 py-10 bg-black-900">
+      <div className="py-10 bg-black-900 relative justify-between flex">
+        <div>
+          <div className="pt-28">
+            <img
+              src="https://cdn.pixabay.com/photo/2022/11/01/05/18/coffee-7561288_1280.jpg"
+              alt=""
+              className="z-10 w-44 h-44 rounded-full absolute -left-14 border-[2px] border-white"
+            />
+          </div>
 
-      {icons.map((x, i) => (
+          <div className="flex justify-start">
+            {icons.map((x, i) => (
+              <div
+                style={
+                  {
+                    '--translateX-end': `${dots[i].x}rem`,
+                    '--translateY-end': `${dots[i].y - 6}rem`,
+                  } as React.CSSProperties
+                }
+                className={`animate-slide hover:bg-orange-500 transition-all ease-in bg-black-900 absolute w-max p-2 rounded-full border-[2px] border-white`}
+              >
+                {x}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* <MenuBook /> */}
+
+        {/* <div className="mx-10 flex gap-1">
+        <img
+          src="https://images.unsplash.com/photo-1574936145840-28808d77a0b6?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzV8fHJlc3RhdXJhbnR8ZW58MHx8MHx8fDA%3D"
+          alt=""
+          className="h-72 w-80 translate-x-20 z-20 hover:animate-easeBounce"
+        />
         <div
-          style={
-            {
-              '--translateX-end': `${dots[i].x}rem`,
-              '--translateY-end': `${dots[i].y - 6}rem`,
-            } as React.CSSProperties
-          }
-          className={`animate-slide hover:bg-orange-500 transition-all ease-in bg-black-900 absolute w-max p-2 rounded-full border-[2px] border-white`}
+          className="h-96 w-72 translate-y-10 overflow-hidden"
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
         >
-          {x}
+          <img
+            src="https://images.unsplash.com/photo-1529543544282-ea669407fca3?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NzJ8fHJlc3RhdXJhbnR8ZW58MHx8MHx8fDA%3D"
+            alt=""
+            className={`h-96 w-72 z-0 ${
+              hovered ? 'animate-scale-in' : 'animate-scale-out'
+            }`}
+          />
         </div>
-      ))}
-
-      {/* <div className="bg-black-900 absolute top-[7rem] left-[12rem] w-max p-2 rounded-full border-[2px] border-white">
-        <IoIosRestaurant color="gray" size={50} />
-      </div>
-      <div className="bg-black-900 absolute top-[11.3rem] left-[13.5rem] w-max p-2 rounded-full border-[2px] border-white">
-        <IoLocationOutline color="gray" size={50} />
-      </div>
-      <div className="bg-black-900 absolute top-[15.8rem] left-[12rem] w-max p-2 rounded-full border-[2px] border-white">
-        <MdMenuBook color="gray" size={50} />
       </div> */}
+      </div>
+      <div className="flex justify-center items-center mt-60 w-full p-2 md:p-10">
+        <div className="grid grid-cols-2 gap-2 w-full">
+          {images.map((x, i) => (
+            <div
+              className="translate-y-10 overflow-hidden"
+              onMouseEnter={() => handleMouseEnter(i)}
+              onMouseLeave={() => handleMouseLeave(i)}
+            >
+              <img
+                src={x.imgUrl}
+                alt=""
+                className={`w-full z-0 ${
+                  x.hovered ? 'animate-scale-in' : 'animate-scale-out'
+                }`}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
-    // <div id="container" className="bg-black-900">
-    //   <svg
-    //     id=""
-    //     className="animate-spin-10s"
-    //     xmlns="http://www.w3.org/2000/svg"
-    //     width="48"
-    //     height="48"
-    //     viewBox="0 0 48 48"
-    //   >
-    //     <circle cx="24" cy="4" r="4" fill="#fff" />
-    //     <circle cx="12.19" cy="7.86" r="3.7" fill="#fffbf2" />
-    //     <circle cx="5.02" cy="17.68" r="3.4" fill="#fef7e4" />
-    //     <circle cx="5.02" cy="30.32" r="3.1" fill="#fef3d7" />
-    //     <circle cx="12.19" cy="40.14" r="2.8" fill="#feefc9" />
-    //     <circle cx="24" cy="44" r="2.5" fill="#feebbc" />
-    //     <circle cx="35.81" cy="40.14" r="2.2" fill="#fde7af" />
-    //     <circle cx="42.98" cy="30.32" r="1.9" fill="#fde3a1" />
-    //     <circle cx="42.98" cy="17.68" r="1.6" fill="#fddf94" />
-    //     <circle cx="35.81" cy="7.86" r="1.3" fill="#fcdb86" />
-    //   </svg>
-    // </div>
   );
 }
 
