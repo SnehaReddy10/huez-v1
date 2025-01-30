@@ -114,7 +114,7 @@ function Menu() {
   const [selectedIndex, setSelectedIndex] = useState(1);
 
   return (
-    <div className="w-full">
+    <div className="w-full selection:bg-transparent">
       <div className="flex gap-2 p-4 items-center justify-center">
         {tags.map((x) => (
           <TagButton
@@ -152,7 +152,7 @@ function MenuItem({ item, className = '' }: { item: any; className?: string }) {
   return (
     <div
       className={twMerge(
-        `m-4 flex w-full justify-between bg-slate-50 rounded-md ${className}`
+        `relative m-4 flex w-full justify-between bg-slate-50 rounded-md ${className}`
       )}
     >
       <img
@@ -179,7 +179,7 @@ function MenuItem({ item, className = '' }: { item: any; className?: string }) {
             <span className="text-black hover:text-white hover:bg-black-900 rounded-full transition-all ease-in">
               <IoRemoveCircleOutline
                 size={35}
-                onClick={() => setQuantity((x) => x - 1)}
+                onClick={() => setQuantity((x) => (x > 1 ? x - 1 : x))}
               />
             </span>
             <p className="text-xs font-bold">{quantity}</p>
