@@ -7,6 +7,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useContext, useEffect } from 'react';
 import { ToastContext } from '../../context/ToastContext';
 import { loginSchema } from '../../validators/LoginSchema';
+import { setToken } from '../../utitlities';
 
 function Login() {
   const [login, results] = useLoginMutation();
@@ -42,11 +43,11 @@ function Login() {
   }
 
   if (results.isSuccess) {
+    setToken(results.data?.token);
     navigate('/');
   }
 
   const handleLogin = (data: any) => {
-    console.log({ data });
     login(data);
   };
 
