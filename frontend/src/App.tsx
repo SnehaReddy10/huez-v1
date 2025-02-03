@@ -7,6 +7,7 @@ import Restaurants from './components/Restaurants';
 import Register from './components/auth/Register';
 import Product from './components/Product';
 import Menu from './components/Menu';
+import Cart from './components/Cart';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/product" element={<Product />} />
         <Route path="/menu" element={<Menu />} />
+        <Route path="/cart" element={<Cart />} />
       </Routes>
     </div>
   );
