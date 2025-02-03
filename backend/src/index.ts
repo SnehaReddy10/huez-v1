@@ -13,6 +13,7 @@ import passport from './config/passport';
 import { restaurantRouter } from './routes/restaurant.route';
 import { cartRouter } from './routes/cart.router';
 import { authMiddleware } from './middlewares/auth.middleware';
+import { productRouter } from './routes/product.router';
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/products', productRouter);
 
 app.use(authMiddleware);
 app.use('/api/v1/user', userRouter);

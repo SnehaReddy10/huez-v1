@@ -2,6 +2,8 @@ export enum Cuisine {
   indian = 'indian',
   chinese = 'chinese',
   italian = 'italian',
+  japanese = 'japanese',
+  american = 'american',
 }
 
 export enum MenuItemCategory {
