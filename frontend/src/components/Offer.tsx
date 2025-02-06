@@ -3,7 +3,7 @@ import PrimaryButton from './buttons/PrimaryButton';
 function Offer({ offer }: any) {
   return (
     <div
-      key={offer.id}
+      key={offer._id}
       className="relative p-4 border rounded-lg shadow-lg bg-white flex flex-col gap-2"
     >
       <span className="absolute top-2 left-2 bg-red-500 text-white px-3 py-1 text-xs font-bold rounded">

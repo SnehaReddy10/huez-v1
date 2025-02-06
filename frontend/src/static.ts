@@ -1,38 +1,3 @@
-export const offers = [
-  {
-    id: 1,
-    name: 'Pizza Feast',
-    discount: '20% Off',
-    image:
-      'https://media.istockphoto.com/id/2178338641/vector/combo-offer-logo-for-special-offer-campaign-to-promote-business-combo-offer-label-badge.jpg?s=612x612&w=0&k=20&c=T-46ld_SeeEmOyHq7XzggbOMIHSfJ1fU-Hf6jCUC7xg=',
-    description: 'Enjoy a delicious pizza with a 20% discount.',
-  },
-  {
-    id: 2,
-    name: 'Burger Combo',
-    discount: 'Buy 1 Get 1 Free',
-    image:
-      'https://media.istockphoto.com/id/2159613469/vector/raksha-bandhan-sale-banner-or-poster-design.jpg?s=612x612&w=0&k=20&c=52rtbmz5jW8OHnHcMYKvMoM46ya6-_jsNSUJa_swR88=',
-    description: 'Order a burger and get another for free!',
-  },
-  {
-    id: 3,
-    name: 'Pasta Special',
-    discount: '15% Off',
-    image:
-      'https://media.istockphoto.com/id/1183383156/vector/black-friday-sale.jpg?s=612x612&w=0&k=20&c=o46opydflJ5ibjq34A2Qf_1nLRppROMdvxoOVrcO9ho=',
-    description: 'Savor a bowl of pasta with 15% off.',
-  },
-  {
-    id: 4,
-    name: 'Ice Cream Treat',
-    discount: 'Flat 30% Off',
-    image:
-      'https://media.istockphoto.com/id/1373226048/vector/summer-sale-banner-on-turquoise-background.jpg?s=612x612&w=0&k=20&c=1f3BRgr1urSQ9dqLpM5WmhYLeh_h50ElquuWsBdoX84=',
-    description: 'Cool down with 30% off on ice creams.',
-  },
-];
-
 export const reviews = [
   {
     id: 1,

@@ -16,18 +16,28 @@ import {
   useGetProductByIdQuery,
   useGetProductsByCategoryQuery,
 } from './product/productApi';
+import {
+  offerApi,
+  useGetOffersQuery,
+  useGetOfferByIdQuery,
+  useCreateOfferMutation,
+  useUpdateOfferMutation,
+  useDeleteOfferMutation,
+} from './offer/offerApi';
 
 export const store = configureStore({
   reducer: {
     [authApi.reducerPath]: authApi.reducer,
     [productApi.reducerPath]: productApi.reducer,
     [cartApi.reducerPath]: cartApi.reducer,
+    [offerApi.reducerPath]: offerApi.reducer,
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware()
       .concat(authApi.middleware)
       .concat(productApi.middleware)
-      .concat(cartApi.middleware);
+      .concat(cartApi.middleware)
+      .concat(offerApi.middleware);
   },
 });
 
@@ -45,4 +55,9 @@ export {
   useGetProductsQuery,
   useGetProductByIdQuery,
   useGetProductsByCategoryQuery,
+  useGetOffersQuery,
+  useGetOfferByIdQuery,
+  useCreateOfferMutation,
+  useUpdateOfferMutation,
+  useDeleteOfferMutation,
 };

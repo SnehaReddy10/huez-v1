@@ -8,6 +8,8 @@ import Register from './components/auth/Register';
 import Product from './components/Product';
 import Menu from './components/menu/Menu';
 import Cart from './components/Cart';
+import Footer from './components/common/Footer';
+import Offers from './components/home/Offers';
 
 function App() {
   return (
@@ -23,7 +25,9 @@ function App() {
         <Route path="/product" element={<Product />} />
         <Route path="/menu" element={<Menu />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/offers" element={<Offers />} />
       </Routes>
+      <Footer />
     </div>
   );
 }
