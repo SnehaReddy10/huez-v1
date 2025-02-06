@@ -6,7 +6,7 @@ import Navbar from './components/Navbar';
 import Restaurants from './components/Restaurants';
 import Register from './components/auth/Register';
 import Product from './components/Product';
-import Menu from './components/Menu';
+import Menu from './components/menu/Menu';
 import Cart from './components/Cart';
 
 function App() {
