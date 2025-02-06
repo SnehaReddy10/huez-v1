@@ -13,6 +13,7 @@ export const cartApi = createApi({
       return headers;
     },
   }),
+  tagTypes: ['cart', 'product'],
   endpoints(builder) {
     return {
       getCart: builder.query({
@@ -20,6 +21,7 @@ export const cartApi = createApi({
           method: 'GET',
           url: '/',
         }),
+        providesTags: [{ type: 'cart', id: getToken() ?? '' }],
       }),
       addToCart: builder.mutation({
         query: (payload) => ({
@@ -27,6 +29,23 @@ export const cartApi = createApi({
           url: '/product',
           body: payload,
         }),
+        invalidatesTags: () => [{ type: 'cart', id: getToken() ?? '' }],
+      }),
+      incrementProductQuantity: builder.mutation({
+        query: (payload) => ({
+          method: 'POST',
+          url: '/product/increment',
+          body: { menuItemId: payload },
+        }),
+        invalidatesTags: () => [{ type: 'cart', id: getToken() ?? '' }],
+      }),
+      decrementProductQuantity: builder.mutation({
+        query: (payload) => ({
+          method: 'POST',
+          url: '/product/decrement',
+          body: { menuItemId: payload },
+        }),
+        invalidatesTags: () => [{ type: 'cart', id: getToken() ?? '' }],
       }),
       updateCartItem: builder.mutation({
         query: ({ productId, quantity }) => ({
@@ -38,8 +57,9 @@ export const cartApi = createApi({
       removeFromCart: builder.mutation({
         query: (productId) => ({
           method: 'DELETE',
-          url: `/remove/${productId}`,
+          url: `/product/${productId}`,
         }),
+        invalidatesTags: () => [{ type: 'cart', id: getToken() ?? '' }],
       }),
     };
   },
@@ -50,4 +70,6 @@ export const {
   useAddToCartMutation,
   useUpdateCartItemMutation,
   useRemoveFromCartMutation,
+  useIncrementProductQuantityMutation,
+  useDecrementProductQuantityMutation,
 } = cartApi;

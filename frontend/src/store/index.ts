@@ -6,12 +6,15 @@ import {
   useAddToCartMutation,
   useUpdateCartItemMutation,
   useRemoveFromCartMutation,
+  useIncrementProductQuantityMutation,
+  useDecrementProductQuantityMutation,
 } from './cart/cartApi';
 import { setupListeners } from '@reduxjs/toolkit/query';
 import {
   productApi,
   useGetProductsQuery,
   useGetProductByIdQuery,
+  useGetProductsByCategoryQuery,
 } from './product/productApi';
 
 export const store = configureStore({
@@ -37,6 +40,9 @@ export {
   useAddToCartMutation,
   useUpdateCartItemMutation,
   useRemoveFromCartMutation,
+  useIncrementProductQuantityMutation,
+  useDecrementProductQuantityMutation,
   useGetProductsQuery,
   useGetProductByIdQuery,
+  useGetProductsByCategoryQuery,
 };
