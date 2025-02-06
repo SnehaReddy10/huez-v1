@@ -24,9 +24,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/api/v1/auth', authRouter);
-app.use('/api/v1/products', productRouter);
 
 app.use(authMiddleware);
+app.use('/api/v1/products', productRouter);
 app.use('/api/v1/user', userRouter);
 
 app.use('/api/v1/restaurant', restaurantRouter);

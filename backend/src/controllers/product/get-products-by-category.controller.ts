@@ -4,9 +4,29 @@ import { Cart } from '../../models/cart.model';
 import { StatusCodes } from '../../constants/status-codes';
 import { ErrorMessages } from '../../constants/error-messages';
 
-export const GetAllProductsController = async (req: Request, res: Response) => {
+export const GetProductsByCategoryController = async (
+  req: Request,
+  res: Response
+) => {
   try {
-    const menuItems = await MenuItem.find();
+    const { isVeg, isVegan, cuisine, category } = req.query;
+
+    const filter: any = {};
+
+    if (isVeg !== undefined) {
+      filter.isVeg = isVeg === 'true';
+    }
+    if (isVegan !== undefined) {
+      filter.isVegan = isVegan === 'true';
+    }
+    if (cuisine) {
+      filter.cuisine = cuisine;
+    }
+    if (category) {
+      filter.category = category;
+    }
+
+    const menuItems = await MenuItem.find(filter);
 
     let cartItems: any = [];
 
@@ -14,6 +34,7 @@ export const GetAllProductsController = async (req: Request, res: Response) => {
       const userCart = await Cart.findOne({
         user: req.user?._id,
       }).populate('items.menuItem');
+
       cartItems = userCart ? userCart.items : [];
     }
 
@@ -23,21 +44,17 @@ export const GetAllProductsController = async (req: Request, res: Response) => {
       if (item.cuisine) {
         tags.push(item.cuisine.toLowerCase());
       }
-
       if (item.isVeg) {
         tags.push('veg');
       } else {
         tags.push('non-veg');
       }
-
       if (item.isVegan) {
         tags.push('vegan');
       }
-
       if (item.category) {
         tags.push(item.category.toLowerCase());
       }
-
       if (item.calories !== undefined) {
         tags.push(`${item.calories} calories`);
       }
