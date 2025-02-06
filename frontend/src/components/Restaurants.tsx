@@ -4,7 +4,6 @@ import { GoClock } from 'react-icons/go';
 import { IoIosRestaurant } from 'react-icons/io';
 import { IoHomeOutline, IoLocationOutline } from 'react-icons/io5';
 import { MdMenuBook } from 'react-icons/md';
-import MenuBook from './MenuBook';
 
 const restaurantImages = [
   {
