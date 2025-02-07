@@ -24,6 +24,15 @@ const cartSchema = new mongoose.Schema({
       },
     },
   ],
+  discountId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Offer',
+    default: null,
+  },
+  discountAmount: {
+    type: Number,
+    default: 0,
+  },
   totalPrice: {
     type: Number,
     required: true,

@@ -7,6 +7,7 @@ import { DeleteOfferController } from '../controllers/offers/delete-offer.contro
 import { CreateOfferSchema } from '../validators/offer/create-offer.validator';
 import { validateRequest } from '../middlewares/validator.middleware';
 import { OfferUpdateSchema } from '../validators/offer/update-offer.validator';
+import { ApplyOfferController } from '../controllers/offers/apply-offer.controller';
 
 export const offerRouter = Router();
 
@@ -18,6 +19,7 @@ offerRouter.post(
   validateRequest(CreateOfferSchema),
   CreateOfferController
 );
+offerRouter.post('/:offerId', ApplyOfferController);
 offerRouter.put(
   '/:id',
   validateRequest(OfferUpdateSchema),
