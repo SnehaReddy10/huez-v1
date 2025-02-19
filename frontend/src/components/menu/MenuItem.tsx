@@ -7,7 +7,6 @@ export function MenuItem({
   item,
   addProductToCart,
   className = '',
-  align = 'left',
 }: {
   item: any;
   addProductToCart: any;

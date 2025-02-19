@@ -65,7 +65,6 @@ function Menu() {
     category: searchCriteria,
   });
   const {
-    data: productsByCategory,
     isFetching: isProductsByCategoryFetching,
     error: getproductsByCategoryError,
   } = useGetProductsByCategoryQuery({});
@@ -97,13 +96,13 @@ function Menu() {
         'right-0 top-10 fixed'
       );
     }
-  }, [addProductResults.error, addProductResults]);
+  }, [addProductResults.error, addProductResults, searchCriteria]);
 
   if (isFetching || isProductsByCategoryFetching) {
     return <Loader />;
   }
-  items =
-    searchCriteria ?? SearchCriteria.AllMenu ? products : productsByCategory;
+
+  items = products;
 
   return (
     <div className={`w-full selection:bg-transparent`}>

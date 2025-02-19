@@ -1,7 +1,6 @@
 import Carousel from '../common/Carousel';
 import Reviews from './CustomerReviews';
 import Hero from './Hero';
-import Offers from './Offers';
 
 const items = [
   {
@@ -44,7 +43,7 @@ function Home() {
       <div className="flex-1 flex flex-col gap-10 items-center justify-center">
         <Hero />
         <Carousel items={items} />
-        <Offers />
+        {/* <Offers /> */}
         <Reviews />
       </div>
     </div>

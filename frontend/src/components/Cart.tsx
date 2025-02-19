@@ -9,12 +9,10 @@ import PrimaryButton from './buttons/PrimaryButton';
 import QuantityControlGroup from './common/QuantityControlGroup';
 
 function Cart() {
-  const { data: cart, isSuccess, isFetching } = useGetCartQuery({});
-  const [deleteProduct, deleteProductResults] = useRemoveFromCartMutation();
-  const [incrementProductQuantity, incrementProductResults] =
-    useIncrementProductQuantityMutation();
-  const [decrementProductQuantity, decrementProductResults] =
-    useDecrementProductQuantityMutation();
+  const { data: cart } = useGetCartQuery({});
+  const [deleteProduct] = useRemoveFromCartMutation();
+  const [incrementProductQuantity] = useIncrementProductQuantityMutation();
+  const [decrementProductQuantity] = useDecrementProductQuantityMutation();
 
   const rows =
     cart?.data?.items?.map((item: any) => [

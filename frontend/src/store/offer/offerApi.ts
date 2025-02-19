@@ -27,9 +27,7 @@ export const offerApi = createApi({
         method: 'GET',
         url: `/${offerId}`,
       }),
-      providesTags: (result, error, offerId) => [
-        { type: 'offer', id: offerId },
-      ],
+      providesTags: (offerId) => [{ type: 'offer', id: offerId }],
     }),
     createOffer: builder.mutation({
       query: (payload) => ({
@@ -45,9 +43,7 @@ export const offerApi = createApi({
         url: `/${offerId}`,
         body: updates,
       }),
-      invalidatesTags: (result, error, { offerId }) => [
-        { type: 'offer', id: offerId },
-      ],
+      invalidatesTags: ({ offerId }) => [{ type: 'offer', id: offerId }],
     }),
     deleteOffer: builder.mutation({
       query: (offerId) => ({
