@@ -1,0 +1,57 @@
+name: Build and Deploy to Docker Hub and EC2
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'backend/**'
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Out Repo
+        uses: actions/checkout@v2
+
+      - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      - name: Build and Push Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: ./backend
+          file: ./backend/Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/huez-backend:latest
+
+      - name: Verify Pushed Image
+        run: docker pull ${{ secrets.DOCKERHUB_USERNAME }}/huez-backend:latest
+
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            echo "GOOGLE_CLIENT_ID=$(aws ssm get-parameter --name "/huez/prod/GOOGLE_CLIENT_ID" --with-decryption --query "Parameter.Value" --output text)" > .env
+            echo "GOOGLE_CLIENT_SECRET=$(aws ssm get-parameter --name "/huez/prod/GOOGLE_CLIENT_SECRET" --with-decryption --query "Parameter.Value" --output text)" >> .env
+            echo "HOST_URL=$(aws ssm get-parameter --name "/huez/prod/HOST_URL" --with-decryption --query "Parameter.Value" --output text)" >> .env
+            echo "JWT_SECRET=$(aws ssm get-parameter --name "/huez/prod/JWT_SECRET" --with-decryption --query "Parameter.Value" --output text)" >> .env
+            echo "MONGODB_CONNECTION_STRING=$(aws ssm get-parameter --name "/huez/prod/MONGODB_CONNECTION_STRING" --with-decryption --query "Parameter.Value" --output text)" >> .env
+            echo "PORT=$(aws ssm get-parameter --name "/huez/prod/PORT" --with-decryption --query "Parameter.Value" --output text)" >> .env
+            sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/huez-backend:latest
+            sudo docker stop web-app || true
+            sudo docker rm web-app || true
+            sudo docker run --restart=always -d --name web-app -p 5174:5174 --env-file .env ${{ secrets.DOCKERHUB_USERNAME }}/huez-backend:latest
