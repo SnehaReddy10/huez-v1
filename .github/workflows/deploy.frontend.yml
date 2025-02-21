@@ -38,7 +38,8 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           script: |
+            echo "VITE_BACKEND_URL=$(aws ssm get-parameter --name "/huez/prod/VITE_BACKEND_URL" --with-decryption --query "Parameter.Value" --output text)" > .env
             sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/huez-frontend:latest
             sudo docker stop huez-frontend || true
             sudo docker rm huez-frontend || true
-            sudo docker run --restart=always -d --name huez-frontend -p 5174:5174 ${{ secrets.DOCKERHUB_USERNAME }}/huez-frontend:latest
+            sudo docker run --restart=always -d --name huez-frontend -p 5174:5174 --env-file .env ${{ secrets.DOCKERHUB_USERNAME }}/huez-frontend:latest

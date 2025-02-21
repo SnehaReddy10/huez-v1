@@ -4,7 +4,7 @@ import { getToken } from '../../utitlities';
 export const offerApi = createApi({
   reducerPath: 'offer',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:3000/api/v1/offers',
+    baseUrl: `${import.meta.env.VITE_BACKEND_URL}/api/v1/offers`,
     prepareHeaders: (headers) => {
       const token = getToken();
       if (token) {

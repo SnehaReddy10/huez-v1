@@ -4,7 +4,7 @@ import { getToken } from '../../utitlities';
 export const cartApi = createApi({
   reducerPath: 'cart',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:3000/api/v1/cart',
+    baseUrl: `${import.meta.env.VITE_BACKEND_URL}/api/v1/cart`,
     prepareHeaders: (headers) => {
       const token = getToken();
       if (token) {
