@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { signupSchema } from '../../validators/signup.validator';
-import { User } from '../../models/user-model.model';
+import { User } from '../../models/user.model';
 import jwt from 'jsonwebtoken';
 import { ErrorMessages } from '../../constants/error-messages';
 import { StatusCodes } from '../../constants/status-codes';
