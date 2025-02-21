@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { signinSchema } from '../../validators/signin.validator';
-import { User } from '../../models/user.model';
+import { User } from '../../models/user-model.model';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { ErrorMessages } from '../../constants/error-messages';

@@ -1,6 +1,6 @@
 import { Response } from 'express';
 import { AuthProvider } from '../../constants/enums/auth-provider';
-import { User } from '../../models/user.model';
+import { User } from '../../models/user-model.model';
 import { Role } from '../../constants/enums/role';
 
 export async function GoogleLoginController(req: any, res: Response) {
