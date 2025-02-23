@@ -7,6 +7,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useContext, useEffect } from 'react';
 import { registerSchema } from '../../validators/RegisterSchema';
 import { ToastContext } from '../../context/ToastContext';
+import { setToken } from '../../utitlities';
 
 function Register() {
   const [register, results] = useRegisterMutation();
@@ -32,7 +33,7 @@ function Register() {
       }
 
       const { showToast } = toastContext;
-      showToast(r?.data.message, 'error', 'left-0 top-10');
+      showToast(r?.data?.message, 'error', 'left-0 top-10');
       reset();
     }
   }, [results.error]);
@@ -46,6 +47,7 @@ function Register() {
   }
 
   if (results.isSuccess) {
+    setToken(results.data?.token);
     navigate('/');
   }
 
