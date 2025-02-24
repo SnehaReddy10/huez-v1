@@ -32,9 +32,9 @@ function Grid({ title, headers, rows, onDelete, className }: any) {
               <td className="px-6 py-4">
                 <button
                   onClick={() => onDelete(x[0]?.id)}
-                  className="flex gap-2 justify-center items-center"
+                  className="flex gap-2 justify-center items-center transition-all ease duration-500 hover:rotate-180"
                 >
-                  <RxCross2 size={25} color="black" />
+                  <RxCross2 size={25} color="black" className="" />
                 </button>
               </td>
             </tr>
