@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import TagButton from '../buttons/TagButton';
 import QuantityControlGroup from '../common/QuantityControlGroup';
+import { FaShoppingCart } from 'react-icons/fa';
 
 export function MenuItem({
   item,
@@ -50,14 +51,15 @@ export function MenuItem({
             <p className="text-white text-xs font-semibold pr-2 border-r-[1px] border-gray-500">
               ${item.price}
             </p>
-            <span
+            <p
               onClick={() =>
                 addProductToCart({ menuItemId: item._id, quantity })
               }
               className="text-white flex items-center py-[2px] px-2 rounded-sm text-xs"
             >
-              Add to order
-            </span>
+              Add to cart
+              <FaShoppingCart size={16} color="white" className="ml-2" />
+            </p>
           </div>
         </div>
         {/* {item.quantityInCart > 0 && (
