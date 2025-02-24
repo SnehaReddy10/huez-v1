@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import './App.css';
 import Home from './components/home/Home';
 import Login from './components/auth/Login';
@@ -12,6 +12,8 @@ import Footer from './components/common/Footer';
 import Offers from './components/home/Offers';
 
 function App() {
+  const { pathname } = useLocation();
+
   return (
     <div className="flex flex-col selection:bg-orange-500 h-screen max-w-screen">
       <div className="hidden md:flex flex-col">
@@ -27,7 +29,7 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/offers" element={<Offers />} />
       </Routes>
-      <Footer />
+      {pathname !== '/login' && pathname !== '/register' && <Footer />}
     </div>
   );
 }
