@@ -6,8 +6,8 @@ import {
   useGetProductsQuery,
 } from '../../store';
 import { ToastContext } from '../../context/ToastContext';
-import Loader from '../common/Loader';
 import { MenuItem } from './MenuItem';
+import { MenuSkeletonLoader } from '../loaders/MenuSkeletonLoader';
 
 enum SearchCriteria {
   Veg = 'Veg',
@@ -102,10 +102,6 @@ function Menu() {
     }
   }, [addProductResults.error, addProductResults, searchCriteria]);
 
-  if (isFetching || isProductsByCategoryFetching) {
-    return <Loader />;
-  }
-
   items = products;
 
   return (
@@ -121,27 +117,35 @@ function Menu() {
           />
         ))}
       </div>
-      <div className="grid 2xl:grid-cols-2">
-        {items?.data?.map((x: any, i: number) => (
-          <div key={x.id}>
-            {i % 2 === 0 && (
-              <div key={x.id} className="mr-8">
-                <MenuItem addProductToCart={addProduct} item={x} align="left" />
-              </div>
-            )}
-            {i % 2 !== 0 && (
-              <div key={x.id} className="flex justify-end items-end">
-                <MenuItem
-                  addProductToCart={addProduct}
-                  item={x}
-                  className="flex-row-reverse"
-                  align="right"
-                />
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
+      {isFetching || isProductsByCategoryFetching ? (
+        <MenuSkeletonLoader />
+      ) : (
+        <div className="grid 2xl:grid-cols-2">
+          {items?.data?.map((x: any, i: number) => (
+            <div key={x.id}>
+              {i % 2 === 0 && (
+                <div key={x.id} className="mr-8">
+                  <MenuItem
+                    addProductToCart={addProduct}
+                    item={x}
+                    align="left"
+                  />
+                </div>
+              )}
+              {i % 2 !== 0 && (
+                <div key={x.id} className="flex justify-end items-end">
+                  <MenuItem
+                    addProductToCart={addProduct}
+                    item={x}
+                    className="flex-row-reverse"
+                    align="right"
+                  />
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
       <div className="2xl:w-[40%]"></div>
     </div>
   );
