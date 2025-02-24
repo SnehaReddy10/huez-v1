@@ -57,86 +57,84 @@ function Cart() {
   ];
 
   return (
-    <div className="flex max-sm:flex-col animate-slideIn">
-      <div className="flex flex-col items-center md:w-[70%] py-10 px-5 lg:px-10">
-        <div className="flex justify-between items-center w-full">
-          <h2 className="text-xl">Shopping cart</h2>
-          <p className="text-xs text-gray-400 font-bold">
-            {cart?.data?.items.length} ITEMS
-          </p>
-        </div>
-        {/* <div className="flex flex-col gap-2 items-center">
-          <p className="text-xs">
-            Shop for ${remainingFreeMinSpend} more to enjoy{' '}
-            <span className="font-bold">FREE Shipping</span>
-          </p>
-          <div className="flex gap-1 items-center w-[120%]">
-            <p
-              className={`bg-green-500 w-[${spentPercentage}] h-1 rounded-md`}
-            ></p>
-            <LiaShippingFastSolid size={20} />
-            <p
-              className={`flex bg-gray-300 w-[${remainingPercentage}] h-1 rounded-md`}
-            ></p>
-          </div>
-        </div> */}
-
-        <Grid
-          onDelete={(s: any) => deleteProduct(s)}
-          onEdit={() => {}}
-          title=""
-          headers={headers}
-          rows={rows}
-          className={`hidden md:flex`}
-        />
-        <MobileCart
-          items={cart?.data?.items ?? []}
-          onDecrement={decrementProductQuantity}
-          onIncrement={incrementProductQuantity}
-          className={`flex md:hidden`}
-        />
-      </div>
-      <div className="max-h-[20rem] min-h-[20rem] bg-gray-100 md:w-[30%] py-10 px-5 lg:px-10 flex flex-col justify-between">
-        <div className="flex flex-col gap-10">
-          <h3 className="text-black text-xl">Summary</h3>
-
-          <div className="text-xs flex flex-col gap-1 font-semibold text-gray-500">
-            <div className="flex justify-between">
-              <p className="">Subtotal</p>
-              <p className="font-semibold text-black-900">
-                ${cart?.data?.totalPrice?.toFixed(2)}
+    <>
+      {rows.length > 0 ? (
+        <div className="flex max-sm:flex-col animate-slideIn">
+          <div className="flex flex-col items-center md:w-[70%] py-10 px-5 lg:px-10">
+            <div className="flex justify-between items-center w-full">
+              <h2 className="text-xl">Shopping cart</h2>
+              <p className="text-xs text-gray-400 font-bold">
+                {cart?.data?.items.length} ITEMS
               </p>
             </div>
-            <div className="flex justify-between">
-              <p className="">Shipping</p>
-              <p className="font-semibold text-black-900">
-                ${cart?.data?.shippingCharges?.toFixed(2) ?? 0}
-              </p>
-            </div>
-            <div className="flex justify-between">
-              <p className="">Tax</p>
-              <p className="font-semibold text-black-900">
-                ${cart?.data?.tax?.toFixed(2) ?? 0}
-              </p>
-            </div>
-          </div>
-        </div>
 
-        <div className="flex flex-col gap-4 text-xs">
-          <div className="flex justify-between">
-            <p className="">Total</p>
-            <p className="font-bold text-black-900">
-              ${cart?.data?.totalPrice?.toFixed(2)}
-            </p>
+            {rows.length > 0 ? (
+              <Grid
+                onDelete={(s: any) => deleteProduct(s)}
+                onEdit={() => {}}
+                title=""
+                headers={headers}
+                rows={rows}
+                className={`hidden md:flex`}
+              />
+            ) : (
+              <EmptyCart />
+            )}
+
+            <MobileCart
+              items={cart?.data?.items ?? []}
+              onDecrement={decrementProductQuantity}
+              onIncrement={incrementProductQuantity}
+              className={`flex md:hidden`}
+            />
           </div>
-          <PrimaryButton
-            label={'Checkout'}
-            onClickHandler={() => {}}
-            className="w-full py-1"
-          />
+          {rows.length > 0 && (
+            <div className="max-h-[20rem] min-h-[20rem] bg-gray-100 md:w-[30%] py-10 px-5 lg:px-10 flex flex-col justify-between">
+              <div className="flex flex-col gap-10">
+                <h3 className="text-black text-xl">Summary</h3>
+
+                <div className="text-xs flex flex-col gap-1 font-semibold text-gray-500">
+                  <div className="flex justify-between">
+                    <p className="">Subtotal</p>
+                    <p className="font-semibold text-black-900">
+                      ${cart?.data?.totalPrice?.toFixed(2)}
+                    </p>
+                  </div>
+                  <div className="flex justify-between">
+                    <p className="">Shipping</p>
+                    <p className="font-semibold text-black-900">
+                      ${cart?.data?.shippingCharges?.toFixed(2) ?? 0}
+                    </p>
+                  </div>
+                  <div className="flex justify-between">
+                    <p className="">Tax</p>
+                    <p className="font-semibold text-black-900">
+                      ${cart?.data?.tax?.toFixed(2) ?? 0}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-4 text-xs">
+                <div className="flex justify-between">
+                  <p className="">Total</p>
+                  <p className="font-bold text-black-900">
+                    ${cart?.data?.totalPrice?.toFixed(2)}
+                  </p>
+                </div>
+                <PrimaryButton
+                  label={'Checkout'}
+                  onClickHandler={() => {}}
+                  className="w-full py-1"
+                />
+              </div>
+            </div>
+          )}
         </div>
-      </div>
-    </div>
+      ) : (
+        <EmptyCart />
+      )}
+    </>
   );
 }
 
@@ -153,8 +151,28 @@ function ProductInfo({ item }: any) {
   );
 }
 
+function EmptyCart() {
+  const navigate = useNavigate();
+  return (
+    <div className="py-20 px-5 animate-fadeIn flex flex-col gap-4 justify-center items-center w-full">
+      <CartLoader />
+      <h2> Your Cart is Empty</h2>
+      <p>Looks like you haven't added anything to your cart yet.</p>
+      <PrimaryButton
+        label={'Add Products'}
+        onClickHandler={() => {
+          navigate('/menu');
+        }}
+        className="py-1 w-max"
+      />
+    </div>
+  );
+}
+
 import { IoAdd, IoRemove } from 'react-icons/io5';
 import { twMerge } from 'tailwind-merge';
+import { useNavigate } from 'react-router-dom';
+import CartLoader from './cart/CartLoader';
 
 interface CartProps {
   items: any[];
