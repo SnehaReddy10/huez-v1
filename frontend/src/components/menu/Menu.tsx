@@ -86,7 +86,11 @@ function Menu() {
         (addProductResults.error as any) ??
         (getproductsError as any) ??
         (getproductsByCategoryError as any);
-      showToast(r.data.message ?? r.data.error[0], 'error', 'right-0 top-10');
+      showToast(
+        r?.data?.message ?? r?.data?.error?.length > 0 ?? r.data.error[0],
+        'error',
+        'right-0 top-10'
+      );
     }
 
     if (addProductResults.isSuccess) {
