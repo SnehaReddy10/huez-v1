@@ -3,6 +3,8 @@ import { IoIosRestaurant, IoMdInformationCircle } from 'react-icons/io';
 import { IoHome } from 'react-icons/io5';
 import { MdLocalOffer, MdMenuBook } from 'react-icons/md';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { getToken, logout } from '../utitlities';
+import { LuLogOut } from 'react-icons/lu';
 
 const navItems = [
   {
@@ -51,7 +53,7 @@ const authItems = [
   },
   {
     id: 2,
-    label: 'login',
+    label: 'Login',
     path: '/login',
   },
 ];
@@ -87,18 +89,37 @@ function Navbar() {
         ))}
       </div>
       <div className="flex gap-4 justify-center">
-        {authItems.map((x) => (
-          <div
-            key={x.id}
-            onClick={() => handleOnClick(x.path)}
-            className="flex flex-col gap-[0.12rem] cursor-pointer"
-          >
-            <span>{x.label}</span>
-            {x.path === pathname && (
-              <span className="bg-orange-500 h-[0.12rem] rounded-full w-3"></span>
-            )}
-          </div>
-        ))}
+        {getToken() === null ? (
+          <>
+            {' '}
+            {authItems.map((x) => (
+              <div
+                key={x.id}
+                onClick={() => handleOnClick(x.path)}
+                className="flex flex-col gap-[0.12rem] cursor-pointer"
+              >
+                <span>{x.label}</span>
+                {x.path === pathname && (
+                  <span className="bg-orange-500 h-[0.12rem] rounded-full w-3"></span>
+                )}
+              </div>
+            ))}
+          </>
+        ) : (
+          <>
+            <div
+              key={3}
+              onClick={() => {
+                logout();
+                handleOnClick('/');
+              }}
+              className="flex gap-1 cursor-pointer items-center justify-center"
+            >
+              <span>Logout</span>
+              <LuLogOut size={15} fill="white" />
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
