@@ -19,4 +19,6 @@ const menuItemSchema = new mongoose.Schema({
   calories: { type: Number, required: true },
 });
 
+menuItemSchema.index({ name: 'text', description: 'text' });
+
 export const MenuItem = mongoose.model('MenuItem', menuItemSchema);
