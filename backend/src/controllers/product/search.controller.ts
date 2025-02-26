@@ -13,10 +13,9 @@ export const SearchController = async (req: Request, res: Response) => {
       return;
     }
 
-    const menuItemsPromise = MenuItem.find(
-      { $text: { $search: query } },
-      { score: { $meta: 'textScore' } }
-    ).sort({ score: { $meta: 'textScore' } });
+    const menuItemsPromise = MenuItem.find({
+      name: { $regex: query, $options: 'i' },
+    });
 
     const restaurantsPromise = Restaurant.find({
       $or: [
