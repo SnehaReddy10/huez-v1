@@ -26,12 +26,14 @@ function Carousel({
 
   return (
     <div className="flex items-center justify-center w-screen selection:bg-transparent">
-      <button
-        className="bg-gray-600 p-2 mr-4 rounded-md hover:cursor-pointer hover:bg-gray-700"
-        onClick={handleLeftArrowClick}
-      >
-        <FaArrowLeft size={16} color="white" />
-      </button>
+      {totalItems > visibleItems && (
+        <button
+          className="bg-gray-600 p-2 mr-4 rounded-md hover:cursor-pointer hover:bg-gray-700"
+          onClick={handleLeftArrowClick}
+        >
+          <FaArrowLeft size={16} color="white" />
+        </button>
+      )}
 
       <div className="w-1/2 overflow-hidden relative">
         <div
@@ -44,12 +46,14 @@ function Carousel({
         </div>
       </div>
 
-      <button
-        className="bg-gray-600 p-2 ml-4 rounded-md hover:cursor-pointer hover:bg-gray-700"
-        onClick={handleRightArrowClick}
-      >
-        <FaArrowRight size={16} color="white" />
-      </button>
+      {totalItems > visibleItems && (
+        <button
+          className="bg-gray-600 p-2 ml-4 rounded-md hover:cursor-pointer hover:bg-gray-700"
+          onClick={handleRightArrowClick}
+        >
+          <FaArrowRight size={16} color="white" />
+        </button>
+      )}
     </div>
   );
 }
