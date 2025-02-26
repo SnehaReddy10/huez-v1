@@ -3,6 +3,7 @@ import { useSearchQuery } from '../store';
 import SearchBar from './common/SearchBar';
 import Carousel from './common/Carousel';
 import SearchLoader from './loaders/SearchLoader';
+import { IoLocationOutline } from 'react-icons/io5';
 
 function Search() {
   const [searchString, setSearchString] = useState('');
@@ -24,71 +25,89 @@ function Search() {
         className="border-[2px] border-black-900"
       />
 
-      <>
-        {loading || isFetching ? (
-          <SearchLoader />
-        ) : (
-          <>
-            {searchResult?.menuItems?.length > 0 && (
-              <div className="shadow-xl shadow-gray-100 py-6">
-                {searchResult?.menuItems?.length !== null && (
-                  <Carousel
-                    totalItems={searchResult?.menuItems?.length ?? 0}
-                    children={
-                      <>
-                        {searchResult?.menuItems?.map((x: any) => (
-                          <div className="bg-gray-100 p-1 flex gap-4 items-center w-64 h-40 shrink-0">
-                            <img
-                              src={x.imageUrl}
-                              alt=""
-                              className="w-1/2 h-full object-cover"
-                            />
-                            <div className="flex flex-col w-24">
-                              <p className="text-xs">{x.name}</p>
-                              <p className="text-xxs text-gray-600 line-clamp-3">
-                                {x.description}
-                              </p>
-                            </div>
-                          </div>
-                        ))}
-                      </>
-                    }
-                  />
-                )}
-              </div>
-            )}
-            {searchResult?.restaurants?.length > 0 && (
-              <div className="shadow-xl shadow-gray-100 py-6">
-                {searchResult?.restaurants?.length !== null && (
-                  <Carousel
-                    totalItems={searchResult?.restaurants?.length ?? 0}
-                    children={
-                      <>
-                        {searchResult?.restaurants?.map((x: any) => (
-                          <div className="bg-gray-100 p-1 flex gap-4 items-center w-64 h-40 shrink-0">
-                            <img
-                              src={x.imageUrl}
-                              alt=""
-                              className="w-1/2 h-full object-cover"
-                            />
-                            <div className="flex flex-col w-24">
-                              <p className="text-xs">{x.name}</p>
-                              <p className="text-xxs text-gray-600 line-clamp-3">
-                                {x.description}
-                              </p>
-                            </div>
-                          </div>
-                        ))}
-                      </>
-                    }
-                  />
-                )}
-              </div>
-            )}
-          </>
-        )}
-      </>
+      {loading || isFetching ? (
+        <SearchLoader />
+      ) : (
+        <>
+          {searchResult !== '' &&
+          searchResult?.menuItems?.length === 0 &&
+          searchResult.restaurants?.length === 0 ? (
+            <div>No Search Result Found</div>
+          ) : (
+            <SearchResult searchResult={searchResult} />
+          )}
+        </>
+      )}
     </div>
+  );
+}
+
+function SearchResult({ searchResult }: { searchResult: any }) {
+  return (
+    <>
+      {searchResult?.menuItems?.length > 0 && (
+        <div className="shadow-xl shadow-gray-100 py-6">
+          {searchResult?.menuItems?.length !== null && (
+            <Carousel
+              totalItems={searchResult?.menuItems?.length ?? 0}
+              children={
+                <>
+                  {searchResult?.menuItems?.map((x: any) => (
+                    <div className="bg-gray-100 p-1 flex gap-4 items-center w-64 h-40 shrink-0">
+                      <img
+                        src={x.imageUrl}
+                        alt=""
+                        className="w-1/2 h-full object-cover"
+                      />
+                      <div className="flex flex-col w-24">
+                        <p className="text-xs">{x.name}</p>
+                        <p className="text-xxs text-gray-600 line-clamp-3">
+                          {x.description}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </>
+              }
+            />
+          )}
+        </div>
+      )}
+      {searchResult?.restaurants?.length > 0 && (
+        <div className="shadow-xl shadow-gray-100 py-6">
+          {searchResult?.restaurants?.length !== null && (
+            <Carousel
+              totalItems={searchResult?.restaurants?.length ?? 0}
+              children={
+                <>
+                  {searchResult?.restaurants?.map((x: any) => (
+                    <div className="bg-gray-100 p-1 flex gap-4 items-center w-64 h-40 shrink-0">
+                      <img
+                        src={x.imageUrl}
+                        alt=""
+                        className="w-1/2 h-full object-cover"
+                      />
+                      <div className="flex flex-col gap-2 w-24">
+                        <p className="text-xs capitalize font-semibold">
+                          {x.name}
+                        </p>
+                        <div className="flex gap-[2px] items-center justify-center">
+                          <IoLocationOutline size={15} />
+                          <p className="text-xxs line-clamp-1">{x.address}</p>
+                        </div>
+                        <p className="text-xxs text-gray-600 line-clamp-3">
+                          {x.description}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </>
+              }
+            />
+          )}
+        </div>
+      )}
+    </>
   );
 }
 

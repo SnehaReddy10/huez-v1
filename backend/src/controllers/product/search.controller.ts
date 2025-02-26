@@ -18,10 +18,13 @@ export const SearchController = async (req: Request, res: Response) => {
       { score: { $meta: 'textScore' } }
     ).sort({ score: { $meta: 'textScore' } });
 
-    const restaurantsPromise = Restaurant.find(
-      { $text: { $search: query } },
-      { score: { $meta: 'textScore' } }
-    ).sort({ score: { $meta: 'textScore' } });
+    const restaurantsPromise = Restaurant.find({
+      $or: [
+        { name: { $regex: query, $options: 'i' } },
+        { description: { $regex: query, $options: 'i' } },
+        { address: { $regex: query, $options: 'i' } },
+      ],
+    });
 
     const [menuItems, restaurants] = await Promise.all([
       menuItemsPromise,
