@@ -1,5 +1,5 @@
-import PrimaryInput from '../inputs/PrimaryInput';
 import Typewriter from '../common/Typewriter';
+import SearchBar from '../common/SearchBar';
 
 function Hero() {
   return (
@@ -17,10 +17,7 @@ function Hero() {
               delay={60}
             />
           </p>
-          <PrimaryInput
-            placeholder="Search for item or restaurant"
-            className="absolute mt-20 rounded-full transition-all ease-in md:px-5 md:py-2 h-min focus:outline-none text-black-900"
-          />
+          <SearchBar />
         </div>
       </div>
     </div>

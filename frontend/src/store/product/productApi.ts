@@ -45,6 +45,12 @@ export const productApi = createApi({
           url: `/${productId}`,
         }),
       }),
+      search: builder.query({
+        query: (searchQuery) => ({
+          method: 'GET',
+          url: `/search?query=${searchQuery}`,
+        }),
+      }),
     };
   },
 });
@@ -53,4 +59,5 @@ export const {
   useGetProductsQuery,
   useGetProductByIdQuery,
   useGetProductsByCategoryQuery,
+  useSearchQuery,
 } = productApi;
