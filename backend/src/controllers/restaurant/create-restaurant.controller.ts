@@ -16,10 +16,12 @@ export async function CreateRestaurantController(req: Request, res: Response) {
       return;
     }
 
-    const { name, address, coordinates, cuisine, menu, imageUrl } = data;
+    const { name, description, address, coordinates, cuisine, menu, imageUrl } =
+      data;
 
     const newRestaurant = new Restaurant({
       name,
+      description,
       address,
       location: {
         type: 'Point',

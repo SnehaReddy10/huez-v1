@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 
 const restaurantSchema = new mongoose.Schema({
   name: { type: String, required: true },
+  description: { type: String, required: true },
   address: { type: String, required: true },
   location: {
     type: { type: String, enum: ['Point'], required: true },
