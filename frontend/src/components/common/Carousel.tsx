@@ -1,17 +1,27 @@
 import { useState } from 'react';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 
-function Carousel({ items }: { items: { url: string }[] }) {
+function Carousel({
+  totalItems,
+  children,
+}: {
+  totalItems: number;
+  children: any;
+}) {
   const [index, setIndex] = useState(0);
-  const itemWidth = 6 * 4;
-  const totalItems = items.length;
+  const itemWidth = 200;
+  const visibleItems = 3;
 
   const handleRightArrowClick = () => {
-    setIndex((prevIndex) => (prevIndex < totalItems - 1 ? prevIndex + 1 : 0));
+    setIndex((prevIndex) =>
+      prevIndex < totalItems - visibleItems ? prevIndex + 1 : 0
+    );
   };
 
   const handleLeftArrowClick = () => {
-    setIndex((prevIndex) => (prevIndex > 0 ? prevIndex - 1 : totalItems - 1));
+    setIndex((prevIndex) =>
+      prevIndex > 0 ? prevIndex - 1 : totalItems - visibleItems
+    );
   };
 
   return (
@@ -30,16 +40,7 @@ function Carousel({ items }: { items: { url: string }[] }) {
             transform: `translateX(-${index * itemWidth}px)`,
           }}
         >
-          {items.map((x, idx) => (
-            <div key={idx} className="relative w-24 h-24 shrink-0">
-              <img
-                src={x.url}
-                alt={`Item ${idx}`}
-                className="rounded-full w-24 h-24 object-cover"
-              />
-              <span className="absolute inset-0 rounded-full bg-black-900 opacity-0 hover:opacity-30  transition-all ease-in" />
-            </div>
-          ))}
+          {children}
         </div>
       </div>
 
