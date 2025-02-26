@@ -6,7 +6,7 @@ import { ErrorMessages } from '../../constants/error-messages';
 
 export const SearchController = async (req: Request, res: Response) => {
   try {
-    const query = String(req.query.query);
+    const query = String(req.query.query).trim();
 
     if (!query) {
       res.status(400).json({ message: 'Search query is required' });
@@ -28,20 +28,7 @@ export const SearchController = async (req: Request, res: Response) => {
       restaurantsPromise,
     ]);
 
-    const combinedResults = [
-      ...menuItems.map((item: any) => ({
-        ...item.toObject(),
-        type: 'menuItem',
-      })),
-      ...restaurants.map((restaurant: any) => ({
-        ...restaurant.toObject(),
-        type: 'restaurant',
-      })),
-    ];
-
-    combinedResults.sort((a, b) => (b.score ?? 0) - (a.score ?? 0));
-
-    res.json(combinedResults);
+    res.json({ menuItems, restaurants });
     return;
   } catch (error) {
     console.error(`Error searching`, error);
