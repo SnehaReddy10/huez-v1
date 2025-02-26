@@ -12,6 +12,7 @@ const restaurantSchema = new mongoose.Schema({
     ref: 'User',
     required: true,
   },
+  imageUrl: { type: String },
   cuisine: [String],
   isOpen: { type: Boolean, default: true },
   menu: [{ type: mongoose.Schema.Types.ObjectId, ref: 'MenuItem' }],

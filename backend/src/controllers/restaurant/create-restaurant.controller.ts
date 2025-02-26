@@ -16,7 +16,7 @@ export async function CreateRestaurantController(req: Request, res: Response) {
       return;
     }
 
-    const { name, address, coordinates, cuisine, menu } = data;
+    const { name, address, coordinates, cuisine, menu, imageUrl } = data;
 
     const newRestaurant = new Restaurant({
       name,
@@ -28,6 +28,7 @@ export async function CreateRestaurantController(req: Request, res: Response) {
       merchant: req.user!._id.toString(),
       cuisine: cuisine || [],
       menu: menu || [],
+      imageUrl,
     });
 
     await newRestaurant.save();
