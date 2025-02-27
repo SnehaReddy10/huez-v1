@@ -31,6 +31,7 @@ function App() {
         <Route path="/offers" element={<Offers />} />
         <Route path="/search" element={<Search />} />
       </Routes>
+      <p>Ok</p>
       {pathname !== '/login' && pathname !== '/register' && <Footer />}
     </div>
   );
