@@ -16,7 +16,7 @@ function App() {
   const { pathname } = useLocation();
 
   return (
-    <div className="flex flex-col selection:bg-orange-500 min-h-screen max-w-screen justify-between">
+    <div className="flex flex-col selection:bg-orange-500 h-screen max-w-screen justify-between">
       <div className="hidden md:flex flex-col">
         <Navbar />
       </div>

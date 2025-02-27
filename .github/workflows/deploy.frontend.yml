@@ -11,35 +11,29 @@ jobs:
   build-and-push:
     runs-on: ubuntu-latest
     steps:
-      - name: Check Out Repo
-        uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-      - name: Log in to Docker Hub
-        uses: docker/login-action@v1
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          node-version: 18
 
-      - name: Build and Push Docker image
-        uses: docker/build-push-action@v2
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
         with:
-          context: ./frontend
-          file: ./frontend/Dockerfile
-          push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/huez-frontend:latest
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
 
-      - name: Verify Pushed Image
-        run: docker pull ${{ secrets.DOCKERHUB_USERNAME }}/huez-frontend:latest
+      - name: Upload to S3
+        run: aws s3 sync ./dist s3://${{ secrets.S3_BUCKET_NAME }} --delete
 
-      - name: Deploy to EC2
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_KEY }}
-          script: |
-            echo "VITE_BACKEND_URL=$(aws ssm get-parameter --name "/huez/prod/VITE_BACKEND_URL" --with-decryption --query "Parameter.Value" --output text)" > .env
-            sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/huez-frontend:latest
-            sudo docker stop huez-frontend || true
-            sudo docker rm huez-frontend || true
-            sudo docker run --restart=always -d --name huez-frontend -p 5174:5174 --env-file .env ${{ secrets.DOCKERHUB_USERNAME }}/huez-frontend:latest
+      - name: Invalidate CloudFront Cache
+        run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"

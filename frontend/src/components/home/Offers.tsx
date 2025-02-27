@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from 'react';
 import Offer from '../Offer';
 import { useGetOffersQuery } from '../../store';
-import Loader from '../loaders/Loader';
 import { ToastContext } from '../../context/ToastContext';
+import Loader from '../common/Loader';
 
 interface Offer {
   id: number;
