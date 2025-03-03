@@ -114,6 +114,22 @@ body::-webkit-scrollbar-thumb:hover {
   background: #070707;
 }
 
+.custom-grid::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-grid::-webkit-scrollbar-track {
+  background: #dfdede;
+}
+
+.custom-grid::-webkit-scrollbar-thumb {
+  background: #373737;
+}
+
+.custom-grid::-webkit-scrollbar-thumb:hover {
+  background: #070707;
+}
+
 @keyframes ease-bounce {
   0%,
   100% {
