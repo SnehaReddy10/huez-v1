@@ -11,7 +11,7 @@ function Hero() {
       />
       <div className="absolute inset-0 text-white font-serif mt-20 md:mt-40">
         <div className="h-screen flex flex-col gap-4 items-center">
-          <p className="text-xs md:text-xl w-48 md:w-96 text-center font-bold">
+          <p className="text-xs md:text-xl w-48 md:w-96 text-center font-bold h-14">
             <Typewriter
               text="Bringing restaurant-quality meals to your table without compromise!"
               delay={60}

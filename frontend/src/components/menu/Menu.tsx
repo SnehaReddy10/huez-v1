@@ -1,13 +1,15 @@
-import { useContext, useEffect, useState } from 'react';
-import TagButton from '../buttons/TagButton';
+import { useContext, useEffect, useRef, useState } from 'react';
+import TagButton from '../buttons/tag-button/TagButton';
 import {
   useAddToCartMutation,
   useGetProductsByCategoryQuery,
   useGetProductsQuery,
+  useGetTagsQuery,
 } from '../../store';
 import { ToastContext } from '../../context/ToastContext';
 import { MenuItem } from './MenuItem';
 import { MenuSkeletonLoader } from '../loaders/MenuSkeletonLoader';
+import { FixedSizeGrid as Grid } from 'react-window';
 
 enum SearchCriteria {
   Veg = 'Veg',
@@ -17,59 +19,107 @@ enum SearchCriteria {
   Asian = 'Asian',
   Desserts = 'Desserts',
   Drinks = 'Drinks',
-  AllMenu = 'All Menu',
+  AllMenu = 'All',
   MainCourse = 'Main Course',
 }
 
-const tags = [
-  {
-    id: 1,
-    label: SearchCriteria.AllMenu,
-  },
-  {
-    id: 2,
-    label: SearchCriteria.MainCourse,
-  },
-  {
-    id: 3,
-    label: SearchCriteria.Desserts,
-  },
-  {
-    id: 4,
-    label: SearchCriteria.Drinks,
-  },
-  {
-    id: 5,
-    label: SearchCriteria.Asian,
-  },
-  {
-    id: 6,
-    label: SearchCriteria.Chinese,
-  },
-];
-
 function Menu() {
   const [addProduct, addProductResults] = useAddToCartMutation();
-  const [searchCriteria, setSearchCriteria] = useState<SearchCriteria | string>(
-    SearchCriteria.AllMenu
-  );
-  let items: any = [];
+  const [menuItems, setMenuItems] = useState<any[]>([]);
+  const gridRef = useRef<any>(null);
+  const [gridHeight, setGridHeight] = useState(window.innerHeight);
+  const [gridWidth, setGridWidth] = useState(window.innerWidth);
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const columnCount = Math.max(1, Math.floor(gridWidth / 605));
+  const rowCount = Math.ceil(menuItems.length / columnCount) + 1;
+  const observerRef = useRef<HTMLDivElement>(null);
+  const toastContext = useContext(ToastContext);
+  const [cursor, setCursor] = useState<string | null>();
+  const [searchCriteria, setSearchCriteria] = useState<{
+    id: number;
+    label: SearchCriteria;
+    type: string;
+  }>({
+    id: 1,
+    label: SearchCriteria.AllMenu,
+    type: 'category',
+  });
+
+  const getQueryFilter = () => {
+    if (searchCriteria.label === SearchCriteria.Veg) {
+      return { isVeg: true };
+    }
+    if (searchCriteria.label === SearchCriteria.Vegan) {
+      return { isVegan: true };
+    }
+    if (searchCriteria.type === 'cuisine') {
+      return { cuisine: searchCriteria.label };
+    }
+    if (searchCriteria.type === 'category') {
+      return { category: searchCriteria.label };
+    }
+    return {};
+  };
+
+  const { data: tags } = useGetTagsQuery({});
+
   const {
     data: products,
     isFetching,
     error: getproductsError,
-  } = useGetProductsQuery({
-    isVeg: searchCriteria == SearchCriteria.Veg,
-    isVegan: searchCriteria == SearchCriteria.Vegan,
-    cuisine: searchCriteria,
-    category: searchCriteria,
-  });
+  } = useGetProductsQuery({ limit: 20, cursor });
+
   const {
+    data: productsByCategory,
     isFetching: isProductsByCategoryFetching,
     error: getproductsByCategoryError,
-  } = useGetProductsByCategoryQuery({});
+  } = useGetProductsByCategoryQuery(getQueryFilter(), {
+    skip: searchCriteria.label === SearchCriteria.AllMenu,
+  });
 
-  const toastContext = useContext(ToastContext);
+  const handleScroll = ({ scrollTop }: { scrollTop: number }) => {
+    const totalHeight = (Math.ceil(menuItems.length / 2) + 1) * 400;
+
+    if (
+      scrollTop + gridHeight >= totalHeight - 100 &&
+      !isFetching &&
+      products?.nextCursor !== cursor
+    ) {
+      setScrollPosition(scrollTop);
+      setCursor(products?.nextCursor);
+    }
+  };
+
+  const Row = ({ columnIndex, rowIndex, style }: any) => {
+    const itemIndex = rowIndex * 2 + columnIndex;
+    if (itemIndex >= menuItems.length) return null;
+
+    return (
+      <div style={{ ...style }}>
+        <MenuItem
+          addProductToCart={addProduct}
+          item={menuItems[itemIndex]}
+          align={rowIndex % 2 === 0 ? 'left' : 'right'}
+        />
+      </div>
+    );
+  };
+
+  useEffect(() => {
+    function handleResize() {
+      setGridHeight(window.innerHeight);
+      setGridWidth(window.innerWidth);
+    }
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    if (observerRef.current) {
+      observerRef.current.scrollTop = scrollPosition;
+    }
+  }, [products]);
 
   useEffect(() => {
     if (!toastContext) {
@@ -102,51 +152,71 @@ function Menu() {
     }
   }, [addProductResults.error, addProductResults, searchCriteria]);
 
-  items = products;
+  useEffect(() => {
+    if (productsByCategory?.data) {
+      setMenuItems(productsByCategory.data);
+    } else if (products?.data) {
+      setMenuItems((prev) => [...prev, ...products.data]);
+    }
+  }, [products, productsByCategory]);
 
   return (
-    <div className={`w-full selection:bg-transparent`}>
+    <div
+      className={`w-full selection:bg-transparent overflow-hidden min-h-screen justify-center items-center`}
+    >
       <div className="flex gap-2 p-4 items-center justify-center">
-        {tags.map((x) => (
+        {tags?.data?.map((x: any) => (
           <TagButton
             label={x.label.toString()}
             key={x.id}
             icon={null}
-            isSelected={x.label === searchCriteria}
-            onClick={() => setSearchCriteria(x.label)}
+            isSelected={x.label === searchCriteria.label}
+            onClick={() => setSearchCriteria(x)}
           />
         ))}
       </div>
       {isFetching || isProductsByCategoryFetching ? (
         <MenuSkeletonLoader />
       ) : (
-        <div className="grid 2xl:grid-cols-2">
-          {items?.data?.map((x: any, i: number) => (
-            <div key={x.id}>
-              {i % 2 === 0 && (
-                <div key={x.id} className="mr-8">
-                  <MenuItem
-                    addProductToCart={addProduct}
-                    item={x}
-                    align="left"
-                  />
-                </div>
-              )}
-              {i % 2 !== 0 && (
-                <div key={x.id} className="flex justify-end items-end">
-                  <MenuItem
-                    addProductToCart={addProduct}
-                    item={x}
-                    className="flex-row-reverse"
-                    align="right"
-                  />
-                </div>
-              )}
+        <div className="w-full h-full">
+          {menuItems.length > 0 ? (
+            <>
+              <Grid
+                className="custom-grid"
+                ref={gridRef}
+                outerRef={observerRef}
+                columnCount={columnCount}
+                columnWidth={gridWidth / columnCount}
+                rowCount={rowCount}
+                rowHeight={400}
+                height={gridHeight}
+                width={gridWidth}
+                onScroll={handleScroll}
+              >
+                {({ columnIndex, rowIndex, style }) => {
+                  const itemIndex = rowIndex * columnCount + columnIndex;
+
+                  if (itemIndex >= menuItems.length) {
+                    return null;
+                  }
+
+                  return (
+                    <Row
+                      columnIndex={columnIndex}
+                      rowIndex={rowIndex}
+                      style={style}
+                    />
+                  );
+                }}
+              </Grid>
+            </>
+          ) : (
+            <div className="flex justify-center items-center">
+              <h1 className="text-2xl">No items found</h1>
             </div>
-          ))}
+          )}
         </div>
       )}
-      <div className="2xl:w-[40%]"></div>
     </div>
   );
 }

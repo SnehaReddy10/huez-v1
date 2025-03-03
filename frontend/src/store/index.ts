@@ -16,6 +16,7 @@ import {
   useGetProductByIdQuery,
   useGetProductsByCategoryQuery,
   useSearchQuery,
+  useGetTagsQuery,
 } from './product/productApi';
 import {
   offerApi,
@@ -62,4 +63,5 @@ export {
   useUpdateOfferMutation,
   useDeleteOfferMutation,
   useSearchQuery,
+  useGetTagsQuery,
 };

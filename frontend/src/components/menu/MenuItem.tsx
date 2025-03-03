@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { twMerge } from 'tailwind-merge';
-import TagButton from '../buttons/TagButton';
 import QuantityControlGroup from '../common/QuantityControlGroup';
 import { FaShoppingCart } from 'react-icons/fa';
+import TagButton from '../buttons/tag-button/TagButton';
 
 export function MenuItem({
   item,
@@ -19,20 +19,21 @@ export function MenuItem({
   return (
     <div
       className={twMerge(
-        `relative m-4 flex w-full justify-between bg-slate-50 rounded-md ${className}`
+        `relative p-2 md:m-4 flex h-full flex-col md:flex-row w-full justify-between bg-slate-50 rounded-md ${className}`
       )}
     >
       <img
         src={item.imageUrl}
         alt={item._id.toString()}
-        className="md:w-64 md:h-56"
+        className="w-full h-1/2 md:w-1/3 md:h-56"
       />
-      <div className={`flex flex-col gap-4 p-4`}>
+      <div className={`w-full md:w-2/3 h-1/2 flex flex-col gap-4 md:p-4`}>
         <h3 className="text-xl font-semibold">{item.name}</h3>
         <p className="text-gray-700 text-xxs">{item.description}</p>
         <div className="flex gap-2">
           {item.tags.map((x: string) => (
             <TagButton
+              key={x.toString()}
               onClick={() => {}}
               label={x}
               icon={null}
@@ -47,8 +48,8 @@ export function MenuItem({
             decrementProductQuantity={() => setQuantity((x) => x - 1)}
             incrementProductQuantity={() => setQuantity((x) => x + 1)}
           />
-          <div className="flex justify-between bg-black-900 items-center px-4 rounded-full py-1">
-            <p className="text-white text-xs font-semibold pr-2 border-r-[1px] border-gray-500">
+          <div className="flex justify-between bg-black-900 items-center px-2 md:px-4 rounded-full py-[2px] md:py-1">
+            <p className="text-white text-xs font-semibold md:pr-2 border-r-[1px] border-gray-500">
               ${item.price}
             </p>
             <p

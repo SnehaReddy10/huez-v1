@@ -17,9 +17,11 @@ export const productApi = createApi({
   endpoints(builder) {
     return {
       getProducts: builder.query({
-        query: () => ({
+        query: ({ cursor, limit }) => ({
           method: 'GET',
-          url: '/',
+          url: cursor
+            ? `/?limit=${limit}&cursor=${cursor}`
+            : `/?limit=${limit}`,
         }),
         providesTags: [{ type: 'cart', id: getToken() ?? '' }],
       }),
@@ -34,7 +36,7 @@ export const productApi = createApi({
 
           return {
             method: 'GET',
-            url: `/?${queryParams.toString()}`,
+            url: `filter?${queryParams.toString()}`,
           };
         },
         providesTags: [{ type: 'cart', id: getToken() ?? '' }],
@@ -51,6 +53,12 @@ export const productApi = createApi({
           url: `/search?query=${searchQuery}`,
         }),
       }),
+      getTags: builder.query({
+        query: () => ({
+          method: 'GET',
+          url: '/tags',
+        }),
+      }),
     };
   },
 });
@@ -60,4 +68,5 @@ export const {
   useGetProductByIdQuery,
   useGetProductsByCategoryQuery,
   useSearchQuery,
+  useGetTagsQuery,
 } = productApi;
