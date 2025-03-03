@@ -11,22 +11,22 @@ export const GetProductsByCategoryController = async (
   try {
     const { isVeg, isVegan, cuisine, category } = req.query;
 
-    const filter: any = {};
+    const filter: any = { $or: [] };
 
-    if (isVeg !== undefined) {
-      filter.isVeg = isVeg === 'true';
-    }
-    if (isVegan !== undefined) {
-      filter.isVegan = isVegan === 'true';
-    }
     if (cuisine) {
-      filter.cuisine = cuisine;
+      filter.$or.push({ cuisine: cuisine });
     }
     if (category) {
-      filter.category = category;
+      filter.$or.push({
+        category: category,
+      });
     }
 
-    const menuItems = await MenuItem.find(filter);
+    if (filter.$or.length === 0) {
+      delete filter.$or;
+    }
+
+    const menuItems = await MenuItem.find(filter).limit(20);
 
     let cartItems: any = [];
 
