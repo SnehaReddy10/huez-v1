@@ -43,7 +43,6 @@ function Restaurants() {
   const radius = 10;
   const dots = Array.from({ length: dotCount }, (_, i) => {
     const angle = (i / dotCount) * 2 * Math.PI + (3 * Math.PI) / 2; // Spread dots evenly
-    console.log({ angle });
     const cx = 0 + radius * Math.cos(angle); // x-coordinate
     const cy = 10 + radius * Math.sin(angle); // y-coordinate
     return { x: cx, y: cy };
