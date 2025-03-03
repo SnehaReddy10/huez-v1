@@ -1,5 +1,5 @@
 import { FaShoppingCart } from 'react-icons/fa';
-import PrimaryButton from './buttons/PrimaryButton';
+import PrimaryButton from './buttons/primary-button/PrimaryButton';
 import { useState } from 'react';
 
 const similarItems = [

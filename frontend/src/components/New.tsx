@@ -1,5 +1,5 @@
 import { LiaShippingFastSolid } from 'react-icons/lia';
-import PrimaryButton from './buttons/PrimaryButton';
+import PrimaryButton from './buttons/primary-button/PrimaryButton';
 
 function New() {
   return (

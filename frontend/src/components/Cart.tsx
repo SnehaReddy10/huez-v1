@@ -5,7 +5,7 @@ import {
   useIncrementProductQuantityMutation,
   useRemoveFromCartMutation,
 } from '../store';
-import PrimaryButton from './buttons/PrimaryButton';
+import PrimaryButton from './buttons/primary-button/PrimaryButton';
 import QuantityControlGroup from './common/QuantityControlGroup';
 
 function Cart() {

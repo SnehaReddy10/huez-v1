@@ -1,4 +1,4 @@
-import PrimaryButton from './buttons/PrimaryButton';
+import PrimaryButton from './buttons/primary-button/PrimaryButton';
 
 function Offer({ offer }: any) {
   return (

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { FaStar } from 'react-icons/fa';
-import PrimaryButton from '../buttons/PrimaryButton';
+import PrimaryButton from '../buttons/primary-button/PrimaryButton';
 import { reviews } from '../../static';
 
 export default function CustomerReviews() {

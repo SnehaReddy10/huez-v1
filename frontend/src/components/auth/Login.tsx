@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import PrimaryButton from '../buttons/PrimaryButton';
+import PrimaryButton from '../buttons/primary-button/PrimaryButton';
 import TertiaryInput from '../inputs/TertiaryInput';
 import { useLoginMutation } from '../../store';
 import { useForm } from 'react-hook-form';
