@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-import { z } from 'zod';
 import mongoose from 'mongoose';
 import { ErrorMessages } from '../../constants/error-messages';
 import { StatusCodes } from '../../constants/status-codes';

@@ -1,6 +1,10 @@
 import { Request, Response } from 'express';
 import { StatusCodes } from '../../constants/status-codes';
-import { Cuisine, MenuItemCategory } from '../../constants/enums/menu-item';
+import {
+  Cuisine,
+  MenuItemCategory,
+  TagIcons,
+} from '../../constants/enums/menu-item';
 
 export const GetTagsController = async (req: Request, res: Response) => {
   try {
@@ -10,33 +14,21 @@ export const GetTagsController = async (req: Request, res: Response) => {
           id: index + 2,
           label: category,
           type: 'category',
+          icon: TagIcons[category],
         }))
         .slice(0, 4),
 
       ...Object.values(Cuisine)
         .map((cuisine, index) => ({
           id: Object.values(MenuItemCategory).length + index + 1,
-          label: cuisine,
+          label:
+            cuisine.charAt(0).toUpperCase() + cuisine.slice(1).toLowerCase(),
           type: 'cuisine',
+          icon: TagIcons[
+            cuisine.charAt(0).toUpperCase() + cuisine.slice(1).toLowerCase()
+          ],
         }))
         .slice(0, 4),
-
-      {
-        id:
-          Object.values(MenuItemCategory).length +
-          Object.values(Cuisine).length +
-          1,
-        label: 'Veg',
-        type: 'veg',
-      },
-      {
-        id:
-          Object.values(MenuItemCategory).length +
-          Object.values(Cuisine).length +
-          2,
-        label: 'Vegan',
-        type: 'vegan',
-      },
     ];
 
     res.status(StatusCodes.OK).json({
@@ -46,6 +38,7 @@ export const GetTagsController = async (req: Request, res: Response) => {
           id: 1,
           label: 'All',
           type: 'category',
+          icon: TagIcons['All'],
         },
         ...tags,
       ],
