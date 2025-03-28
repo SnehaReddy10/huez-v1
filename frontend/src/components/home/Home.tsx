@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import Carousel from '../common/Carousel';
 import Reviews from './CustomerReviews';
 import Hero from './Hero';
@@ -38,6 +39,7 @@ const items = [
 ];
 
 function Home() {
+  const navigate = useNavigate();
   return (
     <div className="flex flex-col pb-20">
       <div className="flex-1 flex flex-col gap-10 items-center justify-center">
@@ -47,7 +49,11 @@ function Home() {
           children={
             <>
               {items?.map((x: any, idx: any) => (
-                <div key={idx} className="relative w-24 h-24 shrink-0">
+                <div
+                  key={idx}
+                  className="relative w-24 h-24 shrink-0"
+                  onClick={() => navigate('/menu')}
+                >
                   <img
                     src={x.url}
                     alt={`Item ${idx}`}
