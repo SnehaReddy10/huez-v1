@@ -25,9 +25,9 @@ export function MenuItem({
       <img
         src={item.imageUrl}
         alt={item._id.toString()}
-        className="w-full h-1/2 md:w-1/3 md:h-56"
+        className="w-full h-1/2 md:w-1/2 md:h-56"
       />
-      <div className={`w-full md:w-2/3 h-1/2 flex flex-col gap-4 md:p-4`}>
+      <div className={`w-full md:w-1/2 h-1/2 flex flex-col gap-4 md:p-4`}>
         <h3 className="text-xl font-semibold">{item.name}</h3>
         <p className="text-gray-700 text-xxs">{item.description}</p>
         <div className="flex gap-2">

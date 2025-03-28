@@ -48,9 +48,13 @@ export const productApi = createApi({
         }),
       }),
       search: builder.query({
-        query: (searchQuery) => ({
+        query: ({ searchQuery, menuCursor, restaurantCursor, limit = 20 }) => ({
           method: 'GET',
-          url: `/search?query=${searchQuery}`,
+          url: `/search?query=${searchQuery}${
+            menuCursor ? `&menuCursor=${menuCursor}` : ''
+          }${
+            restaurantCursor ? `&restaurantCursor=${restaurantCursor}` : ''
+          }&limit=${limit}`,
         }),
       }),
       getTags: builder.query({

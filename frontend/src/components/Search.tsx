@@ -7,8 +7,25 @@ import { IoLocationOutline } from 'react-icons/io5';
 
 function Search() {
   const [searchString, setSearchString] = useState('');
+  const [menuCursor, setMenuCursor] = useState('');
+  const [restaurantCursor, setRestaurantCursor] = useState('');
   const [loading, setLoading] = useState(false);
-  let { data: searchResult, isFetching } = useSearchQuery(searchString);
+  const { data: searchResult, isFetching } = useSearchQuery({
+    searchQuery: searchString,
+    menuCursor,
+    restaurantCursor,
+  });
+
+  const loadMore = () => {
+    if (searchResult?.nextMenuCursor) {
+      setMenuCursor(searchResult.nextMenuCursor);
+    }
+    if (searchResult?.nextRestaurantCursor) {
+      setRestaurantCursor(searchResult.nextRestaurantCursor);
+    }
+  };
+
+  console.log({ searchResult });
 
   useEffect(() => {
     if (searchString) {
@@ -34,7 +51,15 @@ function Search() {
           searchResult.restaurants?.length === 0 ? (
             <div>No Search Result Found</div>
           ) : (
-            <SearchResult searchResult={searchResult} />
+            <>
+              <SearchResult searchResult={searchResult} />
+              <button
+                onClick={loadMore}
+                className="bg-primary text-white px-4 py-2 rounded-lg"
+              >
+                Load more
+              </button>
+            </>
           )}
         </>
       )}

@@ -10,6 +10,8 @@ import { ToastContext } from '../../context/ToastContext';
 import { MenuItem } from './MenuItem';
 import { MenuSkeletonLoader } from '../loaders/MenuSkeletonLoader';
 import { FixedSizeGrid as Grid } from 'react-window';
+import { getToken } from '../../utitlities';
+import ProductNotFound from './ProductNotFound';
 
 enum SearchCriteria {
   Veg = 'Veg',
@@ -31,10 +33,11 @@ function Menu() {
   const [gridWidth, setGridWidth] = useState(window.innerWidth);
   const [scrollPosition, setScrollPosition] = useState(0);
   const columnCount = Math.max(1, Math.floor(gridWidth / 605));
-  const rowCount = Math.ceil(menuItems.length / columnCount) + 1;
+  const rowCount = Math.ceil(menuItems?.length / columnCount) + 1;
   const observerRef = useRef<HTMLDivElement>(null);
   const toastContext = useContext(ToastContext);
   const [cursor, setCursor] = useState<string | null>();
+  const [token] = useState(getToken());
   const [searchCriteria, setSearchCriteria] = useState<{
     id: number;
     label: SearchCriteria;
@@ -53,7 +56,7 @@ function Menu() {
       return { isVegan: true };
     }
     if (searchCriteria.type === 'cuisine') {
-      return { cuisine: searchCriteria.label };
+      return { cuisine: searchCriteria.label?.toLowerCase() };
     }
     if (searchCriteria.type === 'category') {
       return { category: searchCriteria.label };
@@ -97,12 +100,19 @@ function Menu() {
     return (
       <div style={{ ...style }}>
         <MenuItem
-          addProductToCart={addProduct}
+          addProductToCart={token ? addProduct : addToCart}
           item={menuItems[itemIndex]}
           align={rowIndex % 2 === 0 ? 'left' : 'right'}
         />
       </div>
     );
+  };
+
+  const addToCart = (product: any) => {
+    console.log('cart');
+    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    cart.push(product);
+    localStorage.setItem('cart', JSON.stringify(cart));
   };
 
   useEffect(() => {
@@ -136,11 +146,8 @@ function Menu() {
         (addProductResults.error as any) ??
         (getproductsError as any) ??
         (getproductsByCategoryError as any);
-      showToast(
-        r?.data?.message ?? r?.data?.error?.length > 0 ?? r.data.error[0],
-        'error',
-        'right-0 top-10'
-      );
+      const error = r?.data?.message ?? r?.data?.error ?? r?.data.error[0];
+      showToast(error, 'error', 'right-0 top-10');
     }
 
     if (addProductResults.isSuccess) {
@@ -153,25 +160,26 @@ function Menu() {
   }, [addProductResults.error, addProductResults, searchCriteria]);
 
   useEffect(() => {
-    if (productsByCategory?.data) {
-      setMenuItems(productsByCategory.data);
+    if (searchCriteria.label !== SearchCriteria.AllMenu) {
+      setMenuItems(productsByCategory?.data);
     } else if (products?.data) {
       setMenuItems((prev) => [...prev, ...products.data]);
     }
-  }, [products, productsByCategory]);
+  }, [products, productsByCategory, searchCriteria]);
 
   return (
     <div
       className={`w-full selection:bg-transparent overflow-hidden min-h-screen justify-center items-center`}
     >
-      <div className="flex gap-2 p-4 items-center justify-center">
+      <div className="flex gap-3 p-4 items-center justify-center">
         {tags?.data?.map((x: any) => (
           <TagButton
             label={x.label.toString()}
             key={x.id}
-            icon={null}
+            icon={x.icon}
             isSelected={x.label === searchCriteria.label}
             onClick={() => setSearchCriteria(x)}
+            className="px-2 py-4 text-wrap w-14"
           />
         ))}
       </div>
@@ -179,7 +187,7 @@ function Menu() {
         <MenuSkeletonLoader />
       ) : (
         <div className="w-full h-full">
-          {menuItems.length > 0 ? (
+          {menuItems?.length > 0 ? (
             <>
               <Grid
                 className="custom-grid"
@@ -211,9 +219,7 @@ function Menu() {
               </Grid>
             </>
           ) : (
-            <div className="flex justify-center items-center">
-              <h1 className="text-2xl">No items found</h1>
-            </div>
+            <ProductNotFound />
           )}
         </div>
       )}
