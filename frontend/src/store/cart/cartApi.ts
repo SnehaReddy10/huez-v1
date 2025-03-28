@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { getToken } from '../../utitlities';
+import { clearCart, getCart, getToken } from '../../utitlities';
 
 export const cartApi = createApi({
   reducerPath: 'cart',
@@ -61,6 +61,35 @@ export const cartApi = createApi({
         }),
         invalidatesTags: () => [{ type: 'cart', id: getToken() ?? '' }],
       }),
+
+      syncCartOnLogin: builder.mutation({
+        query: () => {
+          const cart = JSON.parse(getCart() || '[]');
+
+          if (cart.length === 0) {
+            return {
+              method: 'POST',
+              url: '/sync',
+              body: { cart: [] },
+            };
+          }
+
+          return {
+            method: 'POST',
+            url: '/sync',
+            body: { cart },
+          };
+        },
+        invalidatesTags: () => [{ type: 'cart', id: getToken() ?? '' }],
+        async onQueryStarted(_, { queryFulfilled }) {
+          try {
+            await queryFulfilled;
+            clearCart();
+          } catch (error) {
+            console.error('Cart sync failed', error);
+          }
+        },
+      }),
     };
   },
 });
@@ -72,4 +101,5 @@ export const {
   useRemoveFromCartMutation,
   useIncrementProductQuantityMutation,
   useDecrementProductQuantityMutation,
+  useSyncCartOnLoginMutation,
 } = cartApi;

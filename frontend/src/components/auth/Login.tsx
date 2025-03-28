@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import PrimaryButton from '../buttons/primary-button/PrimaryButton';
 import TertiaryInput from '../inputs/TertiaryInput';
-import { useLoginMutation } from '../../store';
+import { useLoginMutation, useSyncCartOnLoginMutation } from '../../store';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useContext, useEffect } from 'react';
@@ -11,6 +11,7 @@ import { setToken } from '../../utitlities';
 
 function Login() {
   const [login, results] = useLoginMutation();
+  const [syncCartOnLogin] = useSyncCartOnLoginMutation();
   const toastContext = useContext(ToastContext);
 
   const {
@@ -38,18 +39,21 @@ function Login() {
 
   const navigate = useNavigate();
 
-  if (results.isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (results.isSuccess) {
-    setToken(results.data?.token);
-    navigate('/');
-  }
+  useEffect(() => {
+    if (results.isSuccess) {
+      setToken(results.data?.token);
+      syncCartOnLogin({});
+      navigate('/');
+    }
+  }, [results.isSuccess]);
 
   const handleLogin = (data: any) => {
     login(data);
   };
+
+  if (results.isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="h-full flex flex-col md:flex-row justify-between items-center">

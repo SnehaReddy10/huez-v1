@@ -8,6 +8,7 @@ import {
   useRemoveFromCartMutation,
   useIncrementProductQuantityMutation,
   useDecrementProductQuantityMutation,
+  useSyncCartOnLoginMutation,
 } from './cart/cartApi';
 import { setupListeners } from '@reduxjs/toolkit/query';
 import {
@@ -64,4 +65,5 @@ export {
   useDeleteOfferMutation,
   useSearchQuery,
   useGetTagsQuery,
+  useSyncCartOnLoginMutation,
 };

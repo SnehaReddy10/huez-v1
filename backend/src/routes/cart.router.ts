@@ -6,6 +6,7 @@ import { DeleteCartController } from '../controllers/cart/delete-cart.controller
 import { GetCartController } from '../controllers/cart/get-cart.controller';
 import { DecrementProductQuantityController } from '../controllers/cart/decrement-product-quantity.controller';
 import { IncrementProductQuantityController } from '../controllers/cart/increment-product-quantity.controller';
+import { SyncCartOnLoginController } from '../controllers/cart/sync-cart-on-login.controller';
 
 export const cartRouter = Router();
 
@@ -16,3 +17,4 @@ cartRouter.post('/product/increment', IncrementProductQuantityController);
 cartRouter.post('/product/decrement', DecrementProductQuantityController);
 cartRouter.delete('/product/:menuItemId', DeleteProductFromCartController);
 cartRouter.delete('/', DeleteCartController);
+cartRouter.post('/sync', SyncCartOnLoginController);

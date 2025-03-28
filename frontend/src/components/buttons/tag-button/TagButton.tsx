@@ -16,17 +16,25 @@ function TagButton({
   return (
     <div
       onClick={onClick}
-      className={twMerge(`flex items-center justify-center w-max border-2
-      hover:border-orange-500 px-4 py-1
+      className={twMerge(`flex flex-col gap-4 items-center justify-center w-max border-[1px]
+      hover:border-orange-500
        ${
          isSelected
-           ? 'border-orange-500 px-4 py-1'
+           ? 'bg-orange-500 border-orange-500 px-4 py-1 text-white'
            : 'border-gray-300 px-4 py-1'
-       } rounded-full 
-       text-xxs font-semibold transition-all ease ${className} text-xxs`)}
+       } rounded-full
+       font-semibold transition-all ease ${className} text-xxs`)}
     >
-      {label}
-      {icon}
+      {icon && (
+        <img
+          src={icon}
+          alt=""
+          className={`w-8 h-8 p-1 border-[2px] border-gray-100 rounded-full ${
+            isSelected ? 'bg-white' : ''
+          }`}
+        />
+      )}
+      <p className={`${isSelected ? 'text-white' : ''}`}>{label}</p>
     </div>
   );
 }
