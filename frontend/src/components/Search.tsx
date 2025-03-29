@@ -10,11 +10,14 @@ function Search() {
   const [menuCursor, setMenuCursor] = useState('');
   const [restaurantCursor, setRestaurantCursor] = useState('');
   const [loading, setLoading] = useState(false);
-  const { data: searchResult, isFetching } = useSearchQuery({
-    searchQuery: searchString,
-    menuCursor,
-    restaurantCursor,
-  });
+  const { data: searchResult, isFetching } = useSearchQuery(
+    {
+      searchQuery: searchString,
+      menuCursor,
+      restaurantCursor,
+    },
+    { skip: !searchString }
+  );
 
   const loadMore = () => {
     if (searchResult?.nextMenuCursor) {
