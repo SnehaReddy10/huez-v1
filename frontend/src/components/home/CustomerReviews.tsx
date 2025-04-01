@@ -15,12 +15,10 @@ export default function CustomerReviews() {
   };
 
   return (
-    <div className="flex flex-col gap-4 items-center justify-center">
-      <h2 className="md:text-2xl font-semibold">Customer Reviews</h2>
-      <p className="text-gray-500 text-xs">
-        See what our customers are saying about our food delivery service.
-      </p>
-
+    <div className="flex flex-col gap-8 items-center justify-center py-10">
+      <h2 className="md:text-xl font-semibold">
+        See what our customers has to say
+      </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {[index, (index + 1) % reviews.length].map((i) => (
           <div
@@ -60,7 +58,7 @@ export default function CustomerReviews() {
 
       <div className="w-screen md:w-80 h-[2px] bg-gray-200 rounded-full overflow-hidden">
         <div
-          className="h-[2px] bg-blue-500 transition-all"
+          className="h-[2px] bg-orange-500 transition-all"
           style={{ width: `${((index + 2) / reviews.length) * 100}%` }}
         ></div>
       </div>
