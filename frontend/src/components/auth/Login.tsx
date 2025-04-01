@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import PrimaryButton from '../buttons/primary-button/PrimaryButton';
 import TertiaryInput from '../inputs/TertiaryInput';
 import { useLoginMutation, useSyncCartOnLoginMutation } from '../../store';
@@ -14,6 +14,9 @@ function Login() {
   const [syncCartOnLogin] = useSyncCartOnLoginMutation();
   const toastContext = useContext(ToastContext);
 
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const {
     register,
     handleSubmit,
@@ -22,6 +25,9 @@ function Login() {
   } = useForm({
     mode: 'onBlur',
     resolver: yupResolver(loginSchema),
+    defaultValues: {
+      email: location.state?.email || '',
+    },
   });
 
   useEffect(() => {
@@ -36,8 +42,6 @@ function Login() {
       reset();
     }
   }, [results.error, reset]);
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (results.isSuccess) {

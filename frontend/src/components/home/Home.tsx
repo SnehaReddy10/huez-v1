@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import Carousel from '../common/Carousel';
 import Reviews from './CustomerReviews';
 import Hero from './Hero';
+import DiscountCard from './DiscountCard';
 
 const items = [
   {
@@ -67,6 +68,7 @@ function Home() {
         />
         {/* <Offers /> */}
         <Reviews />
+        <DiscountCard />
       </div>
     </div>
   );
