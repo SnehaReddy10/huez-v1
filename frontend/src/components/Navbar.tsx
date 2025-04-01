@@ -1,5 +1,5 @@
 import { FaShoppingCart } from 'react-icons/fa';
-import { IoIosRestaurant, IoMdInformationCircle } from 'react-icons/io';
+import { IoMdInformationCircle } from 'react-icons/io';
 import { IoHome } from 'react-icons/io5';
 import { MdLocalOffer, MdMenuBook } from 'react-icons/md';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -13,12 +13,12 @@ const navItems = [
     path: '/',
     icon: <IoHome color="white" size={15} fill="white" />,
   },
-  {
-    id: 2,
-    label: 'Restaurants',
-    path: '/restaurants',
-    icon: <IoIosRestaurant color="white" size={20} fill="white" />,
-  },
+  // {
+  //   id: 2,
+  //   label: 'Restaurants',
+  //   path: '/restaurants',
+  //   icon: <IoIosRestaurant color="white" size={20} fill="white" />,
+  // },
   {
     id: 3,
     label: 'Menu',
