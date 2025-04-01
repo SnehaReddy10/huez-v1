@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 
 function Carousel({
@@ -9,19 +9,35 @@ function Carousel({
   children: any;
 }) {
   const [index, setIndex] = useState(0);
-  const itemWidth = 200;
-  const visibleItems = 3;
+  const [visibleItems, setVisibleCount] = useState(0);
+  const itemWidth = window.innerWidth <= 600 ? 6 : 3; // Adjust item width based on screen size
+  const totalCarouselWidth: number = totalItems * itemWidth;
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 600) {
+        setVisibleCount(2);
+      } else if (window.innerWidth <= 900) {
+        setVisibleCount(2);
+      } else {
+        setVisibleCount(5);
+      }
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const handleRightArrowClick = () => {
-    setIndex((prevIndex) =>
-      prevIndex < totalItems - visibleItems ? prevIndex + 1 : 0
-    );
+    if (index * itemWidth < totalCarouselWidth - itemWidth) {
+      setIndex((prevIndex) => prevIndex + 1);
+    }
   };
 
   const handleLeftArrowClick = () => {
-    setIndex((prevIndex) =>
-      prevIndex > 0 ? prevIndex - 1 : totalItems - visibleItems
-    );
+    if (index > 0) {
+      setIndex((prevIndex) => prevIndex - 1);
+    }
   };
 
   return (
@@ -35,11 +51,11 @@ function Carousel({
         </button>
       )}
 
-      <div className="w-1/2 overflow-hidden relative">
+      <div className="w-2/3 overflow-hidden relative">
         <div
           className="flex gap-4 transition-transform duration-300 ease-out"
           style={{
-            transform: `translateX(-${index * itemWidth}px)`,
+            transform: `translateX(-${index * itemWidth}rem)`,
           }}
         >
           {children}
