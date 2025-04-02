@@ -23,6 +23,9 @@ jobs:
         run: npm install
         working-directory: frontend
 
+      - name: Inject Environment Variables
+        run: echo "VITE_BACKEND_URL=${{ secrets.VITE_BACKEND_URL }}" >> .env
+
       - name: Build project
         run: npm run build
         working-directory: frontend
