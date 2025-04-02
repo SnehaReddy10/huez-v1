@@ -154,10 +154,14 @@ function ProductInfo({ item }: any) {
 function EmptyCart() {
   const navigate = useNavigate();
   return (
-    <div className="py-20 px-5 animate-fadeIn flex flex-col gap-4 justify-center items-center w-full">
+    <div className="text-xs py-24 px-5 animate-fadeIn flex flex-col gap-4 justify-center items-center w-full">
       <CartLoader />
-      <h2> Your Cart is Empty</h2>
-      <p>Looks like you haven't added anything to your cart yet.</p>
+      <div className="flex flex-col gap-1 items-center">
+        <h2 className="font-bold"> Your Cart is Empty</h2>
+        <p className="text-gray-600">
+          Looks like you haven't added anything to your cart yet.
+        </p>
+      </div>
       <PrimaryButton
         label={'Add Products'}
         onClickHandler={() => {
