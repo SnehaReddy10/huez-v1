@@ -16,7 +16,7 @@ function TagButton({
   return (
     <div
       onClick={onClick}
-      className={twMerge(`flex flex-col gap-4 items-center justify-center w-max border-[1px]
+      className={twMerge(`flex gap-2 items-center justify-center w-max border-[1px]
       hover:border-orange-500
        ${
          isSelected
@@ -29,7 +29,7 @@ function TagButton({
         <img
           src={icon}
           alt=""
-          className={`w-8 h-8 p-1 border-[2px] border-gray-100 rounded-full ${
+          className={`w-6 h-6 p-1 border-[2px] border-gray-100 rounded-full ${
             isSelected ? 'bg-white' : ''
           }`}
         />

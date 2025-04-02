@@ -179,7 +179,7 @@ function Menu() {
             icon={x.icon}
             isSelected={x.label === searchCriteria.label}
             onClick={() => setSearchCriteria(x)}
-            className="px-2 py-4 text-wrap w-14"
+            className="px-1 py-1 text-wrap md:w-[5.5rem]"
           />
         ))}
       </div>
