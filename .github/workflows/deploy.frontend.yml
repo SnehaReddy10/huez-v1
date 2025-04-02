@@ -33,6 +33,9 @@ jobs:
         run: npm run build
         working-directory: frontend
 
+      - name: Print Environment Variables after build
+        run: cat .env
+
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
