@@ -16,9 +16,16 @@ export default function CustomerReviews() {
 
   return (
     <div className="flex flex-col gap-8 items-center justify-center py-10">
-      <h2 className="md:text-xl font-semibold">
-        See what our customers has to say
-      </h2>
+      <div className="flex flex-col gap-2 w-[60%] text-center">
+        <h2 className="md:text-2xl font-serif font-bold">
+          See what our customers has to say
+        </h2>
+        <p className="text-xs text-gray-600">
+          Real stories, real flavors, and unforgettable experiences! See what
+          our amazing customers have to say about their favorite dishes and
+          dining moments with us!"
+        </p>
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {[index, (index + 1) % reviews.length].map((i) => (
           <div
