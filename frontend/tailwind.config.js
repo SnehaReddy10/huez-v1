@@ -8,6 +8,7 @@ export default {
           900: '#1E201E',
         },
         orange: {
+          200: '#e85956',
           500: '#FF7F3E',
         },
         brown: {
