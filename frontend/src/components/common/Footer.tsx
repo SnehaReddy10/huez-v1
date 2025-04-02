@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 export default function Footer() {
   return (
     <footer className="w-full flex items-center justify-center">
-      <div className="bg-black-900 text-white py-4 text-xs w-[90%] rounded-t-lg">
+      <div className="bg-black-900 text-white py-4 text-xs w-full">
         <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-6">
           <div>
             <h2 className="text-sm font-bold mb-3">Huez</h2>
