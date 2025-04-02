@@ -51,7 +51,7 @@ function Carousel({
         </button>
       )}
 
-      <div className="w-2/3 overflow-hidden relative">
+      <div className="w-[40%] overflow-hidden relative">
         <div
           className="flex gap-4 transition-transform duration-300 ease-out"
           style={{
