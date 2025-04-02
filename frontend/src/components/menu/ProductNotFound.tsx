@@ -37,7 +37,7 @@ const items = [
 
 export default function ProductNotFound() {
   return (
-    <div className="flex flex-col items-center justify-center gap-3 min-h-screen bg-gray-100 p-6 text-xs">
+    <div className="flex flex-col items-center gap-3 min-h-screen bg-gray-100 p-14 text-xs">
       <ConfusedChef />
 
       <h2 className="text-2xl font-bold text-gray-800">

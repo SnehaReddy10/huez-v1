@@ -30,8 +30,8 @@ export default function ConfusedChef() {
   return (
     <div className="flex flex-col items-center justify-center h-min">
       <motion.svg
-        width="300"
-        height="300"
+        width="150"
+        height="150"
         viewBox="0 0 400 400"
         initial="hidden"
         animate="visible"
