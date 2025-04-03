@@ -27,7 +27,6 @@ jobs:
         run: |
           touch .env.production
           echo "VITE_BACKEND_URL=${{ secrets.VITE_BACKEND_URL }}" >> .env.production
-          echo "VITE_BACKEND_API=${{ secrets.hello }}" >> .env.production
           cat .env.production
 
       - name: Print Environment Variables
@@ -35,6 +34,8 @@ jobs:
 
       - name: Build project
         run: npm run build
+        env:
+          VITE_BACKEND_URL: ${{secrets.VITE_BACKEND_URL}}
         working-directory: frontend
 
       - name: Print Environment Variables after build
