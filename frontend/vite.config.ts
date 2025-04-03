@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react';
 
 // https://vite.dev/config/
 export default ({ mode }: any) => {
+  console.log({ mode });
   process.env = { ...process.env, ...loadEnv(mode, process.cwd()) };
 
   return defineConfig({
