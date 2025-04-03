@@ -7,7 +7,7 @@ export const MenuItem = ({ item, addProductToCart }: any) => {
   const [quantity, setQuantity] = useState(1);
 
   return (
-    <div className="bg-white shadow-lg rounded-sm p-4 w-64">
+    <div className="bg-white shadow-lg rounded-sm p-4 max-md:w-full w-64">
       <img
         src={item.imageUrl}
         alt={item.name}

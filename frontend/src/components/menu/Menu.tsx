@@ -160,7 +160,7 @@ function Menu() {
       <div
         className={`w-full selection:bg-transparent overflow-hidden min-h-screen justify-center items-center`}
       >
-        <div className="flex gap-3 p-4 items-center justify-center">
+        <div className="hidden md:flex gap-3 p-4 items-center justify-center">
           {tags?.data?.map((x: any) => (
             <TagButton
               label={x.label.toString()}

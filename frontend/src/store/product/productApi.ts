@@ -1,7 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { getToken } from '../../utitlities';
 
-console.log({ backendUrl: import.meta.env.VITE_BACKEND_URL, true: 0 });
 export const productApi = createApi({
   reducerPath: 'product',
   baseQuery: fetchBaseQuery({
