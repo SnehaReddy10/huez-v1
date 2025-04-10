@@ -20,7 +20,9 @@ export const Checkbox = ({
       />
 
       {checked ? <IoIosCheckbox /> : <MdCheckBoxOutlineBlank color="gray" />}
-      <span className="ml-2 text-black text-sm">{label}</span>
+      <span className="ml-2 text-black text-xs font-medium tracking-tight">
+        {label}
+      </span>
     </label>
   );
 };
