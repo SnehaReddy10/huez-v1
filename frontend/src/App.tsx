@@ -12,9 +12,9 @@ import Footer from './components/common/Footer';
 import Offers from './components/home/Offers';
 import Search from './components/Search';
 import ErrorBoundary from './components/ErrorBoundary';
-import CheckoutForm from './components/checkout/CheckoutForm';
 import PaymentStatus from './components/checkout/PaymentStatus';
 import OrderConfirmation from './components/checkout/OrderConfirmation';
+import CheckoutPage from './components/checkout/CheckoutPage';
 
 function App() {
   const { pathname } = useLocation();
@@ -39,7 +39,7 @@ function App() {
             <Route path="/offers" element={<Offers />} />
             <Route path="/search" element={<Search />} />
             <Route path="/order-confirmed" element={<OrderConfirmation />} />
-            <Route path="/checkout" element={<CheckoutForm />} />
+            <Route path="/checkout" element={<CheckoutPage />} />
             <Route path="/return" element={<PaymentStatus />} />
             {/* <Route path="/checkout" element={<Checkout />} /> */}
           </Routes>
