@@ -7,8 +7,13 @@ import {
 } from '../store';
 import PrimaryButton from './buttons/primary-button/PrimaryButton';
 import QuantityControlGroup from './common/QuantityControlGroup';
+import { IoAdd, IoRemove } from 'react-icons/io5';
+import { twMerge } from 'tailwind-merge';
+import { useNavigate } from 'react-router-dom';
+import CartLoader from './cart/CartLoader';
 
 function Cart() {
+  const navigate = useNavigate();
   const { data: cart } = useGetCartQuery({});
   const [deleteProduct] = useRemoveFromCartMutation();
   const [incrementProductQuantity] = useIncrementProductQuantityMutation();
@@ -59,7 +64,7 @@ function Cart() {
   return (
     <>
       {rows.length > 0 ? (
-        <div className="flex max-sm:flex-col animate-slideIn">
+        <div className="flex max-xl:flex-col animate-slideIn">
           <div className="flex flex-col items-center md:w-[70%] py-10 px-5 lg:px-10">
             <div className="flex justify-between items-center w-full">
               <h2 className="text-xl">Shopping cart</h2>
@@ -75,7 +80,7 @@ function Cart() {
                 title=""
                 headers={headers}
                 rows={rows}
-                className={`hidden md:flex`}
+                className={`hidden xl:flex`}
               />
             ) : (
               <EmptyCart />
@@ -85,11 +90,11 @@ function Cart() {
               items={cart?.data?.items ?? []}
               onDecrement={decrementProductQuantity}
               onIncrement={incrementProductQuantity}
-              className={`flex md:hidden`}
+              className={`flex xl:hidden`}
             />
           </div>
           {rows.length > 0 && (
-            <div className="max-h-[20rem] min-h-[20rem] bg-gray-100 md:w-[30%] py-10 px-5 lg:px-10 flex flex-col justify-between">
+            <div className="max-h-[20rem] min-h-28 bg-gray-100 xl:w-[30%] py-10 px-5 lg:px-10 flex flex-col justify-between">
               <div className="flex flex-col gap-10">
                 <h3 className="text-black text-xl">Summary</h3>
 
@@ -124,12 +129,14 @@ function Cart() {
                 </div>
                 <PrimaryButton
                   label={'Checkout'}
-                  onClickHandler={() => {}}
+                  onClickHandler={() => {
+                    navigate('/checkout', { state: { cart } });
+                  }}
                   className="w-full py-1"
                 />
               </div>
             </div>
-          )}
+          )}{' '}
         </div>
       ) : (
         <EmptyCart />
@@ -140,11 +147,11 @@ function Cart() {
 
 function ProductInfo({ item }: any) {
   return (
-    <div className="flex gap-6 items-center">
+    <div className="flex gap-4 xl:gap-6 items-center">
       <img
         src={item.menuItem.imageUrl}
         alt={item.menuItem.name}
-        className="h-20 w-32"
+        className="xl:h-20 xl:w-32 h-20 w-20 object-cover"
       />
       <p>{item.menuItem.name}</p>
     </div>
@@ -172,11 +179,6 @@ function EmptyCart() {
     </div>
   );
 }
-
-import { IoAdd, IoRemove } from 'react-icons/io5';
-import { twMerge } from 'tailwind-merge';
-import { useNavigate } from 'react-router-dom';
-import CartLoader from './cart/CartLoader';
 
 interface CartProps {
   items: any[];
