@@ -134,7 +134,7 @@ function Menu() {
         (addProductResults.error as any) ??
         (getproductsError as any) ??
         (getproductsByCategoryError as any);
-      const error = r?.data?.message ?? r?.data?.error ?? r?.data.error[0];
+      const error = r?.data?.message ?? r?.data?.error ?? r?.data?.error[0];
       showToast(error, 'error', 'right-0 top-10');
     }
 
