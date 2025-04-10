@@ -20,18 +20,23 @@ function Grid({ title, headers, rows, onDelete, className }: any) {
           </tr>
         </thead>
         <tbody>
-          {rows.map((x: any) => (
+          {rows.map((row: any, rowIndex: number) => (
             <tr
-              key={x.id}
-              onClick={() => x[0]?.onClick?.()}
+              key={row[0]?.id || `row-${rowIndex}`}
+              onClick={() => row[0]?.onClick?.()}
               className="border-t hover:bg-gray-100 transition-all ease text-xs"
             >
-              {x.map((y: any) => (
-                <td className={`py-2 ${y.className}`}>{y.label}</td>
+              {row.map((cell: any, cellIndex: number) => (
+                <td
+                  key={`${row[0]?.id || rowIndex}-${cellIndex}`}
+                  className={`py-2 ${cell.className}`}
+                >
+                  {cell.label}
+                </td>
               ))}
               <td className="px-6 py-4">
                 <button
-                  onClick={() => onDelete(x[0]?.id)}
+                  onClick={() => onDelete(row[0]?.id)}
                   className="flex gap-2 justify-center items-center transition-all ease duration-500 hover:rotate-180"
                 >
                   <RxCross2 size={25} color="black" className="" />
