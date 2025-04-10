@@ -1,10 +1,12 @@
 import { Router } from 'express';
-import { CreateRestaurantController } from '../controllers/restaurant/create-restaurant.controller';
-import { CreateMenuItemController } from '../controllers/restaurant/create-menu-item.controller';
-import { GetMenuController } from '../controllers/restaurant/get-menu.controller';
-import { UpdateMenuItemController } from '../controllers/restaurant/update-menu-item.controller';
-import { DeleteMenuItemController } from '../controllers/restaurant/delete-menu-item.controller';
-import { GetMenuItemController } from '../controllers/restaurant/get-menu-item.controller';
+import {
+  CreateRestaurantController,
+  CreateMenuItemController,
+  GetMenuController,
+  UpdateMenuItemController,
+  DeleteMenuItemController,
+  GetMenuItemController,
+} from '../controllers/restaurant';
 import { merchantMiddleware } from '../middlewares/merchant.middleware';
 
 export const restaurantRouter = Router();

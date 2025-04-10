@@ -1,8 +1,10 @@
 import { Router } from 'express';
-import { GetAllProductsController } from '../controllers/product/get-all-products.controller';
-import { GetProductsByCategoryController } from '../controllers/product/get-products-by-category.controller';
-import { SearchController } from '../controllers/product/search.controller';
-import { GetTagsController } from '../controllers/product/get-tags.controller';
+import {
+  GetAllProductsController,
+  GetProductsByCategoryController,
+  SearchController,
+  GetTagsController,
+} from '../controllers/product';
 
 export const productRouter = Router();
 

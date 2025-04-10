@@ -1,9 +1,11 @@
 import { Router } from 'express';
-import { SignupController } from '../controllers/auth/signup.controller';
-import { SignInController } from '../controllers/auth/signin-controller';
+import {
+  SignupController,
+  SignInController,
+  GoogleLoginController,
+} from '../controllers/auth';
 import passport from '../config/passport';
 import { passportMiddleware } from '../middlewares/passport.middleware';
-import { GoogleLoginController } from '../controllers/auth/google-login.controller';
 
 export const authRouter = Router();
 

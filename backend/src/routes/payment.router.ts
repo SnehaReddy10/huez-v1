@@ -1,8 +1,10 @@
 import { NextFunction, Request, Response, Router } from 'express';
-import { CreateOrderController } from '../controllers/order/create-order.controller';
-import { CreatePaymentIntentController } from '../controllers/payment/create-payment-intent.controller';
-import { UpdateOrderPaymentController } from '../controllers/order/update-order-payment.controller';
 import { stripe } from '../config/stripe.config';
+import { CreatePaymentIntentController } from '../controllers/payment';
+import {
+  CreateOrderController,
+  UpdateOrderPaymentController,
+} from '../controllers/order';
 
 export const paymentRouter = Router();
 
