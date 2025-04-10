@@ -7,6 +7,7 @@ import {
 import OrderDetails from '../OrderDetails';
 import UserDetailsForm from './UserDetailsForm';
 import PaymentForm from './PaymentForm';
+import { useConfirmPaymentMutation } from '../../../store';
 
 export const CheckoutForm = ({ clientSecret }: { clientSecret: string }) => {
   const stripe = useStripe();
@@ -18,12 +19,15 @@ export const CheckoutForm = ({ clientSecret }: { clientSecret: string }) => {
   const [customerEmail, setCustomerEmail] = useState('');
   const [addressData, setAddressData] = useState<any>(null);
   const [paymentAmount, setPaymentAmount] = useState<number | null>(null);
+  const [paymentIntentId, setPaymentIntentId] = useState<string | null>(null);
+  const [confirmPayment] = useConfirmPaymentMutation();
 
   useEffect(() => {
     if (stripe && clientSecret) {
       stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
         if (paymentIntent) {
           setPaymentAmount(paymentIntent.amount / 100);
+          setPaymentIntentId(paymentIntent.id);
         }
       });
     }
@@ -76,10 +80,15 @@ export const CheckoutForm = ({ clientSecret }: { clientSecret: string }) => {
         return;
       }
 
+      if (!paymentIntentId) {
+        setMessage('Payment Intent ID is missing');
+        return;
+      }
+
       const { error } = await stripe.confirmPayment({
         elements,
         confirmParams: {
-          return_url: `${window.location.origin}/order-confirmed`,
+          return_url: `${window.location.origin}/order-confirmed?payment_intent_id=${paymentIntentId}`,
           payment_method_data: {
             billing_details: {
               name: customerName,
@@ -99,7 +108,15 @@ export const CheckoutForm = ({ clientSecret }: { clientSecret: string }) => {
       if (error) {
         setMessage(error.message || 'An error occurred during payment.');
       } else {
-        setMessage('Payment successful!');
+        try {
+          await confirmPayment({ paymentIntentId }).unwrap();
+          setMessage('Payment successful!');
+        } catch (apiError: any) {
+          console.error('Error confirming payment with API:', apiError);
+          setMessage(
+            'Payment processed but confirmation failed. Please contact support.'
+          );
+        }
       }
     } catch (error: any) {
       setMessage(error.message || 'An unexpected error occurred.');
