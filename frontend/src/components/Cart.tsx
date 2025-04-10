@@ -23,7 +23,7 @@ function Cart() {
     cart?.data?.items?.map((item: any) => [
       {
         label: <ProductInfo item={item} />,
-        id: item.menuItem._id,
+        id: item._id,
         className: 'w-[70%]',
         onClick: () => {},
       },
@@ -36,7 +36,7 @@ function Cart() {
             decrementProductQuantity={decrementProductQuantity}
           />
         ),
-        id: item.menuItem._id,
+        id: item._id,
         className: 'w-[10%] text-center',
       },
       {
@@ -45,10 +45,10 @@ function Cart() {
             ${`${(item.price * item.quantity).toFixed(2)}`}
           </p>
         ),
-        id: item.menuItem._id,
+        id: item._id,
         className: 'w-[10%]',
       },
-    ]) ?? [];
+    ]) || [];
 
   const headers = [
     {
@@ -65,7 +65,7 @@ function Cart() {
     <>
       {rows.length > 0 ? (
         <div className="flex max-xl:flex-col animate-slideIn">
-          <div className="flex flex-col items-center md:w-[70%] py-10 px-5 lg:px-10">
+          <div className="flex flex-col items-center w-full xl:w-[70%] py-10 px-5 lg:px-10">
             <div className="flex justify-between items-center w-full">
               <h2 className="text-xl">Shopping cart</h2>
               <p className="text-xs text-gray-400 font-bold">
@@ -80,7 +80,7 @@ function Cart() {
                 title=""
                 headers={headers}
                 rows={rows}
-                className={`hidden xl:flex`}
+                className={`hidden md:flex`}
               />
             ) : (
               <EmptyCart />
@@ -90,7 +90,7 @@ function Cart() {
               items={cart?.data?.items ?? []}
               onDecrement={decrementProductQuantity}
               onIncrement={incrementProductQuantity}
-              className={`flex xl:hidden`}
+              className={`flex md:hidden`}
             />
           </div>
           {rows.length > 0 && (
