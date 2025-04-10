@@ -6,7 +6,7 @@ const OrderConfirmation = () => {
   const [email] = useState('john.doe@gmail.com');
   const navigate = useNavigate();
   return (
-    <div className="w-full h-full flex justify-center items-center xl:px-20">
+    <div className="w-full h-full flex justify-center items-center px-10 py-10 md:px-20 md:py-32">
       <div className="w-full h-full max-w-5xl bg-white rounded-lg flex overflow-hidden">
         <div className="flex flex-col justify-around">
           <div className="flex flex-col">
