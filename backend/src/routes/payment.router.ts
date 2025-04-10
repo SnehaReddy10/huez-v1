@@ -1,6 +1,8 @@
-import { Request, Response, Router } from 'express';
-import { stripe } from '../config/stripe.config';
-import { CreatePaymentIntentController } from '../controllers/payment';
+import { Router } from 'express';
+import {
+  CreatePaymentIntentController,
+  GetPaymentSessionStatusController,
+} from '../controllers/payment';
 import {
   CreateOrderController,
   UpdateOrderPaymentController,
@@ -16,18 +18,6 @@ paymentRouter.post(
   UpdateOrderPaymentController
 );
 
-paymentRouter.get(
-  '/payment-session-status',
-  async (req: Request, res: Response) => {
-    const session = await stripe.checkout.sessions.retrieve(
-      req.query?.session_id?.toString() ?? ''
-    );
-
-    res.send({
-      status: session.status,
-      customer_email: session?.customer_details?.email ?? '',
-    });
-  }
-);
+paymentRouter.get('/payment-session-status', GetPaymentSessionStatusController);
 
 paymentRouter.post('/confirm', ConfirmPaymentController);
