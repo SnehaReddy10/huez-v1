@@ -28,8 +28,6 @@ function Search() {
     }
   };
 
-  console.log({ searchResult });
-
   useEffect(() => {
     if (searchString) {
       setLoading(true);

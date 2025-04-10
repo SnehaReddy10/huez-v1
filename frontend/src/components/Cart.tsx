@@ -225,7 +225,6 @@ const MobileCart = ({
               <button
                 className="p-2 bg-black text-black rounded-md"
                 onClick={() => {
-                  console.log(item.menuItem._id);
                   onDecrement(item.menuItem._id);
                 }}
               >

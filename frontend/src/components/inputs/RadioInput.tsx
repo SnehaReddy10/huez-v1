@@ -15,7 +15,6 @@ const RadioInput: React.FC<RadioInputProps> = ({
 }) => {
   const [checked, setChecked] = useState(defaultChecked);
 
-  console.log({ checked });
   return (
     <label className="flex items-center gap-2 cursor-pointer text-xs font-semibold">
       <div className="w-3 h-3 flex justify-center items-center border-[1px] border-black-900 rounded-full">
