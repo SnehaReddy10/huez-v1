@@ -16,6 +16,9 @@ declare global {
 
     interface Request {
       user?: User;
+      orderId?: string;
+      paymentIntentId?: string;
+      clientSecret?: string;
     }
   }
 }

@@ -15,6 +15,7 @@ import { cartRouter } from './routes/cart.router';
 import { authMiddleware } from './middlewares/auth.middleware';
 import { productRouter } from './routes/product.router';
 import { offerRouter } from './routes/offer.router';
+import { paymentRouter } from './routes/payment.router';
 
 const app = express();
 
@@ -26,13 +27,15 @@ app.use(passport.session());
 
 app.use('/api/v1/auth', authRouter);
 
-app.use(authMiddleware);
 app.use('/api/v1/products', productRouter);
 app.use('/api/v1/offers', offerRouter);
-app.use('/api/v1/user', userRouter);
 
+app.use(authMiddleware);
+
+app.use('/api/v1/user', userRouter);
 app.use('/api/v1/restaurant', restaurantRouter);
 app.use('/api/v1/cart', cartRouter);
+app.use('/api/v1/payments', paymentRouter);
 
 app.listen(process.env.PORT, () => {
   console.log(`Listening to port ${process.env.PORT}`);
