@@ -87,21 +87,21 @@ function Register() {
               required={true}
               placeholder="John Doe"
               label="name"
-              className="w-44"
+              inputClassName="w-44"
             />
             <TertiaryInput
               error={errors.username?.message}
               innerRef={registerField('username')}
               placeholder="johndoe"
               label="username"
-              className="w-44"
+              inputClassName="w-44"
             />
             <TertiaryInput
               error={errors.email?.message}
               innerRef={registerField('email')}
               placeholder="john.doe@gmail.com"
               label="email"
-              className="w-44"
+              inputClassName="w-44"
             />
             <TertiaryInput
               error={errors.password?.message}
@@ -109,7 +109,7 @@ function Register() {
               placeholder="secret"
               label="password"
               type="password"
-              className="w-44"
+              inputClassName="w-44"
             />
           </div>
           <div className="flex flex-col gap-2">
