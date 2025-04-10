@@ -3,12 +3,12 @@
 @tailwind utilities;
 
 @layer base {
-  .text-xxs {
-    @apply text-[0.54rem];
+  .text-xxxs{
+    @apply text-[0.5rem];
   }
 
-  .text-xxxs {
-    @apply text-[0.44rem];
+  .text-xxs {
+    @apply text-[0.54rem];
   }
 
   .header {
@@ -112,6 +112,50 @@ body::-webkit-scrollbar-thumb {
 
 body::-webkit-scrollbar-thumb:hover {
   background: #070707;
+}
+
+
+.scrollbar-2px::-webkit-scrollbar {
+  width: 2px;
+}
+
+.scrollbar-2px::-webkit-scrollbar-track {
+  background: #dfdede;
+}
+
+.scrollbar-2px::-webkit-scrollbar-thumb {
+  background: #373737;
+}
+
+.scrollbar-2px::-webkit-scrollbar-thumb:hover {
+  background: #070707;
+}
+
+
+
+.scrollbar::-webkit-scrollbar {
+  width: 1px;
+}
+
+.scrollbar::-webkit-scrollbar-track {
+  background: #dfdede;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+  background: #373737;
+}
+
+.scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #070707;
+}
+
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+
+.scrollbar-hidden {
+  -ms-overflow-style: none;  /* Hides scrollbar for IE and Edge */
+  scrollbar-width: none;  /* Hides scrollbar for Firefox */
 }
 
 .custom-grid::-webkit-scrollbar {
