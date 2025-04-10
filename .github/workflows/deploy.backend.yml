@@ -51,6 +51,7 @@ jobs:
             echo "JWT_SECRET=$(aws ssm get-parameter --name "/huez/prod/JWT_SECRET" --with-decryption --query "Parameter.Value" --output text)" >> .env
             echo "MONGODB_CONNECTION_STRING=$(aws ssm get-parameter --name "/huez/prod/MONGODB_CONNECTION_STRING" --with-decryption --query "Parameter.Value" --output text)" >> .env
             echo "PORT=$(aws ssm get-parameter --name "/huez/prod/PORT" --with-decryption --query "Parameter.Value" --output text)" >> .env
+            echo "STRIPE_SECRET_KEY=${{ secrets.DOCKERHUB_USERNAME }}" >> .env
             sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/huez-backend:latest
             sudo docker stop huez-backend || true
             sudo docker rm huez-backend || true
