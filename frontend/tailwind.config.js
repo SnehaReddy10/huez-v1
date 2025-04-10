@@ -14,6 +14,10 @@ export default {
         brown: {
           600: '#6f4f1e',
         },
+        gray: {
+          650: '#8e8e8f',
+          950: '#545557',
+        },
       },
       keyframes: {
         slide: {

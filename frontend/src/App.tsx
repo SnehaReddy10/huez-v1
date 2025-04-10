@@ -12,6 +12,9 @@ import Footer from './components/common/Footer';
 import Offers from './components/home/Offers';
 import Search from './components/Search';
 import ErrorBoundary from './components/ErrorBoundary';
+import CheckoutForm from './components/checkout/CheckoutForm';
+import PaymentStatus from './components/checkout/PaymentStatus';
+import OrderConfirmation from './components/checkout/OrderConfirmation';
 
 function App() {
   const { pathname } = useLocation();
@@ -19,9 +22,11 @@ function App() {
   return (
     <>
       <div className="flex flex-col selection:bg-orange-500 h-screen max-w-screen justify-between">
-        <div className="hidden md:flex flex-col">
-          <Navbar />
-        </div>
+        {pathname !== '/checkout' && (
+          <div className="hidden md:flex flex-col">
+            <Navbar />
+          </div>
+        )}
         <ErrorBoundary>
           <Routes>
             <Route path="/" element={<Home />} />
@@ -33,6 +38,10 @@ function App() {
             <Route path="/cart" element={<Cart />} />
             <Route path="/offers" element={<Offers />} />
             <Route path="/search" element={<Search />} />
+            <Route path="/order-confirmed" element={<OrderConfirmation />} />
+            <Route path="/checkout" element={<CheckoutForm />} />
+            <Route path="/return" element={<PaymentStatus />} />
+            {/* <Route path="/checkout" element={<Checkout />} /> */}
           </Routes>
 
           {pathname !== '/login' &&

@@ -6,6 +6,7 @@ function TertiaryInput({
   type = 'text',
   className = '',
   labelClassName = '',
+  inputClassName = '',
   required = false,
   innerRef,
   error,
@@ -15,12 +16,15 @@ function TertiaryInput({
   type?: string;
   className?: string;
   labelClassName?: string;
+  inputClassName?: string;
   required?: boolean;
-  innerRef: any;
+  innerRef?: any;
   error?: string;
 }) {
   return (
-    <div className="flex flex-col gap-1 justify-center items-center w-full">
+    <div
+      className={`flex flex-col gap-1 justify-center items-center w-full ${className}`}
+    >
       <label
         htmlFor={placeholder}
         className={twMerge(`text-xxs uppercase ${labelClassName}`)}
@@ -34,7 +38,7 @@ function TertiaryInput({
         className={twMerge(
           `input-reset text-center text-black-900 text-xs font-bold border-b-2 placeholder:font-normal focus:outline-none w-full ${
             error ? 'border-red-500' : 'border-gray-300'
-          } ${className}`
+          } ${inputClassName}`
         )}
         placeholder={placeholder}
       />
