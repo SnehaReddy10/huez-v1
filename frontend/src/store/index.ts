@@ -27,6 +27,11 @@ import {
   useUpdateOfferMutation,
   useDeleteOfferMutation,
 } from './offer/offerApi';
+import {
+  paymentApi,
+  useCreatePaymentIntentMutation,
+  useGetPaymentStatusQuery,
+} from './payment/paymentApi';
 
 export const store = configureStore({
   reducer: {
@@ -34,13 +39,15 @@ export const store = configureStore({
     [productApi.reducerPath]: productApi.reducer,
     [cartApi.reducerPath]: cartApi.reducer,
     [offerApi.reducerPath]: offerApi.reducer,
+    [paymentApi.reducerPath]: paymentApi.reducer,
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware()
       .concat(authApi.middleware)
       .concat(productApi.middleware)
       .concat(cartApi.middleware)
-      .concat(offerApi.middleware);
+      .concat(offerApi.middleware)
+      .concat(paymentApi.middleware);
   },
 });
 
@@ -66,4 +73,6 @@ export {
   useSearchQuery,
   useGetTagsQuery,
   useSyncCartOnLoginMutation,
+  useCreatePaymentIntentMutation,
+  useGetPaymentStatusQuery,
 };
