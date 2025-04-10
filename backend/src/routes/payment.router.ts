@@ -1,19 +1,16 @@
-import { NextFunction, Request, Response, Router } from 'express';
+import { Request, Response, Router } from 'express';
 import { stripe } from '../config/stripe.config';
 import { CreatePaymentIntentController } from '../controllers/payment';
 import {
   CreateOrderController,
   UpdateOrderPaymentController,
 } from '../controllers/order';
+import { ConfirmPaymentController } from '../controllers/payment/confirm-payment.controller';
 
 export const paymentRouter = Router();
 
 paymentRouter.post(
   '/create-payment-intent',
-  (req: Request, res: Response, next: NextFunction) => {
-    console.log('create-payment-intent');
-    next();
-  },
   CreateOrderController,
   CreatePaymentIntentController,
   UpdateOrderPaymentController
@@ -32,3 +29,5 @@ paymentRouter.get(
     });
   }
 );
+
+paymentRouter.post('/confirm', ConfirmPaymentController);

@@ -31,6 +31,7 @@ import {
   paymentApi,
   useCreatePaymentIntentMutation,
   useGetPaymentStatusQuery,
+  useConfirmPaymentMutation,
 } from './payment/paymentApi';
 
 export const store = configureStore({
@@ -75,4 +76,5 @@ export {
   useSyncCartOnLoginMutation,
   useCreatePaymentIntentMutation,
   useGetPaymentStatusQuery,
+  useConfirmPaymentMutation,
 };
