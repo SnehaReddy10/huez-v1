@@ -4,6 +4,7 @@ import { GoClock } from 'react-icons/go';
 import { IoIosRestaurant } from 'react-icons/io';
 import { IoHomeOutline, IoLocationOutline } from 'react-icons/io5';
 import { MdMenuBook } from 'react-icons/md';
+import { FaCalendarAlt, FaRegGrinHearts } from 'react-icons/fa';
 
 const restaurantImages = [
   {
@@ -65,8 +66,8 @@ function Restaurants() {
   };
 
   return (
-    <div className="flex flex-col gap-10 py-10 bg-black-900">
-      <div className="py-10 bg-black-900 relative justify-between flex">
+    <div className="flex flex-col gap-10 py-10">
+      <div className="py-10 relative justify-between flex">
         <div>
           <div className="pt-28">
             <img
@@ -135,6 +136,181 @@ function Restaurants() {
           ))}
         </div>
       </div>
+
+      <div>
+        <SpecialMenu
+          title="Breakfast Special Menu"
+          menuItems={breakfastItems}
+        />
+        <SpecialMenu title="Lunch Special Menu" menuItems={lunchItems} />
+        <SpecialMenu title="Dinner Special Menu" menuItems={dinnerItems} />
+      </div>
+
+      <MealGrid />
+    </div>
+  );
+}
+
+const breakfastItems = [
+  {
+    name: 'Crispy Chicken Poblano',
+    price: '$120',
+    src: 'https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Zm9vZHxlbnwwfHwwfHx8MA%3D%3D',
+    description: 'Beef, Chicken, Turkey',
+  },
+  {
+    name: 'Crispy Chicken Poblano',
+    price: '$54',
+    src: 'https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Zm9vZHxlbnwwfHwwfHx8MA%3D%3D',
+    description: 'Beef, Chicken, Turkey',
+  },
+  {
+    name: 'Crispy Chicken Poblano',
+    price: '$78',
+    src: 'https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Zm9vZHxlbnwwfHwwfHx8MA%3D%3D',
+    description: 'Beef, Chicken, Turkey',
+  },
+  {
+    name: 'Crispy Chicken Poblano',
+    price: '$58',
+    src: 'https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Zm9vZHxlbnwwfHwwfHx8MA%3D%3D',
+    description: 'Beef, Chicken, Turkey',
+  },
+];
+
+const lunchItems = [
+  {
+    name: 'Grilled Salmon',
+    price: '$140',
+    src: 'https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Zm9vZHxlbnwwfHwwfHx8MA%3D%3D',
+    description: 'Served with fresh oranges',
+  },
+  {
+    name: 'BBQ Chicken',
+    price: '$60',
+    src: 'https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Zm9vZHxlbnwwfHwwfHx8MA%3D%3D',
+    description: 'Slow-cooked to perfection',
+  },
+  {
+    name: 'Vegan Pasta',
+    price: '$95',
+    src: 'https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Zm9vZHxlbnwwfHwwfHx8MA%3D%3D',
+    description: 'Made with fresh organic vegetables',
+  },
+  {
+    name: 'Steak & Fries',
+    price: '$110',
+    src: 'https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Zm9vZHxlbnwwfHwwfHx8MA%3D%3D',
+    description: 'Juicy steak with crispy fries',
+  },
+];
+
+const dinnerItems = [
+  {
+    name: 'Grilled Salmon',
+    price: '$140',
+    src: 'https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Zm9vZHxlbnwwfHwwfHx8MA%3D%3D',
+    description: 'Served with fresh oranges',
+  },
+  {
+    name: 'BBQ Chicken',
+    price: '$60',
+    src: 'https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Zm9vZHxlbnwwfHwwfHx8MA%3D%3D',
+    description: 'Slow-cooked to perfection',
+  },
+  {
+    name: 'Vegan Pasta',
+    price: '$95',
+    src: 'https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Zm9vZHxlbnwwfHwwfHx8MA%3D%3D',
+    description: 'Made with fresh organic vegetables',
+  },
+  {
+    name: 'Steak & Fries',
+    price: '$110',
+    src: 'https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Zm9vZHxlbnwwfHwwfHx8MA%3D%3D',
+    description: 'Juicy steak with crispy fries',
+  },
+];
+
+const meals = [
+  {
+    src: 'https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Zm9vZHxlbnwwfHwwfHx8MA%3D%3D',
+    alt: 'Meal 1',
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Zm9vZHxlbnwwfHwwfHx8MA%3D%3D',
+    alt: 'Meal 2',
+    large: true,
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8Zm9vZHxlbnwwfHwwfHx8MA%3D%3D',
+    alt: 'Meal 3',
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGZvb2R8ZW58MHx8MHx8fDA%3D',
+    alt: 'Meal 4',
+    large: true,
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Zm9vZHxlbnwwfHwwfHx8MA%3D%3D',
+    alt: 'Meal 5',
+  },
+];
+
+const MealGrid = () => {
+  return (
+    <div className="flex gap-4 overflow-x-auto p-4 items-center justify-center">
+      {meals.map((src, index) => (
+        <img
+          key={index}
+          src={src.src}
+          alt={`Dish ${index + 1}`}
+          className={`rounded-lg object-cover transition-transform duration-300 hover:scale-105 ${
+            index % 2 === 0 ? 'h-32 w-32' : 'h-48 w-48'
+          }`}
+        />
+      ))}
+    </div>
+  );
+};
+
+function SpecialMenu({ title, menuItems }: any) {
+  return (
+    <div className="text-xs flex flex-col items-center py-10 px-4">
+      <div className="mb-4">
+        <FaRegGrinHearts size={30} />{' '}
+      </div>
+
+      <h2 className="text-orange-900 text-3xl font-semibold mb-6 font-serif">
+        {title}
+      </h2>
+
+      <div className="grid grid-cols-2 gap-x-6">
+        {menuItems.map((item: any, index: number) => (
+          <div
+            key={index}
+            className="flex gap-10 items-center justify-between py-3 border-b border-dashed border-gray-400"
+          >
+            <div className="flex items-center gap-3">
+              <img
+                src={item.src}
+                alt={item.name}
+                className="w-12 h-12 rounded-md object-cover"
+              />
+              <div>
+                <p className="text-orange-900 font-medium">{item.name}</p>
+                <p className="text-gray-500 text-sm">{item.description}</p>
+              </div>
+            </div>
+
+            <p className="text-orange-900 font-semibold">{item.price}</p>
+          </div>
+        ))}
+      </div>
+
+      <button className="mt-6 bg-orange-900 text-white px-6 py-3 rounded-full flex items-center gap-2 shadow-md hover:bg-orange-800">
+        Book a Table <FaCalendarAlt />
+      </button>
     </div>
   );
 }
