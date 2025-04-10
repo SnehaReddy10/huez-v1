@@ -1,5 +1,3 @@
-import { User } from 'src/models/User.model';
-
 declare global {
   namespace Express {
     interface User {
@@ -22,3 +20,5 @@ declare global {
     }
   }
 }
+
+export {};
