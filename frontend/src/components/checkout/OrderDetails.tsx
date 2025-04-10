@@ -22,7 +22,7 @@ function OrderDetails() {
 
         <div className="space-y-4 text-gray-700">
           {cart?.data?.items?.map((item: any) => (
-            <Item item={item} />
+            <Item key={item._id} item={item} />
           ))}
         </div>
       </div>
@@ -59,4 +59,5 @@ function Item({ item }: { item: any }) {
     </div>
   );
 }
+
 export default OrderDetails;
