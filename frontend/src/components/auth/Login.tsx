@@ -8,6 +8,9 @@ import { useContext, useEffect } from 'react';
 import { ToastContext } from '../../context/ToastContext';
 import { loginSchema } from '../../validators/LoginSchema';
 import { setToken } from '../../utitlities';
+import * as yup from 'yup';
+
+type LoginFormData = yup.InferType<typeof loginSchema>;
 
 function Login() {
   const [login, results] = useLoginMutation();
@@ -22,25 +25,33 @@ function Login() {
     handleSubmit,
     reset,
     formState: { isValid, errors },
-  } = useForm({
+  } = useForm<LoginFormData>({
     mode: 'onBlur',
     resolver: yupResolver(loginSchema),
     defaultValues: {
-      email: location.state?.email || '',
+      email: location.state?.email || 'test@gmail.com',
+      password: 'testtest',
     },
   });
 
   useEffect(() => {
+    if (!toastContext) {
+      throw new Error('useContext must be used within a ToastProvider');
+    }
+
+    const { showToast } = toastContext;
+    showToast(
+      'Please login using default credentials',
+      'info',
+      'right-0 top-10'
+    );
     if (results.error) {
       const r = results.error as any;
-      if (!toastContext) {
-        throw new Error('useContext must be used within a ToastProvider');
-      }
 
-      const { showToast } = toastContext;
       showToast(r.data.message ?? r.data.error[0], 'error', 'right-0 top-10');
       reset();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [results.error, reset]);
 
   useEffect(() => {
@@ -49,9 +60,9 @@ function Login() {
       syncCartOnLogin({});
       navigate('/');
     }
-  }, [results.isSuccess]);
+  }, [results.isSuccess, navigate, syncCartOnLogin, results.data?.token]);
 
-  const handleLogin = (data: any) => {
+  const handleLogin = (data: LoginFormData) => {
     login(data);
   };
 
