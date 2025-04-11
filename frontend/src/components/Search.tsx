@@ -39,6 +39,7 @@ function Search() {
   return (
     <div className="w-full py-10 flex flex-col gap-4 justify-start items-center">
       <SearchBar
+        autoFocus={true}
         onChangeHandler={(e: any) => setSearchString(e.target.value)}
         className="border-[2px] border-black-900"
       />

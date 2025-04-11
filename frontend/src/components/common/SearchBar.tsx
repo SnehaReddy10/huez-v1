@@ -1,15 +1,26 @@
 import { IoSearchSharp } from 'react-icons/io5';
 import { useNavigate } from 'react-router-dom';
 import { twMerge } from 'tailwind-merge';
+import { useEffect, useRef } from 'react';
 
 function SearchBar({
   className = '',
   onChangeHandler,
+  autoFocus = false,
 }: {
   className?: string;
   onChangeHandler?: any;
+  autoFocus?: boolean;
 }) {
   const navigate = useNavigate();
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (autoFocus && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [autoFocus]);
+
   return (
     <div
       className={twMerge(
@@ -17,6 +28,7 @@ function SearchBar({
       )}
     >
       <input
+        ref={inputRef}
         onClick={() => {
           navigate('/search');
         }}
