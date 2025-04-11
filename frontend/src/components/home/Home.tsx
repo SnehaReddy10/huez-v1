@@ -47,7 +47,7 @@ const items = [
 function Home() {
   const navigate = useNavigate();
   return (
-    <div className="flex flex-col pb-20">
+    <div className="flex flex-col pb-20 min-h-screen">
       <div className="flex-1 flex flex-col gap-10 items-center justify-center">
         <Hero />
         <div className="flex flex-col gap-8 justify-center items-center w-1/3 text-center">
@@ -75,7 +75,7 @@ function Home() {
                       alt={`Item ${idx}`}
                       className="rounded-full w-24 h-24 object-cover"
                     />
-                    <span className="absolute inset-0 rounded-full bg-black-900 opacity-0 hover:opacity-30  transition-all ease-in" />
+                    <span className="absolute inset-0 rounded-full bg-black-900 opacity-0 hover:opacity-30 transition-all ease-in" />
                   </div>
                 ))}
               </>
