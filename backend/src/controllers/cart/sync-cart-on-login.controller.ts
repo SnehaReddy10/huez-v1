@@ -12,8 +12,6 @@ export const SyncCartOnLoginController = async (
     const { cart: localCart } = req.body;
     const userId = req.user?._id;
 
-    console.log({ localCart });
-
     if (!localCart || !Array.isArray(localCart)) {
       res.status(StatusCodes.BadRequest).json({
         success: false,
