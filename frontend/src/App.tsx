@@ -41,7 +41,6 @@ function App() {
             <Route path="/order-confirmed" element={<OrderConfirmation />} />
             <Route path="/checkout" element={<CheckoutPage />} />
             <Route path="/return" element={<PaymentStatus />} />
-            {/* <Route path="/checkout" element={<Checkout />} /> */}
           </Routes>
 
           {pathname !== '/login' &&
