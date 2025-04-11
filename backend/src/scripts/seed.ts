@@ -6,6 +6,7 @@ import { User } from '../models/user.model';
 import { AuthProvider } from '../constants/enums/auth-provider';
 import mongoose from 'mongoose';
 import { faker } from '@faker-js/faker';
+import Offer from '../models/offer.model';
 
 dotenv.config({ path: `.env.development.local` });
 dbConfig.init();
@@ -26,6 +27,14 @@ const menuImages = [
   'https://images.unsplash.com/photo-1432139555190-58524dae6a55?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzB8fGZvb2R8ZW58MHx8MHx8fDA%3D',
   'https://images.unsplash.com/photo-1499028344343-cd173ffc68a9?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzF8fGZvb2R8ZW58MHx8MHx8fDA%3D',
   'https://images.unsplash.com/photo-1485962398705-ef6a13c41e8f?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDB8fGZvb2R8ZW58MHx8MHx8fDA%3D',
+];
+
+const offerImages = [
+  'https://cdn.grabon.in/gograbon/images/web-images/uploads/1618575517942/food-coupons.jpg',
+  'https://shorturl.at/GGoKw',
+  'https://shorturl.at/kidyZ',
+  'https://static.toiimg.com/thumb/imgsize-23456,msid-68270780,width-600,resizemode-4/68270780.jpg',
+  'https://restaurantindia.s3.ap-south-1.amazonaws.com/s3fs-public/2025-01/ljlhcn0008.jpg',
 ];
 
 const restaurantData = {
@@ -70,6 +79,27 @@ const generateMenuItems = async () => {
   console.log(`Inserted ${numOfItems} menu items!`);
 };
 
+const generateOffers = async () => {
+  const offers = [];
+  const numOfOffers = 10;
+
+  for (let i = 0; i < numOfOffers; i++) {
+    const isPercentageOff = faker.datatype.boolean();
+    offers.push({
+      name: faker.commerce.productName(),
+      discount: isPercentageOff ? 'Percentage Off' : 'Buy 1 Get 1',
+      value: isPercentageOff ? faker.number.int({ min: 10, max: 50 }) : 0,
+      image: offerImages[Math.floor(Math.random() * offerImages.length)],
+      description: faker.lorem.sentence(),
+      startDate: faker.date.past(),
+      endDate: faker.date.future(),
+      isActive: faker.datatype.boolean(),
+    });
+  }
+  await Offer.insertMany(offers);
+  console.log(`Inserted ${numOfOffers} offers!`);
+};
+
 async function seedData() {
   await User.deleteMany({});
   const user = new User({ ...merchant, authProvider: AuthProvider.EMAIL });
@@ -88,7 +118,10 @@ async function seedData() {
     cuisine: restaurantData.cuisine || [],
   });
   await restaurant.save();
-  generateMenuItems();
+  await generateMenuItems();
+
+  await Offer.deleteMany({});
+  await generateOffers();
 }
 
 seedData();
