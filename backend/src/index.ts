@@ -1,7 +1,7 @@
 import { dbConfig } from './config/db/db.config';
 import dotenv from 'dotenv';
 
-dotenv.config({ path: `.env.development.local` });
+dotenv.config();
 
 dbConfig.init();
 
