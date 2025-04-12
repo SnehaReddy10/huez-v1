@@ -11,7 +11,9 @@ export const DeleteProductFromCartController = async (
   const userId = req.user!._id;
 
   try {
-    const cart = await Cart.findOne({ user: userId });
+    const cart = await Cart.findOne({ user: userId }).populate(
+      'items.menuItem'
+    );
 
     if (!cart) {
       res.status(StatusCodes.NotFound).json({
@@ -21,8 +23,13 @@ export const DeleteProductFromCartController = async (
       return;
     }
 
+    console.log({ cart });
+    cart.items.map((item) => {
+      console.log(item.menuItem._id.toString(), menuItemId);
+    });
+
     const productIndex = cart.items.findIndex(
-      (item) => item.menuItem.toString() === menuItemId
+      (item) => item.menuItem._id.toString() === menuItemId
     );
 
     if (productIndex === -1) {

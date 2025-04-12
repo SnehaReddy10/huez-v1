@@ -26,6 +26,7 @@ function Cart() {
         id: item._id,
         className: 'w-[70%]',
         onClick: () => {},
+        itemId: item.menuItem._id,
       },
       { label: item.description, id: item._id, className: 'w-[10%]' },
       {
