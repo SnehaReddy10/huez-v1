@@ -8,6 +8,7 @@ import { useContext, useEffect } from 'react';
 import { registerSchema } from '../../validators/RegisterSchema';
 import { ToastContext } from '../../context/ToastContext';
 import { setToken } from '../../utitlities';
+import Loader from '../common/Loader';
 
 function Register() {
   const [register, results] = useRegisterMutation();
@@ -43,7 +44,11 @@ function Register() {
   };
 
   if (results.isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div>
+        <Loader />
+      </div>
+    );
   }
 
   if (results.isSuccess) {

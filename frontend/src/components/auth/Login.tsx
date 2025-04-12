@@ -9,6 +9,7 @@ import { ToastContext } from '../../context/ToastContext';
 import { loginSchema } from '../../validators/LoginSchema';
 import { setToken } from '../../utitlities';
 import * as yup from 'yup';
+import Loader from '../common/Loader';
 
 type LoginFormData = yup.InferType<typeof loginSchema>;
 
@@ -67,7 +68,11 @@ function Login() {
   };
 
   if (results.isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div>
+        <Loader />
+      </div>
+    );
   }
 
   return (
