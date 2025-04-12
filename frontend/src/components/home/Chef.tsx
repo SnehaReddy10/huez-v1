@@ -1,7 +1,9 @@
 import PrimaryButton from '../buttons/primary-button/PrimaryButton';
 import chefImage from '../../assets/images/Chef-img.png';
+import { useNavigate } from 'react-router-dom';
 
 const Chef = () => {
+  const navigate = useNavigate();
   return (
     <div className="w-[60%] flex flex-col md:flex-row items-center justify-center bg-white">
       <div className="md:w-1/2 flex justify-center">
@@ -24,7 +26,9 @@ const Chef = () => {
           designed to support your wellness journey.
         </p>
         <PrimaryButton
-          onClickHandler={() => {}}
+          onClickHandler={() => {
+            navigate('/menu');
+          }}
           label="Explore More"
           className="mt-6 bg-orange-500 text-white py-2 px-6 rounded-full shadow-md hover:bg-orange-600"
         />
