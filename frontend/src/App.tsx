@@ -16,6 +16,7 @@ import ErrorBoundary from './components/ErrorBoundary';
 import PaymentStatus from './components/checkout/PaymentStatus';
 import OrderConfirmation from './components/checkout/OrderConfirmation';
 import CheckoutPage from './components/checkout/CheckoutPage';
+import HUEZVideo from './assets/videos/HUEZ.mp4';
 
 function App() {
   const { pathname } = useLocation();
@@ -57,7 +58,7 @@ function App() {
           className="w-42 h-42 transition-transform duration-500"
           style={{ transform: isTransitioning ? 'scale(1.2)' : 'scale(1)' }}
         >
-          <source src="/src/assets/videos/HUEZ.MP4" type="video/mp4" />
+          <source src={HUEZVideo} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
       </div>
