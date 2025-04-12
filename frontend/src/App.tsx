@@ -16,6 +16,7 @@ import ErrorBoundary from './components/ErrorBoundary';
 import PaymentStatus from './components/checkout/PaymentStatus';
 import OrderConfirmation from './components/checkout/OrderConfirmation';
 import CheckoutPage from './components/checkout/CheckoutPage';
+import PastOrders from './components/order/PastOrders';
 
 function App() {
   const { pathname } = useLocation();
@@ -89,6 +90,7 @@ function App() {
             <Route path="/order-confirmed" element={<OrderConfirmation />} />
             <Route path="/checkout" element={<CheckoutPage />} />
             <Route path="/return" element={<PaymentStatus />} />
+            <Route path="/past-orders" element={<PastOrders />} />
           </Routes>
 
           {pathname !== '/login' &&

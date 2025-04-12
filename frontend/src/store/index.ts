@@ -33,6 +33,7 @@ import {
   useGetPaymentStatusQuery,
   useConfirmPaymentMutation,
 } from './payment/paymentApi';
+import { orderApi, useGetPastOrdersQuery } from './order/orderApi';
 
 export const store = configureStore({
   reducer: {
@@ -41,6 +42,7 @@ export const store = configureStore({
     [cartApi.reducerPath]: cartApi.reducer,
     [offerApi.reducerPath]: offerApi.reducer,
     [paymentApi.reducerPath]: paymentApi.reducer,
+    [orderApi.reducerPath]: orderApi.reducer,
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware()
@@ -48,7 +50,8 @@ export const store = configureStore({
       .concat(productApi.middleware)
       .concat(cartApi.middleware)
       .concat(offerApi.middleware)
-      .concat(paymentApi.middleware);
+      .concat(paymentApi.middleware)
+      .concat(orderApi.middleware);
   },
 });
 
@@ -77,4 +80,5 @@ export {
   useCreatePaymentIntentMutation,
   useGetPaymentStatusQuery,
   useConfirmPaymentMutation,
+  useGetPastOrdersQuery,
 };

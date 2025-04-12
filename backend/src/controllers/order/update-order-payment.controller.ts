@@ -28,6 +28,8 @@ export const UpdateOrderPaymentController = async (
 
     if (order.paymentDetails) {
       order.paymentDetails.paymentIntentId = paymentIntentId;
+      order.paymentDetails.paymentStatus = 'completed';
+      order.status = 'processing';
       await order.save();
     }
 
