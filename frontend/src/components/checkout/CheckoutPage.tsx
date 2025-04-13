@@ -1,22 +1,25 @@
-import { useState, useEffect } from 'react';
-import { useGetCartQuery, useCreatePaymentIntentMutation } from '../../store';
+import { useState, useEffect, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
+import { useCreatePaymentIntentMutation } from '../../store';
 import { CheckoutForm } from './forms/CheckoutForm';
 import { StripeProvider } from '../../stripe/StripeProvider';
 
 const CheckoutPage = () => {
   const [clientSecret, setClientSecret] = useState<string | null>(null);
-  const { data: cartData } = useGetCartQuery({});
+  const paymentIntentCreated = useRef(false);
+  const location = useLocation();
+  const cartData = location.state?.cart;
   const [createPaymentIntent, { isLoading, error }] =
     useCreatePaymentIntentMutation();
 
   useEffect(() => {
     const fetchClientSecret = async () => {
       try {
-        if (!cartData?.data) {
-          console.error('Cart data not available');
+        if (!cartData?.data || paymentIntentCreated.current) {
           return;
         }
 
+        paymentIntentCreated.current = true;
         const amount = Math.round(cartData.data.totalPrice * 100); // Convert to cents
 
         const result = await createPaymentIntent({
@@ -28,13 +31,24 @@ const CheckoutPage = () => {
         setClientSecret(result.clientSecret);
       } catch (error) {
         console.error('Error creating payment intent:', error);
+        paymentIntentCreated.current = false;
       }
     };
 
-    if (cartData?.data) {
-      fetchClientSecret();
-    }
-  }, [cartData, createPaymentIntent]);
+    fetchClientSecret();
+  }, [cartData]);
+
+  if (!cartData) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <p className="text-red-600">
+            No cart data available. Please return to cart.
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   if (isLoading) {
     return (

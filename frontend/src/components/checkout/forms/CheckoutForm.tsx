@@ -8,10 +8,12 @@ import OrderDetails from '../OrderDetails';
 import UserDetailsForm from './UserDetailsForm';
 import PaymentForm from './PaymentForm';
 import { useConfirmPaymentMutation } from '../../../store';
+import { useNavigate } from 'react-router-dom';
 
 export const CheckoutForm = ({ clientSecret }: { clientSecret: string }) => {
   const stripe = useStripe();
   const elements = useElements();
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
   const [step, setStep] = useState<'customer' | 'payment'>('customer');
@@ -54,11 +56,13 @@ export const CheckoutForm = ({ clientSecret }: { clientSecret: string }) => {
     }
 
     const formattedAddress = {
+      name: 'Shipping Address',
       street: result.value.address.line1,
       city: result.value.address.city,
       state: result.value.address.state,
       country: result.value.address.country,
       postalCode: result.value.address.postal_code,
+      isDefault: true,
     };
 
     setAddressData(formattedAddress);
@@ -85,10 +89,10 @@ export const CheckoutForm = ({ clientSecret }: { clientSecret: string }) => {
         return;
       }
 
-      const { error } = await stripe.confirmPayment({
+      const { error, paymentIntent } = await stripe.confirmPayment({
         elements,
+        redirect: 'if_required',
         confirmParams: {
-          return_url: `${window.location.origin}/order-confirmed?payment_intent_id=${paymentIntentId}`,
           payment_method_data: {
             billing_details: {
               name: customerName,
@@ -107,16 +111,28 @@ export const CheckoutForm = ({ clientSecret }: { clientSecret: string }) => {
 
       if (error) {
         setMessage(error.message || 'An error occurred during payment.');
-      } else {
+      } else if (paymentIntent && paymentIntent.status === 'succeeded') {
         try {
-          await confirmPayment({ paymentIntentId }).unwrap();
-          setMessage('Payment successful!');
+          console.log('Payment intent ID:', paymentIntentId);
+          await confirmPayment({
+            paymentIntentId,
+            address: addressData,
+          }).unwrap();
+
+          navigate('/order-confirmed', {
+            state: {
+              paymentIntentId,
+              status: 'succeeded',
+            },
+          });
         } catch (apiError: any) {
           console.error('Error confirming payment with API:', apiError);
           setMessage(
             'Payment processed but confirmation failed. Please contact support.'
           );
         }
+      } else {
+        setMessage('Payment is still processing. Please wait...');
       }
     } catch (error: any) {
       setMessage(error.message || 'An unexpected error occurred.');

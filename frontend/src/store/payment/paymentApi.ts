@@ -37,12 +37,23 @@ export const paymentApi = createApi({
       }),
       confirmPayment: builder.mutation<
         { success: boolean; message: string },
-        { paymentIntentId: string }
+        {
+          paymentIntentId: string;
+          address?: {
+            name: string;
+            street: string;
+            city: string;
+            state: string;
+            country: string;
+            postalCode: string;
+            isDefault: boolean;
+          };
+        }
       >({
-        query: ({ paymentIntentId }) => ({
+        query: ({ paymentIntentId, address }) => ({
           url: '/payments/confirm',
           method: 'POST',
-          body: { paymentIntentId },
+          body: { paymentIntentId, address },
         }),
         invalidatesTags: () => [{ type: 'cart', id: getToken() ?? '' }],
       }),

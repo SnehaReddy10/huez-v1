@@ -9,7 +9,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
 
 export const ConfirmPaymentController = async (req: Request, res: Response) => {
   try {
-    const { paymentIntentId } = req.body;
+    const { paymentIntentId, address } = req.body;
     const userId = req.user?._id;
 
     if (!userId) {
@@ -34,13 +34,24 @@ export const ConfirmPaymentController = async (req: Request, res: Response) => {
       return;
     }
 
-    if (order.paymentDetails) {
-      order.paymentDetails.paymentStatus = 'completed';
-      order.paymentDetails.paymentMethod =
-        paymentIntent.payment_method_types[0];
-      order.status = 'processing';
-      await order.save();
+    if (address) {
+      order.shippingAddress = {
+        street: address.street,
+        city: address.city,
+        state: address.state,
+        country: address.country,
+        postalCode: address.postalCode,
+      };
     }
+
+    order.paymentDetails = {
+      paymentIntentId,
+      paymentStatus: 'completed',
+      paymentMethod: paymentIntent.payment_method_types[0],
+    };
+    order.status = 'processing';
+
+    await order.save();
 
     await Cart.findOneAndUpdate(
       { user: userId },

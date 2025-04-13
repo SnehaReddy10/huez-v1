@@ -17,6 +17,8 @@ import { authMiddleware } from './middlewares/auth.middleware';
 import { productRouter } from './routes/product.router';
 import { offerRouter } from './routes/offer.router';
 import { paymentRouter } from './routes/payment.router';
+import { orderRouter } from './routes/order.router';
+import { addressRouter } from './routes/address.router';
 
 const app = express();
 
@@ -37,6 +39,8 @@ app.use('/api/v1/user', userRouter);
 app.use('/api/v1/restaurant', restaurantRouter);
 app.use('/api/v1/cart', cartRouter);
 app.use('/api/v1/payments', paymentRouter);
+app.use('/api/v1/orders', orderRouter);
+app.use('/api/v1/addresses', addressRouter);
 
 app.listen(process.env.PORT, () => {
   console.log(`Listening to port ${process.env.PORT}`);
