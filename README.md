@@ -4,6 +4,12 @@
 
 ---
 
+## 🧠 Architecture Diagram
+
+![Architecture Diagram](./assets/architecture.png.png)
+
+---
+
 ## 🌟 Features
 
 ### 👥 User Features
