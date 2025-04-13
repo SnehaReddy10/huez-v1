@@ -6,7 +6,7 @@
 
 ## 🧠 Architecture Diagram
 
-![Architecture Diagram](./assets/architecture.png.png)
+![Architecture Diagram](./assets/architecture.png)
 
 ---
 
