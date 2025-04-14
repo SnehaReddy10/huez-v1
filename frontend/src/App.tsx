@@ -79,7 +79,7 @@ function App() {
       {!isAuthPage && <Navbar />}
 
       <div
-        className={`flex flex-col selection:bg-orange-500 min-h-[dvh] transition-all duration-500 ${
+        className={`flex flex-col selection:bg-orange-500 min-h-[100dvh] transition-all duration-500 ${
           showApp ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
         }`}
       >
