@@ -42,20 +42,20 @@ const Chef = () => {
 
   return (
     <motion.div
-      className="w-[60%] flex flex-col md:flex-row items-center justify-center bg-white"
+      className="w-full p-4 md:w-[60%] flex flex-col md:flex-row items-center justify-center bg-white"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true }}
       variants={containerVariants}
     >
       <motion.div
-        className="md:w-1/2 flex justify-center"
+        className="md:w-1/2 flex justify-center items-center"
         variants={imageVariants}
       >
         <motion.img
           src={chefImage}
           alt="Chef talking about healthy food"
-          className="w-64 h-auto rounded-lg"
+          className="w-52 md:w-64 h-auto rounded-lg"
           whileHover={{ scale: 1.05 }}
           transition={{ duration: 0.3 }}
         />
