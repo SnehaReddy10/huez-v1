@@ -77,7 +77,7 @@ function Login() {
 
   return (
     <div className="h-screen flex flex-col md:flex-row justify-between items-center">
-      <div className="animate-slideBottom md:animate-slideRight login h-[70%] w-full md:w-[70%] flex items-center justify-center md:h-full p-4 md:p-10">
+      <div className="animate-slideBottom md:animate-slideRight login h-[50%] w-full md:w-[70%] flex items-center justify-center md:h-full p-4 md:p-10">
         <div className="flex flex-col animate-fadeIn gap-4 md:gap-10 items-center justify-center w-max md:w-72">
           <h2 className="text-xl md:text-3xl font-semibold font-serif">
             Welcome back,
@@ -110,7 +110,7 @@ function Login() {
           </div>
         </div>
       </div>
-      <div className="register animate-slideTop md:animate-slideLeft h-[30%] w-full md:w-[30%] flex flex-col md:h-full justify-center text-center p-4 md:p-10 bg-cover text-white bg-[url('https://images.pexels.com/photos/842571/pexels-photo-842571.jpeg?auto=compress&cs=tinysrgb&w=600')]">
+      <div className="register animate-slideTop md:animate-slideLeft h-[50%] w-full md:w-[30%] flex flex-col md:h-full justify-center text-center p-4 md:p-10 bg-cover text-white bg-[url('https://images.pexels.com/photos/842571/pexels-photo-842571.jpeg?auto=compress&cs=tinysrgb&w=600')]">
         <div className="flex flex-col animate-fadeIn gap-2 md:gap-40">
           <div className="flex flex-col gap-2">
             <h2 className="text-xl md:text-3xl font-semibold font-serif">

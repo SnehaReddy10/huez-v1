@@ -58,7 +58,7 @@ function Register() {
 
   return (
     <div className="h-screen w-full flex max-sm:flex-col justify-center items-center contain-inline-size">
-      <div className="register animate-slideBottom md:animate-slideRight h-[30%] w-full md:w-[30%] flex flex-col md:h-full justify-center text-center p-4 md:p-10 bg-cover text-white bg-[url('https://images.pexels.com/photos/842571/pexels-photo-842571.jpeg?auto=compress&cs=tinysrgb&w=600')]">
+      <div className="register animate-slideBottom md:animate-slideRight h-[50%] w-full md:w-[30%] flex flex-col md:h-full justify-center text-center p-4 md:p-10 bg-cover text-white bg-[url('https://images.pexels.com/photos/842571/pexels-photo-842571.jpeg?auto=compress&cs=tinysrgb&w=600')]">
         <div className="flex flex-col animate-fadeIn gap-4 md:gap-40">
           <div className="flex flex-col gap-2">
             <h2 className="text-xl md:text-3xl font-semibold font-serif">
@@ -79,7 +79,7 @@ function Register() {
       </div>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="login animate-slideTop md:animate-slideLeft w-full md:w-[70%] flex items-center justify-center h-[70%] md:h-full p-4 md:p-10"
+        className="login animate-slideTop md:animate-slideLeft w-full md:w-[70%] flex items-center justify-center h-[50%] md:h-full p-4 md:p-10"
       >
         <div className="flex animate-fadeIn flex-col gap-4 md:gap-10 items-center justify-center text-nowrap">
           <h2 className="text-xl md:text-3xl font-semibold font-serif">
