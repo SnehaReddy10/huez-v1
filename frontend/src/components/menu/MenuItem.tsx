@@ -77,7 +77,7 @@ export const MenuItem = ({ item, addProductToCart, index }: MenuItemProps) => {
 
   return (
     <motion.div
-      className="bg-white shadow-lg rounded-sm p-4 max-md:w-full w-64 overflow-hidden"
+      className="bg-white shadow-lg rounded-sm p-4 max-md:w-full w-64 max-md:h-64 overflow-hidden"
       variants={cardVariants}
       initial="hidden"
       animate="visible"
