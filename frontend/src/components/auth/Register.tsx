@@ -57,7 +57,7 @@ function Register() {
   }
 
   return (
-    <div className="h-[100dvh] w-full flex max-sm:flex-col justify-center items-center contain-inline-size">
+    <div className="h-screen w-full flex max-sm:flex-col justify-center items-center contain-inline-size">
       <div className="register animate-slideBottom md:animate-slideRight h-[50%] w-full md:w-[30%] flex flex-col md:h-full justify-center text-center p-4 md:p-10 bg-cover text-white bg-[url('https://images.pexels.com/photos/842571/pexels-photo-842571.jpeg?auto=compress&cs=tinysrgb&w=600')]">
         <div className="flex flex-col animate-fadeIn gap-4 md:gap-40">
           <div className="flex flex-col gap-2">

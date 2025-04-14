@@ -50,7 +50,7 @@ function App() {
     <div
       className={
         !showApp
-          ? 'full-screen-safe min-h-[100dvh] pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)] overflow-hidden h-screen'
+          ? 'full-screen-safe min-h-screen pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)] overflow-hidden h-screen'
           : ''
       }
     >
@@ -79,7 +79,7 @@ function App() {
       {!isAuthPage && <Navbar />}
 
       <div
-        className={`flex flex-col selection:bg-orange-500 min-h-[100dvh] transition-all duration-500 ${
+        className={`flex flex-col selection:bg-orange-500 min-h-screen transition-all duration-500 ${
           showApp ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
         }`}
       >
