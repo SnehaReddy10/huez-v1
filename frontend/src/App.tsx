@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import './App.css';
 import Home from './components/home/Home';
 import Login from './components/auth/Login';
-import Navbar from './components/Navbar';
 import Restaurants from './components/Restaurants';
 import Register from './components/auth/Register';
 import Product from './components/Product';
@@ -17,7 +16,6 @@ import PaymentStatus from './components/checkout/PaymentStatus';
 import OrderConfirmation from './components/checkout/OrderConfirmation';
 import CheckoutPage from './components/checkout/CheckoutPage';
 import PastOrders from './components/order/PastOrders';
-import MobileBottomNav from './components/MobileBottomNav';
 
 function App() {
   const { pathname } = useLocation();
@@ -75,8 +73,8 @@ function App() {
         </video>
       </div>
 
-      {!isAuthPage && <MobileBottomNav />}
-      {!isAuthPage && <Navbar />}
+      {/* {!isAuthPage && <MobileBottomNav />}
+      {!isAuthPage && <Navbar />} */}
 
       <div
         className={`flex flex-col selection:bg-orange-500 min-h-screen transition-all duration-500 ${
