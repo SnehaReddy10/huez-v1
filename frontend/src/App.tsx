@@ -17,6 +17,7 @@ import PaymentStatus from './components/checkout/PaymentStatus';
 import OrderConfirmation from './components/checkout/OrderConfirmation';
 import CheckoutPage from './components/checkout/CheckoutPage';
 import PastOrders from './components/order/PastOrders';
+import MobileBottomNav from './components/MobileBottomNav';
 
 function App() {
   const { pathname } = useLocation();
@@ -39,6 +40,11 @@ function App() {
       document.body.style.overflow = 'auto';
     };
   }, []);
+
+  const isAuthPage =
+    pathname === '/login' ||
+    pathname === '/register' ||
+    pathname === '/checkout';
 
   return (
     <div className={!showApp ? 'overflow-hidden h-screen' : ''}>
@@ -63,19 +69,14 @@ function App() {
         </video>
       </div>
 
-      {/* Main content */}
+      {!isAuthPage && <MobileBottomNav />}
+      {!isAuthPage && <Navbar />}
+
       <div
         className={`flex flex-col selection:bg-orange-500 min-h-screen transition-all duration-500 ${
           showApp ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
         }`}
       >
-        {pathname !== '/checkout' &&
-          pathname !== '/login' &&
-          pathname !== '/register' && (
-            <div className="hidden md:flex flex-col">
-              <Navbar />
-            </div>
-          )}
         <ErrorBoundary>
           <Routes>
             <Route path="/" element={<Home />} />
@@ -93,9 +94,7 @@ function App() {
             <Route path="/past-orders" element={<PastOrders />} />
           </Routes>
 
-          {pathname !== '/login' &&
-            pathname !== '/register' &&
-            pathname !== '/menu' && <Footer />}
+          {!isAuthPage && <Footer />}
         </ErrorBoundary>
       </div>
     </div>

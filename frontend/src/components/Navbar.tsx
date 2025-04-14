@@ -67,7 +67,7 @@ function Navbar() {
   };
 
   return (
-    <div className="z-10 flex gap-4 sticky top-0 justify-around text-xxs py-3 bg-black-900 text-white">
+    <div className="hidden md:flex z-10 gap-4 sticky top-0 justify-around text-xxs py-3 bg-black-900 text-white">
       <div className="flex gap-8 justify-center">
         <span className="pr-10 text-sm font-bold text-orange-500 selection:text-white">
           Huez
