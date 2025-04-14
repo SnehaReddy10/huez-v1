@@ -47,7 +47,13 @@ function App() {
     pathname === '/checkout';
 
   return (
-    <div className={!showApp ? 'overflow-hidden h-screen' : ''}>
+    <div
+      className={
+        !showApp
+          ? 'pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)] overflow-hidden h-screen'
+          : ''
+      }
+    >
       <div
         className={`max-sm:px-6 fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center bg-black transition-opacity duration-500 ${
           isTransitioning ? 'opacity-0 pointer-events-none' : 'opacity-100'
@@ -92,6 +98,7 @@ function App() {
             <Route path="/checkout" element={<CheckoutPage />} />
             <Route path="/return" element={<PaymentStatus />} />
             <Route path="/past-orders" element={<PastOrders />} />
+            {/* <Route path="/profile" element={<Profile />} /> */}
           </Routes>
 
           {!isAuthPage && <Footer />}
