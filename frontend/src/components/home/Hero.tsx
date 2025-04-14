@@ -41,7 +41,7 @@ function Hero() {
         >
           <div className="flex flex-col gap-4 items-center">
             <motion.p
-              className="text-xs md:text-xl w-48 md:w-96 text-center font-bold h-14"
+              className="md:text-xl w-48 md:w-96 text-center font-bold h-14"
               variants={contentVariants}
             >
               <Typewriter

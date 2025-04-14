@@ -48,7 +48,7 @@ export default function CustomerReviews() {
 
   return (
     <motion.div
-      className="flex flex-col gap-8 items-center justify-center py-10"
+      className="flex flex-col gap-4 md:gap-8 items-center justify-center py-10"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true }}
@@ -59,7 +59,7 @@ export default function CustomerReviews() {
         variants={containerVariants}
       >
         <motion.h2
-          className="md:text-2xl font-serif font-bold text-balance"
+          className="text-base md:text-2xl font-serif font-bold text-balance"
           variants={reviewVariants}
         >
           See what our customers has to say
@@ -79,7 +79,7 @@ export default function CustomerReviews() {
           {visibleReviews.map((i, idx) => (
             <motion.div
               key={i}
-              className={`w-screen md:w-80 m-2 p-4 flex gap-4 border-[1px] border-gray-200 bg-white rounded-sm text-center ${
+              className={`w-screen md:w-80 m-2 p-4 flex gap-4 bg-white rounded-sm text-center ${
                 idx !== 0 ? 'hidden md:flex' : ''
               }`}
               variants={reviewVariants}
