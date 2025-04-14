@@ -50,7 +50,7 @@ function App() {
     <div
       className={
         !showApp
-          ? 'pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)] overflow-hidden min-h-screen'
+          ? 'full-screen-safe min-h-[100dvh] pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)] overflow-hidden h-screen'
           : ''
       }
     >
