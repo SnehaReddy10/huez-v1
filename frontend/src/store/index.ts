@@ -34,6 +34,7 @@ import {
   useConfirmPaymentMutation,
 } from './payment/paymentApi';
 import { orderApi, useGetPastOrdersQuery } from './order/orderApi';
+import authReducer, { clearAuthData, setAuthData } from './slices/authSlice';
 
 export const store = configureStore({
   reducer: {
@@ -43,6 +44,7 @@ export const store = configureStore({
     [offerApi.reducerPath]: offerApi.reducer,
     [paymentApi.reducerPath]: paymentApi.reducer,
     [orderApi.reducerPath]: orderApi.reducer,
+    authSlice: authReducer,
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware()
@@ -81,4 +83,6 @@ export {
   useGetPaymentStatusQuery,
   useConfirmPaymentMutation,
   useGetPastOrdersQuery,
+  setAuthData,
+  clearAuthData,
 };

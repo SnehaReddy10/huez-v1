@@ -1,7 +1,11 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import PrimaryButton from '../buttons/primary-button/PrimaryButton';
 import TertiaryInput from '../inputs/TertiaryInput';
-import { useLoginMutation, useSyncCartOnLoginMutation } from '../../store';
+import {
+  setAuthData,
+  useLoginMutation,
+  useSyncCartOnLoginMutation,
+} from '../../store';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useContext, useEffect } from 'react';
@@ -10,6 +14,7 @@ import { loginSchema } from '../../validators/LoginSchema';
 import { setToken } from '../../utitlities';
 import * as yup from 'yup';
 import Loader from '../common/Loader';
+import { useDispatch } from 'react-redux';
 
 type LoginFormData = yup.InferType<typeof loginSchema>;
 
@@ -20,6 +25,7 @@ function Login() {
 
   const navigate = useNavigate();
   const location = useLocation();
+  const dispatch = useDispatch();
 
   const {
     register,
@@ -58,6 +64,7 @@ function Login() {
   useEffect(() => {
     if (results.isSuccess) {
       setToken(results.data?.token);
+      dispatch(setAuthData({ email: results.data?.user.email }));
       syncCartOnLogin({});
       navigate('/');
     }
@@ -133,5 +140,4 @@ function Login() {
     </div>
   );
 }
-
 export default Login;

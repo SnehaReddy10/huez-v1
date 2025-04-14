@@ -1,10 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 import PrimaryButton from '../buttons/primary-button/PrimaryButton';
-import { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 const OrderConfirmation = () => {
-  const [email] = useState('john.doe@gmail.com');
   const navigate = useNavigate();
+  const email = useSelector((state: any) => state.authSlice.email);
+
   return (
     <div className="w-full h-full flex justify-center items-center px-10 py-10 md:px-20 md:py-32">
       <div className="w-full h-full max-w-5xl bg-white rounded-lg flex overflow-hidden">
@@ -13,7 +14,7 @@ const OrderConfirmation = () => {
             <h1 className="text-2xl">Thank you for shopping with Huez.</h1>
             <p className="text-2xl">You’ve made a great choice</p>
             <p className="text-xs text-gray-500 mt-6">
-              Confirmation letter has been sent to{' '}
+              Confirmation email has been sent to{' '}
               <span className="font-medium">{email}</span>
             </p>
           </div>
