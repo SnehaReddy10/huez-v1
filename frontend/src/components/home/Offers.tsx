@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import Offer from '../Offer';
 import { useGetOffersQuery } from '../../store';
 import { ToastContext } from '../../context/ToastContext';
@@ -37,17 +38,50 @@ const Offers: React.FC = () => {
     return <Loader />;
   }
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+      },
+    },
+  };
+
+  const titleVariants = {
+    hidden: { opacity: 0, y: -20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: 'easeOut',
+      },
+    },
+  };
+
   return (
-    <div className="p-6 pb-20">
-      <h2 className="w-full text-center py-4">
+    <motion.div
+      className="p-6 pb-20"
+      initial="hidden"
+      animate="visible"
+      variants={containerVariants}
+    >
+      <motion.h2
+        className="w-full text-center py-4 text-2xl font-bold"
+        variants={titleVariants}
+      >
         Exclusive Deals & Special Offers
-      </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {offers?.data?.map((offer: any) => (
-          <Offer key={offer._id} offer={offer} />
+      </motion.h2>
+      <motion.div
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+        variants={containerVariants}
+      >
+        {offers?.data?.map((offer: any, index: number) => (
+          <Offer key={offer._id} offer={offer} index={index} />
         ))}
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 

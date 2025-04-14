@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import Carousel from '../common/Carousel';
 import Reviews from './CustomerReviews';
 import Hero from './Hero';
@@ -46,11 +47,44 @@ const items = [
 
 function Home() {
   const navigate = useNavigate();
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.3,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+      },
+    },
+  };
+
   return (
-    <div className="flex flex-col pb-20 min-h-screen">
-      <div className="flex-1 flex flex-col gap-10 items-center justify-center">
-        <Hero />
-        <div className="flex flex-col gap-8 justify-center items-center w-1/3 text-center">
+    <motion.div
+      className="flex flex-col pb-20 min-h-screen"
+      initial="hidden"
+      animate="visible"
+      variants={containerVariants}
+    >
+      <motion.div className="flex-1 flex flex-col gap-10 items-center justify-center">
+        <motion.div variants={itemVariants}>
+          <Hero />
+        </motion.div>
+
+        <motion.div
+          className="flex flex-col gap-8 justify-center items-center w-full"
+          variants={itemVariants}
+        >
           <div className="flex flex-col gap-1 justify-center items-center">
             <h1 className="font-bold text-2xl font-serif">
               Our Special Dishes
@@ -60,12 +94,13 @@ function Home() {
               to every bite. Savor the best, because you deserve it!
             </p>
           </div>
+
           <Carousel
             totalItems={items?.length ?? 0}
             children={
               <>
                 {items?.map((x: any, idx: any) => (
-                  <div
+                  <motion.div
                     key={idx}
                     className="relative w-24 h-24 shrink-0"
                     onClick={() => navigate('/menu')}
@@ -76,18 +111,32 @@ function Home() {
                       className="rounded-full w-24 h-24 object-cover"
                     />
                     <span className="absolute inset-0 rounded-full bg-black-900 opacity-0 hover:opacity-30 transition-all ease-in" />
-                  </div>
+                  </motion.div>
                 ))}
               </>
             }
           />
-        </div>
-        {/* <Offers /> */}
-        <Reviews />
-        <DiscountCard />
-        <Chef />
-      </div>
-    </div>
+        </motion.div>
+
+        <motion.div variants={itemVariants}>
+          <Reviews />
+        </motion.div>
+
+        <motion.div
+          className="flex justify-center items-center w-full"
+          variants={itemVariants}
+        >
+          <DiscountCard />
+        </motion.div>
+
+        <motion.div
+          className="flex justify-center items-center w-full"
+          variants={itemVariants}
+        >
+          <Chef />
+        </motion.div>
+      </motion.div>
+    </motion.div>
   );
 }
 

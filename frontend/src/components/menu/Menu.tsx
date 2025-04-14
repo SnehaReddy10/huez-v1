@@ -1,4 +1,5 @@
 import { useContext, useEffect, useRef, useState } from 'react';
+import { motion } from 'framer-motion';
 import TagButton from '../buttons/tag-button/TagButton';
 import {
   useAddToCartMutation,
@@ -88,12 +89,26 @@ function Menu() {
 
     const menuItem = menuItems[itemIndex];
     return (
-      <div style={{ ...style }}>
+      <motion.div
+        style={{ ...style }}
+        initial={{ opacity: 0, y: 50 }}
+        animate={{
+          opacity: 1,
+          y: 0,
+          transition: {
+            delay: itemIndex * 0.1,
+            duration: 0.5,
+            ease: 'easeOut',
+          },
+        }}
+        exit={{ opacity: 0, y: 20 }}
+      >
         <MenuItem
           item={menuItem}
           addProductToCart={token ? addProduct : addToCart}
+          index={itemIndex}
         />
-      </div>
+      </motion.div>
     );
   };
 
@@ -155,23 +170,59 @@ function Menu() {
     }
   }, [products, productsByCategory, searchCriteria]);
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const tagVariants = {
+    hidden: { opacity: 0, y: -20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+        ease: 'easeOut',
+      },
+    },
+  };
+
   return (
-    <div className="w-full px-4 md:px-10 lg:px-16">
+    <motion.div
+      className="w-full px-4 md:px-10 lg:px-16"
+      initial="hidden"
+      animate="visible"
+      variants={containerVariants}
+    >
       <div
         className={`w-full selection:bg-transparent overflow-hidden min-h-screen justify-center items-center`}
       >
-        <div className="hidden md:flex gap-3 p-4 items-center justify-center">
+        <motion.div
+          className="hidden md:flex gap-3 p-4 items-center justify-center"
+          variants={containerVariants}
+        >
           {tags?.data?.map((x: any) => (
-            <TagButton
-              label={x.label.toString()}
+            <motion.div
               key={x.id}
-              icon={x.icon}
-              isSelected={x.label === searchCriteria.label}
-              onClick={() => setSearchCriteria(x)}
-              className="px-1 py-1 text-wrap md:w-[5.5rem]"
-            />
+              variants={tagVariants}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <TagButton
+                label={x.label.toString()}
+                icon={x.icon}
+                isSelected={x.label === searchCriteria.label}
+                onClick={() => setSearchCriteria(x)}
+                className="px-1 py-1 text-wrap md:w-[5.5rem]"
+              />
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
         {isFetching || isProductsByCategoryFetching ? (
           <MenuSkeletonLoader />
         ) : (
@@ -208,12 +259,12 @@ function Menu() {
                 </Grid>
               </>
             ) : (
-              <ProductNotFound />
+              isFetching && <ProductNotFound />
             )}
           </div>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 }
 

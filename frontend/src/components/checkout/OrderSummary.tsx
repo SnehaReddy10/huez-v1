@@ -60,7 +60,7 @@ const OrderSummary = () => {
           <span className="col-span-2"></span>
           <p className="col-span-3 font-bold text-xs text-gray-950">Total</p>
           <span className="col-span-1 font-bold text-xs text-gray-950 text-right">
-            {order.total.toFixed(2)} €
+            {order.total.toFixed(2)} $
           </span>
         </div>
 
@@ -83,7 +83,7 @@ const OrderSummary = () => {
                 </p>
               </div>
               <span className="font-medium col-span-1 text-right">
-                {item.price} €
+                {item.price} $
               </span>
             </>
           ))}
@@ -92,7 +92,7 @@ const OrderSummary = () => {
         <div className="grid grid-cols-6 sticky bottom-0">
           <span className="col-span-2"></span>
           <p className="col-span-3 text-gray-650">Shipping</p>
-          <span className="col-span-1 text-right">{order.shippingCost} €</span>
+          <span className="col-span-1 text-right">{order.shippingCost} $</span>
         </div>
       </div>
     </div>

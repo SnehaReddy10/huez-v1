@@ -36,7 +36,7 @@ function OrderDetails() {
         <div className="flex justify-between mt-4 font-semibold">
           <span>Total</span>
           <span className="font-bold">
-            {(cart?.data?.totalPrice ?? 0).toFixed(2)} €
+            {(cart?.data?.totalPrice ?? 0).toFixed(2)} $
           </span>
         </div>
       </div>
@@ -54,7 +54,7 @@ function Item({ item }: { item: any }) {
         </p>
       </div>
       <span className="font-medium text-xxs md:col-span-2 xl:col-span-1 text-center">
-        {item.quantity}x {item.price} €
+        {item.quantity}x {item.price} $
       </span>
     </div>
   );
