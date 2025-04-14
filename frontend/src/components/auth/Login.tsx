@@ -76,7 +76,7 @@ function Login() {
   }
 
   return (
-    <div className="h-[100dvh] flex flex-col md:flex-row justify-between items-center">
+    <div className="h-screen flex flex-col md:flex-row justify-between items-center">
       <div className="animate-slideBottom md:animate-slideRight login h-[70%] w-full md:w-[70%] flex items-center justify-center md:h-full p-4 md:p-10">
         <div className="flex flex-col animate-fadeIn gap-4 md:gap-10 items-center justify-center w-max md:w-72">
           <h2 className="text-xl md:text-3xl font-semibold font-serif">

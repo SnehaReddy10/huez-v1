@@ -3,6 +3,9 @@ export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      height: {
+        screen: 'var(--vh)',
+      },
       colors: {
         black: {
           900: '#1E201E',
