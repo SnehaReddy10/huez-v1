@@ -142,8 +142,8 @@ export const CheckoutForm = ({ clientSecret }: { clientSecret: string }) => {
   };
 
   return (
-    <div className="min-h-screen bg-white flex flex-row justify-center items-start w-full overflow-y-auto">
-      <div className="w-full max-xl:p-10 xl:w-2/3 flex flex-col justify-start gap-8 h-full py-20">
+    <div className="min-h-screen bg-white flex md:flex-row flex-col justify-center items-start w-full overflow-y-auto">
+      <div className="w-full max-xl:p-6 xl:w-2/3 flex flex-col justify-start gap-8 h-full py-20">
         <div className="xl:px-32 flex flex-col gap-8">
           <h2 className="text-xl font-semibold">
             {step === 'customer'
@@ -178,7 +178,7 @@ export const CheckoutForm = ({ clientSecret }: { clientSecret: string }) => {
           )}
         </div>
       </div>
-      <div className="w-1/3 h-full sticky top-0">
+      <div className="w-full md:w-1/3 h-full sticky top-0">
         <OrderDetails />
       </div>
     </div>

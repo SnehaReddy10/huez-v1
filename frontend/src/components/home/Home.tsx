@@ -86,10 +86,10 @@ function Home() {
           variants={itemVariants}
         >
           <div className="flex flex-col gap-1 justify-center items-center">
-            <h1 className="font-bold text-2xl font-serif">
+            <h1 className="font-bold text-base md:text-2xl font-serif">
               Our Special Dishes
             </h1>
-            <p className="text-gray-600 text-xs">
+            <p className="text-gray-600 text-xs text-pretty px-4 md:px-0">
               Experience flavors that bring comfort, joy, and a touch of magic
               to every bite. Savor the best, because you deserve it!
             </p>

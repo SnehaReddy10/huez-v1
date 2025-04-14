@@ -46,14 +46,14 @@ function OrderDetails() {
 
 function Item({ item }: { item: any }) {
   return (
-    <div className="grid md:grid-cols-7 xl:grid-cols-4 text-gray-600 text-xs">
-      <div className="md:col-span-5 xl:col-span-3">
+    <div className="grid grid-cols-5 md:grid-cols-7 xl:grid-cols-4 text-gray-600 text-xs">
+      <div className="col-span-3 md:col-span-5 xl:col-span-3">
         <p className="font-medium">{item.menuItem.name}</p>
         <p className="text-xxs text-gray-500 text-nowrap overflow-hidden text-ellipsis">
           {item.menuItem.description}
         </p>
       </div>
-      <span className="font-medium text-xxs md:col-span-2 xl:col-span-1 text-center">
+      <span className="font-medium text-xxs col-span-2 md:col-span-2 xl:col-span-1 text-center">
         {item.quantity}x {item.price} $
       </span>
     </div>

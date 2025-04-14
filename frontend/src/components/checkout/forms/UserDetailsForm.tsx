@@ -62,7 +62,7 @@ function UserDetailsForm({
         type="submit"
         label="Continue to Payment"
         onClickHandler={handleCustomerSubmit}
-        className="w-max py-2 rounded-none uppercase text-[0.5rem] text-white font-medium tracking-wider mt-4"
+        className="w-max py-2 rounded-none uppercase text-[0.5rem] text-white font-medium tracking-wider md:mt-4"
       />
     </form>
   );
