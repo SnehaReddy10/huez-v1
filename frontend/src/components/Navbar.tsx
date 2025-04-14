@@ -5,6 +5,8 @@ import { MdLocalOffer, MdMenuBook } from 'react-icons/md';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { getToken, logout } from '../utitlities';
 import { LuLogOut } from 'react-icons/lu';
+import { useDispatch } from 'react-redux';
+import { cartApi } from '../store/cart/cartApi';
 
 const navItems = [
   {
@@ -61,9 +63,16 @@ const authItems = [
 function Navbar() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleOnClick = (path: string) => {
     navigate(path);
+  };
+
+  const handleLogout = () => {
+    logout();
+    dispatch(cartApi.util.resetApiState());
+    handleOnClick('/');
   };
 
   return (
@@ -109,10 +118,7 @@ function Navbar() {
           <>
             <div
               key={3}
-              onClick={() => {
-                logout();
-                handleOnClick('/');
-              }}
+              onClick={handleLogout}
               className="flex gap-1 cursor-pointer items-center justify-center"
             >
               <span>Logout</span>
