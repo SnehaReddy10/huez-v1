@@ -49,21 +49,17 @@ export default function ProductNotFound() {
       </p>
 
       <Carousel
-        totalItems={items?.length ?? 0}
-        children={
-          <>
-            {items?.map((x: any, idx: any) => (
-              <div key={idx} className="relative w-24 h-24 shrink-0">
-                <img
-                  src={x.url}
-                  alt={`Item ${idx}`}
-                  className="rounded-full w-24 h-24 object-cover"
-                />
-                <span className="absolute inset-0 rounded-full bg-black-900 opacity-0 hover:opacity-30  transition-all ease-in" />
-              </div>
-            ))}
-          </>
-        }
+        slides={items}
+        carouselItem={({ slide }) => (
+          <div key={slide.id} className="relative w-24 h-24 shrink-0">
+            <img
+              src={slide.url}
+              alt={`Item ${slide.id}`}
+              className="rounded-full w-24 h-24 object-cover"
+            />
+            <span className="absolute inset-0 rounded-full bg-black-900 opacity-0 hover:opacity-30  transition-all ease-in" />
+          </div>
+        )}
       />
     </div>
   );
