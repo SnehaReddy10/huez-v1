@@ -9,9 +9,15 @@ import {
   useGetProductsQuery,
 } from '../../store';
 import { ToastContext } from '../../context/ToastContext';
-import { CarouselRestaurantItem } from './CarouselRestaurantItem';
-import { CarouselMenuItem } from './CarouselmenuItem';
-import { CarouselOfferItem } from './CarouselOfferItem';
+import {
+  CarouselRestaurantItem,
+  CarouselRestaurantItemSkeleton,
+} from './CarouselRestaurantItem';
+import { CarouselMenuItem, CarouselMenuItemSkeleton } from './CarouselmenuItem';
+import {
+  CarouselOfferItem,
+  CarouselOfferItemSkeleton,
+} from './CarouselOfferItem';
 import { HomeTopBar } from './HomeTopBar';
 
 const restaurants = [
@@ -60,9 +66,18 @@ function MobileHomeView() {
   const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const toastContext = useContext(ToastContext);
-  const { data: offers, error: fetchingOffersFailed } = useGetOffersQuery({});
-  const { data: popularProducts } = useGetPopularProductsQuery({});
-  const { data: products } = useGetProductsQuery({ limit: 20, cursor: 0 });
+  const {
+    data: offers,
+    error: fetchingOffersFailed,
+    isFetching: isFetchingOffers,
+  } = useGetOffersQuery({});
+  const { data: popularProducts, isFetching: isFetchingPopularProducts } =
+    useGetPopularProductsQuery({});
+  const { data: products, isFetching: isFetchingProducts } =
+    useGetProductsQuery({
+      limit: 20,
+      cursor: 0,
+    });
 
   useEffect(() => {
     if (!toastContext) {
@@ -108,32 +123,48 @@ function MobileHomeView() {
             ))}
           </div>
         </div>
+        {isFetchingOffers ? (
+          <CarouselOfferItemSkeleton />
+        ) : (
+          <Carousel
+            className="bg-white py-4"
+            enableAutoPlay={true}
+            slides={offers?.data}
+            carouselItem={CarouselOfferItem}
+            slidesPerView={1}
+            slidesPerGroup={1}
+            showPagination={true}
+          />
+        )}
+      </div>
+      {isFetchingProducts ? (
+        <div className="flex justify-between px-2">
+          {Array.from({ length: 4 }).map((_, index) => (
+            <CarouselMenuItemSkeleton key={index} />
+          ))}
+        </div>
+      ) : (
         <Carousel
-          className="bg-white py-4"
-          enableAutoPlay={true}
-          slides={offers?.data}
-          carouselItem={CarouselOfferItem}
-          slidesPerView={1}
-          slidesPerGroup={1}
+          className="bg-white pt-2 pb-0"
+          carouselItem={({ slide }) => CarouselMenuItem({ slide, navigate })}
+          slides={products?.data}
+          slidesPerView={4}
+          slidesPerGroup={2}
           showPagination={true}
         />
-      </div>
-      <Carousel
-        className="bg-white pt-2 pb-0"
-        carouselItem={({ slide }) => CarouselMenuItem({ slide, navigate })}
-        slides={products?.data}
-        slidesPerView={4}
-        slidesPerGroup={2}
-        showPagination={true}
-      />
+      )}
 
-      <Carousel
-        className="bg-white"
-        carouselItem={CarouselRestaurantItem}
-        slides={restaurants}
-        slidesPerView={1.2}
-        slidesPerGroup={1}
-      />
+      {isFetchingPopularProducts ? (
+        <CarouselRestaurantItemSkeleton />
+      ) : (
+        <Carousel
+          className="bg-white"
+          carouselItem={CarouselRestaurantItem}
+          slides={restaurants}
+          slidesPerView={1.2}
+          slidesPerGroup={1}
+        />
+      )}
     </div>
   );
 }

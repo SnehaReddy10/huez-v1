@@ -52,3 +52,31 @@ export const CarouselRestaurantItem = ({ slide }: { slide: any }) => {
     </div>
   );
 };
+
+export const CarouselRestaurantItemSkeleton = () => {
+  return (
+    <div className="min-w-[100%] rounded-xl shadow-md overflow-hidden bg-white animate-pulse">
+      <div className="w-[98%] relative">
+        <div className="w-full h-32 bg-gray-300" />
+
+        <div className="absolute top-2 left-2 bg-white text-xs px-2 py-1 rounded-full shadow-sm flex items-center gap-1">
+          <div className="w-3 h-3 rounded-full bg-gray-300" />
+          <div className="w-4 h-2 bg-gray-300 rounded" />
+          <div className="w-6 h-2 bg-gray-200 rounded" />
+        </div>
+
+        <div className="absolute top-2 right-2 bg-white p-1 rounded-full shadow">
+          <div className="w-4 h-4 bg-gray-300 rounded-full" />
+        </div>
+      </div>
+
+      <div className="p-2 w-[95%] space-y-2">
+        <div className="h-3 w-2/3 bg-gray-300 rounded" />
+        <div className="flex items-center gap-2">
+          <div className="h-3 w-1/4 bg-gray-300 rounded" />
+          <div className="h-3 w-1/4 bg-gray-200 rounded" />
+        </div>
+      </div>
+    </div>
+  );
+};

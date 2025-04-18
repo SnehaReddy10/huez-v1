@@ -23,3 +23,12 @@ export function CarouselMenuItem({ slide, navigate }: any) {
     </motion.div>
   );
 }
+
+export function CarouselMenuItemSkeleton() {
+  return (
+    <div className="relative md:w-20 md:h-20 xl:w-24 xl:h-24 shrink-0 flex flex-col items-center justify-center animate-pulse">
+      <div className="rounded-full w-14 h-14 md:w-20 md:h-20 xl:w-24 xl:h-24 bg-gray-300" />
+      <div className="mt-1 h-3 w-12 md:w-16 xl:w-20 bg-gray-300 rounded" />
+    </div>
+  );
+}
