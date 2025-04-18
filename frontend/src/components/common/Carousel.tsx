@@ -1,26 +1,39 @@
 import { useEffect, useState } from 'react';
-import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import { Autoplay, Pagination } from 'swiper/modules';
 
 function Carousel({
-  totalItems,
-  children,
+  enableAutoPlay = false,
+  slides = [],
+  className = '',
+  carouselItem,
+  slidesPerView = 1,
+  slidesPerGroup = 1,
+  showPagination = false,
+  enableResponsiveView = false,
 }: {
-  totalItems: number;
-  children: any;
+  enableAutoPlay?: boolean;
+  slides?: any[];
+  className?: string;
+  carouselItem?: (slide: any) => React.ReactNode;
+  slidesPerView?: number;
+  slidesPerGroup?: number;
+  showPagination?: boolean;
+  enableResponsiveView?: boolean;
 }) {
-  const [index, setIndex] = useState(0);
   const [visibleItems, setVisibleCount] = useState(0);
-  const itemWidth = window.innerWidth <= 600 ? 6 : 3; // Adjust item width based on screen size
-  const totalCarouselWidth: number = totalItems * itemWidth;
 
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth <= 600) {
-        setVisibleCount(2);
+        setVisibleCount(4);
       } else if (window.innerWidth <= 900) {
-        setVisibleCount(2);
+        setVisibleCount(6);
       } else {
-        setVisibleCount(5);
+        setVisibleCount(6);
       }
     };
     handleResize();
@@ -28,49 +41,43 @@ function Carousel({
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const handleRightArrowClick = () => {
-    if (index * itemWidth < totalCarouselWidth - itemWidth) {
-      setIndex((prevIndex) => prevIndex + 1);
-    }
-  };
-
-  const handleLeftArrowClick = () => {
-    if (index > 0) {
-      setIndex((prevIndex) => prevIndex - 1);
-    }
-  };
-
   return (
-    <div className="flex items-center justify-center w-screen selection:bg-transparent">
-      {totalItems > visibleItems && (
-        <button
-          className="bg-gray-600 p-2 mr-4 rounded-md hover:cursor-pointer hover:bg-gray-700"
-          onClick={handleLeftArrowClick}
+    <>
+      <div
+        className={`relative w-full md:max-w-xl xl:max-w-2xl mx-auto overflow-hidden px-2 ${className}`}
+      >
+        <Swiper
+          modules={[Pagination, Autoplay]}
+          spaceBetween={16}
+          slidesPerView={enableResponsiveView ? visibleItems : slidesPerView}
+          slidesPerGroup={enableResponsiveView ? visibleItems : slidesPerGroup}
+          pagination={
+            showPagination
+              ? {
+                  el: '.custom-pagination',
+                  clickable: true,
+                }
+              : false
+          }
+          autoplay={
+            enableAutoPlay
+              ? {
+                  delay: 3000,
+                  disableOnInteraction: false,
+                }
+              : false
+          }
         >
-          <FaArrowLeft size={16} color="white" />
-        </button>
-      )}
+          {slides.map((slide) => (
+            <SwiperSlide key={slide.id}>
+              {carouselItem ? carouselItem({ slide }) : null}
+            </SwiperSlide>
+          ))}
+        </Swiper>
 
-      <div className="w-[40%] overflow-hidden relative">
-        <div
-          className="flex gap-4 transition-transform duration-300 ease-out"
-          style={{
-            transform: `translateX(-${index * itemWidth}rem)`,
-          }}
-        >
-          {children}
-        </div>
+        <div className="custom-pagination mt-4 flex justify-center"></div>
       </div>
-
-      {totalItems > visibleItems && (
-        <button
-          className="bg-gray-600 p-2 ml-4 rounded-md hover:cursor-pointer hover:bg-gray-700"
-          onClick={handleRightArrowClick}
-        >
-          <FaArrowRight size={16} color="white" />
-        </button>
-      )}
-    </div>
+    </>
   );
 }
 

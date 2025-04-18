@@ -1,9 +1,8 @@
 import { FaRegUser } from 'react-icons/fa';
 import { IoHomeOutline } from 'react-icons/io5';
-import { LuShoppingBag } from 'react-icons/lu';
-import { IoCartOutline } from 'react-icons/io5';
+import { LuInbox, LuShoppingBag } from 'react-icons/lu';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { BsSearch } from 'react-icons/bs';
 
 const navItems = [
   {
@@ -14,18 +13,24 @@ const navItems = [
   },
   {
     id: 2,
+    label: 'Explore',
+    path: '/search',
+    icon: <BsSearch size={24} />,
+  },
+  {
+    id: 3,
     label: 'Menu',
     path: '/menu',
     icon: <LuShoppingBag size={24} />,
   },
   {
-    id: 3,
-    label: 'Cart',
-    path: '/cart',
-    icon: <IoCartOutline size={24} />,
+    id: 4,
+    label: 'Inbox',
+    path: '/notifications',
+    icon: <LuInbox size={24} />,
   },
   {
-    id: 4,
+    id: 5,
     label: 'Profile',
     path: '/profile',
     icon: <FaRegUser size={22} />,
@@ -37,27 +42,14 @@ function MobileBottomNav() {
   const navigate = useNavigate();
 
   return (
-    <motion.nav
-      className="md:hidden fixed bottom-0 left-0 right-0 z-[999] bg-white"
-      initial={{ y: 100 }}
-      animate={{ y: 0 }}
-      transition={{
-        type: 'spring',
-        stiffness: 260,
-        damping: 20,
-      }}
-      style={{
-        boxShadow: '0 -4px 12px rgba(0, 0, 0, 0.05)',
-      }}
-    >
+    <nav className="md:hidden fixed bottom-0 left-0 right-0 z-[999] bg-white shadow-[0_-4px_12px_rgba(0,0,0,0.05)]">
       <div className="safe-area-inset-bottom">
         <div className="flex justify-around items-center px-6 py-4">
           {navItems.map((item) => (
-            <motion.button
+            <button
               key={item.id}
               onClick={() => navigate(item.path)}
-              className="flex flex-col items-center gap-1.5"
-              whileTap={{ scale: 0.9 }}
+              className="flex flex-col items-center gap-1.5 active:scale-95 transition-transform"
             >
               <div
                 className={`${
@@ -75,11 +67,11 @@ function MobileBottomNav() {
               >
                 {item.label}
               </span>
-            </motion.button>
+            </button>
           ))}
         </div>
       </div>
-    </motion.nav>
+    </nav>
   );
 }
 

@@ -7,10 +7,16 @@ function SearchBar({
   className = '',
   onChangeHandler,
   autoFocus = false,
+  inputClassName = '',
+  buttonClassName = '',
+  iconColor = 'white',
 }: {
   className?: string;
   onChangeHandler?: any;
   autoFocus?: boolean;
+  inputClassName?: string;
+  buttonClassName?: string;
+  iconColor?: string;
 }) {
   const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -23,22 +29,28 @@ function SearchBar({
 
   return (
     <div
+      onClick={() => {
+        navigate('/search');
+      }}
       className={twMerge(
-        `flex items-center justify-center gap-2 text-black-900 bg-white rounded-full text-xs ${className}`
+        `flex items-center h-8 justify-center text-black-900 bg-white rounded-full text-xs ${className}`
       )}
     >
       <input
         ref={inputRef}
-        onClick={() => {
-          navigate('/search');
-        }}
         onChange={onChangeHandler}
         type="text"
-        className={twMerge(`rounded-full focus-within:outline-none px-4`)}
+        className={twMerge(
+          `rounded-full focus-within:outline-none px-4 ${inputClassName}`
+        )}
         placeholder="Search"
       />
-      <button className="rounded-e-full bg-black-900 p-2">
-        <IoSearchSharp color="white" />
+      <button
+        className={twMerge(
+          `rounded-e-full bg-black-900 p-2 ${buttonClassName}`
+        )}
+      >
+        <IoSearchSharp color={iconColor} size={25} />
       </button>
     </div>
   );

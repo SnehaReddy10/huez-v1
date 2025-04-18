@@ -113,7 +113,6 @@ export const CheckoutForm = ({ clientSecret }: { clientSecret: string }) => {
         setMessage(error.message || 'An error occurred during payment.');
       } else if (paymentIntent && paymentIntent.status === 'succeeded') {
         try {
-          console.log('Payment intent ID:', paymentIntentId);
           await confirmPayment({
             paymentIntentId,
             address: addressData,

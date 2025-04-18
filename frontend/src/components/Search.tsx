@@ -73,63 +73,59 @@ function SearchResult({ searchResult }: { searchResult: any }) {
   return (
     <>
       {searchResult?.menuItems?.length > 0 && (
-        <div className="shadow-xl shadow-gray-100 py-6">
+        <div className="shadow-xl shadow-gray-100">
           {searchResult?.menuItems?.length !== null && (
             <Carousel
-              totalItems={searchResult?.menuItems?.length ?? 0}
-              children={
-                <>
-                  {searchResult?.menuItems?.map((x: any) => (
-                    <div className="bg-gray-100 p-1 flex gap-4 items-center w-64 h-40 shrink-0">
-                      <img
-                        src={x.imageUrl}
-                        alt=""
-                        className="w-1/2 h-full object-cover"
-                      />
-                      <div className="flex flex-col w-24">
-                        <p className="text-xs">{x.name}</p>
-                        <p className="text-xxs text-gray-600 line-clamp-3">
-                          {x.description}
-                        </p>
-                      </div>
+              slides={searchResult?.menuItems}
+              slidesPerView={2.2}
+              slidesPerGroup={2}
+              carouselItem={({ slide }: { slide: any }) => {
+                return (
+                  <div className="bg-gray-100 p-1 flex md:gap-4 items-center md:w-64 md:h-40 shrink-0">
+                    <img
+                      src={slide.imageUrl}
+                      alt={slide.name}
+                      className="md:w-1/2 md:h-full object-cover"
+                    />
+                    <div className="flex flex-col w-24">
+                      <p className="text-xs">{slide.name}</p>
+                      <p className="text-xxs text-gray-600 line-clamp-3">
+                        {slide.description}
+                      </p>
                     </div>
-                  ))}
-                </>
-              }
+                  </div>
+                );
+              }}
             />
           )}
         </div>
       )}
+
       {searchResult?.restaurants?.length > 0 && (
         <div className="shadow-xl shadow-gray-100 py-6">
           {searchResult?.restaurants?.length !== null && (
             <Carousel
-              totalItems={searchResult?.restaurants?.length ?? 0}
-              children={
-                <>
-                  {searchResult?.restaurants?.map((x: any) => (
-                    <div className="bg-gray-100 p-1 flex gap-4 items-center w-64 h-40 shrink-0">
-                      <img
-                        src={x.imageUrl}
-                        alt=""
-                        className="w-1/2 h-full object-cover"
-                      />
-                      <div className="flex flex-col gap-2 w-24">
-                        <p className="text-xs capitalize font-semibold">
-                          {x.name}
-                        </p>
-                        <div className="flex gap-[2px] items-center justify-center">
-                          <IoLocationOutline size={15} />
-                          <p className="text-xxs line-clamp-1">{x.address}</p>
-                        </div>
-                        <p className="text-xxs text-gray-600 line-clamp-3">
-                          {x.description}
-                        </p>
-                      </div>
+              carouselItem={({ slide }: { slide: any }) => (
+                <div className="bg-gray-100 p-1 flex gap-4 items-center w-64 h-40 shrink-0">
+                  <img
+                    src={slide.imageUrl}
+                    alt=""
+                    className="w-1/2 h-full object-cover"
+                  />
+                  <div className="flex flex-col gap-2 w-24">
+                    <p className="text-xs capitalize font-semibold">
+                      {slide.name}
+                    </p>
+                    <div className="flex gap-[2px] items-center justify-center">
+                      <IoLocationOutline size={15} />
+                      <p className="text-xxs line-clamp-1">{slide.address}</p>
                     </div>
-                  ))}
-                </>
-              }
+                    <p className="text-xxs text-gray-600 line-clamp-3">
+                      {slide.description}
+                    </p>
+                  </div>
+                </div>
+              )}
             />
           )}
         </div>

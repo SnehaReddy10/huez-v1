@@ -8,7 +8,7 @@ function TagButton({
   className = '',
 }: {
   label: string;
-  icon: any;
+  icon?: any;
   isSelected: boolean;
   onClick: any;
   className?: string;

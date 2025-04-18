@@ -18,6 +18,7 @@ import {
   useGetProductsByCategoryQuery,
   useSearchQuery,
   useGetTagsQuery,
+  useGetPopularProductsQuery,
 } from './product/productApi';
 import {
   offerApi,
@@ -78,6 +79,7 @@ export {
   useDeleteOfferMutation,
   useSearchQuery,
   useGetTagsQuery,
+  useGetPopularProductsQuery,
   useSyncCartOnLoginMutation,
   useCreatePaymentIntentMutation,
   useGetPaymentStatusQuery,

@@ -14,6 +14,7 @@ import { getToken } from '../../utitlities';
 import ProductNotFound from './ProductNotFound';
 import { MenuItem } from './MenuItem';
 import { SearchCriteria } from '../../enum';
+import { useLocation } from 'react-router-dom';
 
 function Menu() {
   const [addProduct, addProductResults] = useAddToCartMutation();
@@ -28,6 +29,7 @@ function Menu() {
   const toastContext = useContext(ToastContext);
   const [cursor, setCursor] = useState<string | null>();
   const [token] = useState(getToken());
+  const location = useLocation();
   const [searchCriteria, setSearchCriteria] = useState<{
     id: number;
     label: SearchCriteria;
@@ -127,6 +129,17 @@ function Menu() {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+  const searchCategory = location.state?.searchCategory;
+
+  useEffect(() => {
+    if (searchCategory) {
+      setSearchCriteria({
+        id: 1,
+        label: searchCategory,
+        type: 'category',
+      });
+    }
+  }, [searchCategory]);
 
   useEffect(() => {
     if (observerRef.current) {
