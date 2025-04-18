@@ -113,8 +113,8 @@ function MobileHomeView() {
           enableAutoPlay={true}
           slides={offers?.data}
           carouselItem={CarouselOfferItem}
-          slidesPerView={1}
-          slidesPerGroup={2}
+          slidesPerView={1.1}
+          slidesPerGroup={1}
           showPagination={true}
         />
       </div>
@@ -123,7 +123,7 @@ function MobileHomeView() {
         carouselItem={({ slide }) => CarouselMenuItem({ slide, navigate })}
         slides={products?.data}
         slidesPerView={4}
-        slidesPerGroup={4}
+        slidesPerGroup={2}
         showPagination={true}
       />
 
