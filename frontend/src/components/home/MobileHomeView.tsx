@@ -113,7 +113,7 @@ function MobileHomeView() {
           enableAutoPlay={true}
           slides={offers?.data}
           carouselItem={CarouselOfferItem}
-          slidesPerView={1.1}
+          slidesPerView={1}
           slidesPerGroup={1}
           showPagination={true}
         />
