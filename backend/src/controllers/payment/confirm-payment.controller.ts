@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { Order } from '../../models/order.model';
 import { Cart } from '../../models/cart.model';
 import Stripe from 'stripe';
+import { MenuItem } from '../../models/menu-item.model';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
   apiVersion: '2025-03-31.basil',
@@ -52,6 +53,15 @@ export const ConfirmPaymentController = async (req: Request, res: Response) => {
     order.status = 'processing';
 
     await order.save();
+
+    const bulkUpdates = order.items.map((item) => ({
+      updateOne: {
+        filter: { _id: item.menuItem },
+        update: { $inc: { userActivityScore: 1 } },
+      },
+    }));
+
+    await MenuItem.bulkWrite(bulkUpdates);
 
     await Cart.findOneAndUpdate(
       { user: userId },

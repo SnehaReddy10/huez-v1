@@ -17,6 +17,7 @@ const menuItemSchema = new mongoose.Schema({
   isVegan: { type: Boolean, default: false },
   inStock: { type: Number, required: true },
   calories: { type: Number, required: true },
+  userActivityScore: { type: Number, default: 0 },
 });
 
 menuItemSchema.index({ name: 'text', description: 'text' });

@@ -9,7 +9,7 @@ export const GetProductsByCategoryController = async (
   res: Response
 ) => {
   try {
-    const { isVeg, isVegan, cuisine, category } = req.query;
+    const { cuisine, category } = req.query;
 
     const filter: any = { $or: [] };
 

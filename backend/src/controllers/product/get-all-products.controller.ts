@@ -10,7 +10,7 @@ export const GetAllProductsController = async (req: Request, res: Response) => {
     const limit = parseInt(req.query.limit as string) || 20;
     const cursor = req.query.cursor as string | undefined;
 
-    let query: any = {};
+    const query: any = {};
     if (cursor && mongoose.Types.ObjectId.isValid(cursor)) {
       query._id = { $gt: new mongoose.Types.ObjectId(cursor) };
     }

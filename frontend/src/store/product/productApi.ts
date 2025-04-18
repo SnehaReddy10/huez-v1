@@ -63,6 +63,12 @@ export const productApi = createApi({
           url: '/tags',
         }),
       }),
+      getPopularProducts: builder.query({
+        query: () => ({
+          method: 'GET',
+          url: '/popular-items',
+        }),
+      }),
     };
   },
 });
@@ -73,4 +79,5 @@ export const {
   useGetProductsByCategoryQuery,
   useSearchQuery,
   useGetTagsQuery,
+  useGetPopularProductsQuery,
 } = productApi;
