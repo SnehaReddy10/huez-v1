@@ -62,7 +62,7 @@ function WebHomeView() {
             carouselItem={({ slide }) => CarouselMenuItem({ slide, navigate })}
             slides={products?.data}
             slidesPerView={6}
-            slidesPerGroup={6}
+            slidesPerGroup={2}
           />
         </motion.div>
 

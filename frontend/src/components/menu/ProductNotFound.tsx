@@ -50,6 +50,8 @@ export default function ProductNotFound() {
 
       <Carousel
         slides={items}
+        slidesPerView={4}
+        slidesPerGroup={2}
         carouselItem={({ slide }) => (
           <div key={slide.id} className="relative w-24 h-24 shrink-0">
             <img

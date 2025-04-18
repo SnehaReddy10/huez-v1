@@ -272,7 +272,7 @@ function Menu() {
                 </Grid>
               </>
             ) : (
-              isFetching && <ProductNotFound />
+              !isFetching && <ProductNotFound />
             )}
           </div>
         )}
