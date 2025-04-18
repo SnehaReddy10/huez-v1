@@ -4,7 +4,7 @@ export function CarouselMenuItem({ slide, navigate }: any) {
   return (
     <motion.div
       key={slide.id}
-      className="relative md:w-20 md:h-20 xl:w-24 xl:h-24 shrink-0"
+      className="relative md:w-20 md:h-20 xl:w-24 xl:h-24 shrink-0 flex flex-col items-center justify-center"
       onClick={() => {
         navigate(`/menu`, {
           state: { searchCategory: slide.category },
