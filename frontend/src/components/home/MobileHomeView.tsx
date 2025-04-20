@@ -127,7 +127,7 @@ function MobileHomeView() {
           <CarouselOfferItemSkeleton />
         ) : (
           <Carousel
-            className="bg-white py-4"
+            className="bg-white pt-2"
             enableAutoPlay={true}
             slides={offers?.data}
             carouselItem={CarouselOfferItem}

@@ -30,6 +30,7 @@ function Menu() {
   const [cursor, setCursor] = useState<string | null>();
   const [token] = useState(getToken());
   const location = useLocation();
+  const [percentage, setPercentage] = useState(1);
   const [searchCriteria, setSearchCriteria] = useState<{
     id: number;
     label: SearchCriteria;
@@ -130,6 +131,14 @@ function Menu() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
   const searchCategory = location.state?.searchCategory;
+
+  useEffect(() => {
+    if (gridHeight > 800) {
+      setPercentage(1);
+    } else {
+      setPercentage(0.8);
+    }
+  }, [gridHeight]);
 
   useEffect(() => {
     if (searchCategory) {
@@ -249,7 +258,7 @@ function Menu() {
                   columnCount={columnCount}
                   columnWidth={((90 / 100) * gridWidth) / columnCount}
                   rowCount={rowCount}
-                  rowHeight={400}
+                  rowHeight={(gridHeight * percentage) / 2}
                   height={gridHeight}
                   width={gridWidth}
                   onScroll={handleScroll}
