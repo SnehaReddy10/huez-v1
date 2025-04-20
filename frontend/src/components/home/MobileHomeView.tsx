@@ -97,18 +97,18 @@ function MobileHomeView() {
 
   return (
     <div className="md:hidden bg-gray-100 flex flex-col gap-2">
-      <div>
+      <div className="flex flex-col gap-2 bg-white">
         <HomeTopBar />
-        <div className="bg-white w-full md:max-w-xl xl:max-w-2xl mx-auto">
-          <div className="py-2 w-full bg-white">
+        <div className="bg-white w-full md:max-w-xl xl:max-w-2xl mx-auto flex flex-col gap-2">
+          <div className="w-full bg-white">
             <SearchBar
-              inputClassName="rounded-s-md rounded-e-none bg-gray-100 w-full h-8"
-              className="w-full px-2"
-              buttonClassName="bg-gray-100 rounded-e-md"
+              inputClassName="rounded-s-md rounded-e-none bg-gray-100 flex-1 h-8"
+              className="w-full px-3 mx-2 flex"
+              buttonClassName="bg-gray-100 rounded-e-md p-1 mr-2"
               iconColor="orange"
             />
           </div>
-          <div className="px-2 flex gap-2">
+          <div className="px-4 flex gap-2">
             {popularProducts?.map((x: any) => (
               <TagButton
                 label={x.category}
@@ -127,11 +127,11 @@ function MobileHomeView() {
           <CarouselOfferItemSkeleton />
         ) : (
           <Carousel
-            className="bg-white pt-2"
+            className="bg-white pl-5"
             enableAutoPlay={true}
             slides={offers?.data}
             carouselItem={CarouselOfferItem}
-            slidesPerView={1}
+            slidesPerView={1.1}
             slidesPerGroup={1}
             showPagination={true}
           />
@@ -145,10 +145,10 @@ function MobileHomeView() {
         </div>
       ) : (
         <Carousel
-          className="bg-white pt-2 pb-0"
+          className="bg-white pt-2 pb-0 pl-4"
           carouselItem={({ slide }) => CarouselMenuItem({ slide, navigate })}
           slides={products?.data}
-          slidesPerView={4}
+          slidesPerView={4.6}
           slidesPerGroup={2}
           showPagination={true}
         />
@@ -158,7 +158,7 @@ function MobileHomeView() {
         <CarouselRestaurantItemSkeleton />
       ) : (
         <Carousel
-          className="bg-white"
+          className="bg-white p-3 pl-5"
           carouselItem={CarouselRestaurantItem}
           slides={restaurants}
           slidesPerView={1.2}
