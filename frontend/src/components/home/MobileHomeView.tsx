@@ -155,6 +155,8 @@ function MobileHomeView() {
         />
       )}
 
+      <MenuCategories />
+
       {isFetchingPopularProducts ? (
         <CarouselRestaurantItemSkeleton />
       ) : (
@@ -166,6 +168,76 @@ function MobileHomeView() {
           slidesPerGroup={1}
         />
       )}
+    </div>
+  );
+}
+
+function MenuCategories() {
+  const categories = [
+    {
+      id: 'fish',
+      name: 'Fish Grill',
+      imageUrl:
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXE6HOvxj45mGBiwa6qlOIG5k0n9DDWfQ0iw&s',
+    },
+    {
+      id: 'cake',
+      name: 'Cake',
+      imageUrl: 'https://www.justbake.in/userfiles/duet-cake-19.jpg',
+    },
+    {
+      id: 'sandwich',
+      name: 'Sandwich',
+      imageUrl:
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6GY2uOn6FCiR9T8xw1mOMIFzYx2ra-gEIIA&s',
+    },
+    {
+      id: 'burger',
+      name: 'Burger',
+      imageUrl:
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJbIcFzHNj_6KTbhToV6Bg2E3BX8ciLNnaSw&s',
+    },
+    {
+      id: 'pizza',
+      name: 'Pizza',
+      imageUrl:
+        'https://b.zmtcdn.com/data/pictures/chains/7/21246157/cb1aca9c6e30de1aab240f107ef95fff.jpg',
+    },
+    {
+      id: 'pasta',
+      name: 'Pasta',
+      imageUrl:
+        'https://cdn.apartmenttherapy.info/image/upload/f_jpg,q_auto:eco,c_fill,g_auto,w_1500,ar_4:3/k%2FPhoto%2FRecipes%2F2023-01-Caramelized-Tomato-Paste-Pasta%2F06-CARAMELIZED-TOMATO-PASTE-PASTA-039',
+    },
+  ];
+
+  const navigate = useNavigate();
+
+  return (
+    <div className="grid grid-cols-2 gap-4 p-2 bg-white">
+      {categories.map((category) => (
+        <div
+          key={category.id}
+          className="relative rounded-lg overflow-hidden cursor-pointer shadow-md"
+          onClick={() =>
+            navigate('/menu', { state: { searchCategory: category.name } })
+          }
+        >
+          <div className="w-[100%] aspect-[4/3] relative">
+            <img
+              src={category.imageUrl}
+              alt={category.name}
+              className="w-full h-full object-cover"
+            />
+            <span className="absolute aspect-4/3 inset-0 bg-black-900 opacity-30 transition-all ease-in" />
+          </div>
+          <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
+            <span className="text-white text-base font-semibold">
+              {category.name}
+            </span>
+          </div>
+        </div>
+      ))}
     </div>
   );
 }
