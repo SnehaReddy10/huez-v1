@@ -18,6 +18,8 @@ import OrderConfirmation from './components/checkout/OrderConfirmation';
 import CheckoutPage from './components/checkout/CheckoutPage';
 import PastOrders from './components/order/PastOrders';
 import MobileBottomNav from './components/MobileBottomNav';
+import Profile from './components/Profile';
+import MenuItem from './components/menu/MenuItem';
 
 function App() {
   const { pathname } = useLocation();
@@ -75,7 +77,9 @@ function App() {
         </video>
       </div>
 
-      {!isAuthPage && <MobileBottomNav />}
+      {!isAuthPage && showApp && !pathname.includes('menu') && (
+        <MobileBottomNav />
+      )}
       {!isAuthPage && <Navbar />}
 
       <div
@@ -91,6 +95,7 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/product" element={<Product />} />
             <Route path="/menu" element={<Menu />} />
+            <Route path="/menu-item/:id" element={<MenuItem />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/offers" element={<Offers />} />
             <Route path="/search" element={<Search />} />
@@ -98,10 +103,10 @@ function App() {
             <Route path="/checkout" element={<CheckoutPage />} />
             <Route path="/return" element={<PaymentStatus />} />
             <Route path="/past-orders" element={<PastOrders />} />
-            {/* <Route path="/profile" element={<Profile />} /> */}
+            <Route path="/profile" element={<Profile />} />
           </Routes>
 
-          {!isAuthPage && <Footer />}
+          {!isAuthPage && pathname === '/' && <Footer />}
         </ErrorBoundary>
       </div>
     </div>

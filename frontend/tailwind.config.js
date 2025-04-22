@@ -21,6 +21,9 @@ export default {
           650: '#8e8e8f',
           950: '#545557',
         },
+        green: {
+          400: '#23A757',
+        },
       },
       keyframes: {
         slide: {
