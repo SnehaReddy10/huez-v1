@@ -128,7 +128,7 @@ function Login() {
               doorstep!
             </p>
           </div>
-          <div className="pb-4 md:pb-10">
+          <div className="pb-4 md:pb-10 flex justify-center">
             <PrimaryButton
               onClickHandler={() => navigate('/register')}
               label="SIGN UP"
