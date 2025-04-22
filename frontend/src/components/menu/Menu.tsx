@@ -12,7 +12,7 @@ import { MenuSkeletonLoader } from '../loaders/MenuSkeletonLoader';
 import { FixedSizeGrid as Grid } from 'react-window';
 import { getToken } from '../../utitlities';
 import ProductNotFound from './ProductNotFound';
-import { MenuItem } from './MenuItem';
+import { MenuItemCard } from './MenuItemCard';
 import { SearchCriteria } from '../../enum';
 import { useLocation } from 'react-router-dom';
 
@@ -106,7 +106,7 @@ function Menu() {
         }}
         exit={{ opacity: 0, y: 20 }}
       >
-        <MenuItem
+        <MenuItemCard
           item={menuItem}
           addProductToCart={token ? addProduct : addToCart}
           index={itemIndex}

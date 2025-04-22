@@ -6,12 +6,14 @@ function PrimaryButton({
   onClickHandler,
   disabled = false,
   type = 'button',
+  icon,
 }: {
   label: string;
   className?: string;
   onClickHandler: any;
   disabled?: boolean;
   type?: 'button' | 'submit' | 'reset';
+  icon?: React.ReactNode;
 }) {
   return (
     <button
@@ -19,10 +21,11 @@ function PrimaryButton({
       disabled={disabled}
       onClick={onClickHandler}
       className={twMerge(
-        `disabled:bg-[#999] disabled:cursor-not-allowed text-white bg-black-900 py-[2px] px-6 rounded-sm text-[0.65rem] ${className}`
+        `flex gap-2 items-center justify-center disabled:bg-[#999] disabled:cursor-not-allowed text-white bg-black-900 py-[2px] px-6 rounded-sm text-[0.65rem] ${className}`
       )}
     >
-      {label}
+      {icon && <span>{icon}</span>}
+      <span>{label}</span>
     </button>
   );
 }
