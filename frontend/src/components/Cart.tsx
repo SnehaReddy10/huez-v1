@@ -7,7 +7,6 @@ import {
 } from '../store';
 import PrimaryButton from './buttons/primary-button/PrimaryButton';
 import QuantityControlGroup from './common/QuantityControlGroup';
-import { IoAdd, IoRemove } from 'react-icons/io5';
 import { twMerge } from 'tailwind-merge';
 import { useNavigate } from 'react-router-dom';
 import CartLoader from './cart/CartLoader';
@@ -65,11 +64,13 @@ function Cart() {
   return (
     <>
       {rows.length > 0 ? (
-        <div className="flex max-xl:flex-col animate-slideIn">
-          <div className="flex flex-col items-center w-full xl:w-[70%] py-10 px-5 lg:px-10">
-            <div className="flex justify-between items-center w-full">
-              <h2 className="text-xl">Shopping cart</h2>
-              <p className="text-xs text-gray-400 font-bold">
+        <div className="flex max-xl:flex-col min-h-[100dvh] pb-20 justify-between animate-slideIn">
+          <div className="flex flex-col items-center w-full xl:w-[70%] md:py-10 pb-4 lg:px-10">
+            <div className="flex justify-between items-center w-full max-sm:border-b-8 py-2 px-3 max-sm:border-gray-100">
+              <h2 className="text-base font-semibold md:text-xl">
+                Shopping cart
+              </h2>
+              <p className="text-xs text-gray-400 font-semibold md:font-bold">
                 {cart?.data?.items.length} ITEMS
               </p>
             </div>
@@ -95,9 +96,9 @@ function Cart() {
             />
           </div>
           {rows.length > 0 && (
-            <div className="max-h-[20rem] min-h-28 bg-gray-100 xl:w-[30%] py-10 px-5 lg:px-10 flex flex-col justify-between">
-              <div className="flex flex-col gap-10">
-                <h3 className="text-black text-xl">Summary</h3>
+            <div className="max-h-[20rem] min-h-28 bg-gray-100 xl:w-[30%] md:py-10 py-3 px-3 lg:px-10 flex flex-col justify-between">
+              <div className="flex flex-col md:gap-10">
+                <h3 className="text-black text-xl max-sm:hidden">Summary</h3>
 
                 <div className="text-xs flex flex-col gap-1 font-semibold text-gray-500">
                   <div className="flex justify-between">
@@ -129,11 +130,11 @@ function Cart() {
                   </p>
                 </div>
                 <PrimaryButton
-                  label={'Checkout'}
+                  label={`Place Order`}
                   onClickHandler={() => {
                     navigate('/checkout', { state: { cart } });
                   }}
-                  className="w-full py-1"
+                  className="w-full py-2 rounded-md text-xs"
                 />
               </div>
             </div>
@@ -195,17 +196,17 @@ const MobileCart = ({
   className,
 }: CartProps) => {
   return (
-    <div className={twMerge(`bg-white ${className}`)}>
+    <div className={twMerge(`bg-white w-[100%] ${className}`)}>
       <div className="space-y-4">
         {items.map((item) => (
           <div
             key={item.id}
-            className="flex items-center justify-between border-b-[2px] text-xs"
+            className="flex items-center justify-between border-b-[2px] border-gray-100 text-xs py-2 px-3"
           >
             <img
               src={item.menuItem.imageUrl}
               alt={item.menuItem.name}
-              className="w-16 h-16 rounded-lg"
+              className="w-[15%] aspect-1 rounded-lg"
             />
             <div className="flex-1 px-4">
               <p className="font-semibold">{item.menuItem.name}</p>
@@ -213,25 +214,11 @@ const MobileCart = ({
                 ${(item.price * item.quantity).toFixed(2)}
               </p>
             </div>
-            <div className="flex flex-col items-center">
-              <button
-                className="p-2 bg-black text-black rounded-md"
-                onClick={() => onIncrement(item.menuItem._id)}
-              >
-                <IoAdd size={20} />
-              </button>
-              <span className="w-8 h-8 flex items-center justify-center bg-black-900 text-white text-sm font-semibold rounded-md">
-                {item.quantity}
-              </span>
-              <button
-                className="p-2 bg-black text-black rounded-md"
-                onClick={() => {
-                  onDecrement(item.menuItem._id);
-                }}
-              >
-                <IoRemove size={20} />
-              </button>
-            </div>
+            <QuantityControlGroup
+              item={item}
+              incrementProductQuantity={onIncrement}
+              decrementProductQuantity={onDecrement}
+            />
           </div>
         ))}
       </div>
