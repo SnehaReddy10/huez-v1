@@ -33,7 +33,7 @@ function SearchBar({
         navigate('/search');
       }}
       className={twMerge(
-        `flex items-center h-8 justify-center text-black-900 bg-white rounded-full text-xs ${className}`
+        `flex items-center max-h-8 justify-between text-black-900 bg-white rounded-full text-xs ${className}`
       )}
     >
       <input
@@ -41,16 +41,16 @@ function SearchBar({
         onChange={onChangeHandler}
         type="text"
         className={twMerge(
-          `rounded-full focus-within:outline-none px-4 ${inputClassName}`
+          `rounded-s-full focus-within:outline-none px-4 ${inputClassName}`
         )}
         placeholder="Search"
       />
       <button
         className={twMerge(
-          `rounded-e-full bg-black-900 p-2 ${buttonClassName}`
+          `rounded-e-full bg-black-900 text-2xl p-1 ${buttonClassName}`
         )}
       >
-        <IoSearchSharp color={iconColor} size={25} />
+        <IoSearchSharp color={iconColor} />
       </button>
     </div>
   );

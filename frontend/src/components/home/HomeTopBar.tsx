@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 export const HomeTopBar = () => {
   const navigate = useNavigate();
   return (
-    <div className="flex text-xs items-center justify-between px-4 py-2 bg-white shadow-sm border-[2px] border-gray-100">
+    <div className="flex text-sm items-center justify-between px-4 py-2 bg-white shadow-sm border-[2px] border-gray-100">
       <div className="flex items-center gap-2">
         <FaMapMarkerAlt className="text-orange00 text-base" />
         <div>
@@ -22,7 +22,7 @@ export const HomeTopBar = () => {
 
       <div className="relative">
         <IoCartOutline
-          className="text-base"
+          className="text-xl"
           onClick={() => {
             navigate('/cart');
           }}

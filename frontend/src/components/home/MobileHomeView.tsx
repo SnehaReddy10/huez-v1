@@ -96,21 +96,22 @@ function MobileHomeView() {
   }, [popularProducts]);
 
   return (
-    <div className="md:hidden bg-gray-100 flex flex-col gap-2">
-      <div className="flex flex-col gap-2 bg-white">
+    <div className="md:hidden bg-gray-100 flex flex-col gap-1">
+      <div className="flex flex-col gap-3 bg-white">
         <HomeTopBar />
-        <div className="bg-white w-full md:max-w-xl xl:max-w-2xl mx-auto flex flex-col gap-2">
+        <div className="bg-white w-full md:max-w-xl xl:max-w-2xl mx-auto flex flex-col gap-3">
           <div className="w-full bg-white">
             <SearchBar
               inputClassName="rounded-s-md rounded-e-none bg-gray-100 flex-1 h-8"
-              className="w-full px-3 mx-2 flex"
-              buttonClassName="bg-gray-100 rounded-e-md p-1 mr-2"
+              className="w-full px-3 flex"
+              buttonClassName="bg-gray-100 rounded-e-md p-1"
               iconColor="orange"
             />
           </div>
-          <div className="px-4 flex gap-2">
+          <div className="px-2 flex gap-2">
             {popularProducts?.map((x: any) => (
               <TagButton
+                className="text-xs py-1 px-2 font-normal"
                 label={x.category}
                 isSelected={selectedCategory == x.category}
                 onClick={() => {
@@ -127,7 +128,7 @@ function MobileHomeView() {
           <CarouselOfferItemSkeleton />
         ) : (
           <Carousel
-            className="bg-white pl-5"
+            className="bg-white"
             enableAutoPlay={true}
             slides={offers?.data}
             carouselItem={CarouselOfferItem}
@@ -145,7 +146,7 @@ function MobileHomeView() {
         </div>
       ) : (
         <Carousel
-          className="bg-white pt-2 pb-0 pl-4"
+          className="bg-white pt-1 pb-0"
           carouselItem={({ slide }) => CarouselMenuItem({ slide, navigate })}
           slides={products?.data}
           slidesPerView={4.6}
@@ -158,7 +159,7 @@ function MobileHomeView() {
         <CarouselRestaurantItemSkeleton />
       ) : (
         <Carousel
-          className="bg-white p-3 pl-5"
+          className="bg-white p-2"
           carouselItem={CarouselRestaurantItem}
           slides={restaurants}
           slidesPerView={1.2}

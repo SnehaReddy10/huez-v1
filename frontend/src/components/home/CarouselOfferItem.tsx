@@ -4,7 +4,7 @@ export const CarouselOfferItem = ({ slide }: { slide: any }) => {
       <img
         src={slide.image}
         alt={slide.name}
-        className="w-[100%] h-32 object-cover opacity-90 rounded-md"
+        className="w-[100%] aspect-[4/1.8] object-cover opacity-90 rounded-md"
       />
     </div>
   );

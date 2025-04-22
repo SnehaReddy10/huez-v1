@@ -20,7 +20,11 @@ export const CarouselRestaurantItem = ({ slide }: { slide: any }) => {
   return (
     <div className="min-w-[100%] rounded-xl shadow-md overflow-hidden bg-white">
       <div className="w-[98%] relative">
-        <img src={imageUrl} alt="Food" className="w-full h-32 object-cover" />
+        <img
+          src={imageUrl}
+          alt="Food"
+          className="w-[100%] aspect-[4/1.8] object-cover"
+        />
         <div className="absolute top-2 left-2 bg-white text-black text-xs px-2 py-1 rounded-full flex items-center gap-1 shadow-sm">
           <FaStar className="text-yellow-500 text-xs" />
           <span className="font-semibold text-xs">{rating}</span>

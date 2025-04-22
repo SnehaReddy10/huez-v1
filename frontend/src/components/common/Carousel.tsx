@@ -75,7 +75,7 @@ function Carousel({
           ))}
         </Swiper>
 
-        <div className="custom-pagination mt-4 flex justify-center"></div>
+        <div className="custom-pagination mt-2 flex justify-center"></div>
       </div>
     </>
   );
