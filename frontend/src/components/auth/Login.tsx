@@ -64,7 +64,12 @@ function Login() {
   useEffect(() => {
     if (results.isSuccess) {
       setToken(results.data?.token);
-      dispatch(setAuthData({ email: results.data?.user.email }));
+      dispatch(
+        setAuthData({
+          email: results.data?.user.email,
+          name: results.data?.user.name,
+        })
+      );
       syncCartOnLogin({});
       navigate('/');
     }

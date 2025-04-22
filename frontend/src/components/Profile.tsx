@@ -9,6 +9,7 @@ import {
 } from 'react-icons/fa';
 import { MdOutlineEdit } from 'react-icons/md';
 import { AiFillStar } from 'react-icons/ai';
+import { useSelector } from 'react-redux';
 
 interface MenuItem {
   icon: React.ReactNode;
@@ -17,6 +18,9 @@ interface MenuItem {
 }
 
 function Profile() {
+  const email = useSelector((state: any) => state.authSlice.email);
+  const name = useSelector((state: any) => state.authSlice.name);
+
   const menuItems: MenuItem[] = [
     {
       icon: <FaHeart className="w-5 h-5" />,
@@ -72,10 +76,8 @@ function Profile() {
                 <div className="absolute bottom-1 right-[34%] w-3.5 h-3.5 bg-green-500 rounded-full border-[2px] border-white"></div>
               </div>
               <div className="text-center">
-                <h2 className="text-sm font-bold text-gray-900">
-                  Afsar Hossen Shuvo
-                </h2>
-                <p className="text-xs text-gray-500">shuvo27@gmail.com</p>
+                <h2 className="text-sm font-bold text-gray-900">{name}</h2>
+                <p className="text-xs text-gray-500">{email}</p>
               </div>
             </div>
           </div>
