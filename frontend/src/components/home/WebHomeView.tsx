@@ -7,6 +7,7 @@ import Hero from './Hero';
 import CustomerReviews from './CustomerReviews';
 import { CarouselMenuItem } from './CarouselmenuItem';
 import { useNavigate } from 'react-router-dom';
+import { MenuCategories } from './MobileHomeView';
 function WebHomeView() {
   const navigate = useNavigate();
   const { data: products } = useGetProductsQuery({ limit: 20, cursor: 0 });
@@ -65,6 +66,8 @@ function WebHomeView() {
             slidesPerGroup={2}
           />
         </motion.div>
+
+        <MenuCategories />
 
         <motion.div variants={itemVariants}>
           <CustomerReviews />

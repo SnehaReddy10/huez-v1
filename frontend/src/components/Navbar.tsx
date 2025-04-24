@@ -7,6 +7,7 @@ import { getToken, logout } from '../utitlities';
 import { LuLogOut } from 'react-icons/lu';
 import { useDispatch } from 'react-redux';
 import { cartApi } from '../store/cart/cartApi';
+import { FaUser } from 'react-icons/fa';
 
 const navItems = [
   {
@@ -117,7 +118,13 @@ function Navbar() {
         ) : (
           <>
             <div
-              key={3}
+              onClick={() => handleOnClick('/profile')}
+              className="flex gap-1 cursor-pointer items-center justify-center"
+            >
+              <FaUser size={13} fill="white" />
+              <span>Profile</span>
+            </div>
+            <div
               onClick={handleLogout}
               className="flex gap-1 cursor-pointer items-center justify-center"
             >

@@ -172,7 +172,7 @@ function MobileHomeView() {
   );
 }
 
-function MenuCategories() {
+export function MenuCategories() {
   const categories = [
     {
       id: 'fish',
@@ -214,7 +214,7 @@ function MenuCategories() {
   const navigate = useNavigate();
 
   return (
-    <div className="grid grid-cols-2 gap-4 p-2 bg-white">
+    <div className="grid grid-cols-2 md:grid-cols-3 gap-4 p-2 bg-white md:w-1/2">
       {categories.map((category) => (
         <div
           key={category.id}

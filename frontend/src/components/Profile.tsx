@@ -58,8 +58,8 @@ function Profile() {
     <div className="min-h-screen">
       <div className="max-w-lg mx-auto bg-gray-50 min-h-screen flex flex-col gap-1">
         <div className="flex flex-col gap-1.5 h-[100dvh]">
-          <div className="bg-white px-5 pt-4 h-[30%] flex flex-col justify-around">
-            <div className="flex justify-between items-center mb-4">
+          <div className="bg-white h-[30%] flex flex-col justify-around">
+            <div className="px-5 flex justify-between items-center mb-4">
               <h1 className="text-xl font-semibold text-gray-900">
                 My Account
               </h1>
@@ -88,7 +88,7 @@ function Profile() {
                 <FaMedal className="text-white text-xs" />
               </div>
               <div>
-                <p className="text-xs font-bold text-[#2F6FED] tracking-wide leading-none mb-1">
+                <p className="text-xxs font-bold text-[#2F6FED] tracking-wide leading-none mb-1">
                   PLATINUM
                 </p>
                 <p className="text-xs text-[#2F6FED]/80 leading-none">
@@ -101,7 +101,7 @@ function Profile() {
                 <AiFillStar className="text-white text-xs" />
               </div>
               <div>
-                <p className="text-xs font-bold text-green-400 tracking-wide leading-none mb-1">
+                <p className="text-xxs font-bold text-green-400 tracking-wide leading-none mb-1">
                   RATING
                 </p>
                 <p className="text-green-400 font-medium text-[14px] leading-none">
