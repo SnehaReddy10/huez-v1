@@ -1,6 +1,6 @@
 # 🍽️ Food Delivery App – Huez
 
-**Huez** is a modern food delivery web application where users can browse menus, add items to their cart, place orders, and make payments seamlessly.
+**Huez** is a food delivery application featuring a clean, responsive UI designed for seamless menu browsing, easy order placement, and secure payments—integrated with Stripe for fast and reliable transactions.
 
 ---
 
